@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "339926039114",
+    "project_id": "dreamytales-31984",
+    "storage_bucket": "dreamytales-31984.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339926039114:android:e923089dd120aada5e44b3",
+        "android_client_info": {
+          "package_name": "com.example.dreamy_tales"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwjYKpjd2-KRHR3-l6DSUtkKrYZih5m1E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
