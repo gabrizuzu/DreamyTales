@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dreamy_tales/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:dreamy_tales/pages/welcome_page.dart';
 
 class HomePage extends StatelessWidget{
   HomePage({Key? key}) : super(key:key);
@@ -21,6 +22,17 @@ class HomePage extends StatelessWidget{
         child: const Text('Sign Out'),
     );
   }
+  Widget _welcomeButton(BuildContext context){
+  return ElevatedButton(
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const WelcomePage()),
+      );
+    },
+    child: const Text('Welcome'),
+  );
+}
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -37,6 +49,7 @@ class HomePage extends StatelessWidget{
           children: <Widget>[
             _userUid(),
             _signOutButton(),
+            _welcomeButton(context),
           ]
         )
       )
