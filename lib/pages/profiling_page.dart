@@ -1,4 +1,5 @@
 import 'package:dreamy_tales/pages/home_page.dart';
+import 'package:dreamy_tales/pages/my_home_page.dart';
 import 'package:flutter/material.dart';
 
 class ChildProfilePage extends StatefulWidget {
@@ -306,7 +307,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
     print('Profile Data Saved: $profileData');
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => HomePage(),
+        builder: (context) => MyHomePage(title: 'Dreamy Tales'),
       ),
     );
   }
