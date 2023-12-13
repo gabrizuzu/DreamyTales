@@ -1,4 +1,3 @@
-import 'package:dreamy_tales/pages/home_page.dart';
 import 'package:dreamy_tales/pages/my_home_page.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,8 @@
+import 'package:dreamy_tales/pages/my_home_page.dart';
+import 'package:dreamy_tales/pages/profiling_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dreamy_tales/auth.dart';
-import 'package:dreamy_tales/pages/home_page.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -23,7 +24,7 @@ class _LoginPageState extends State<LoginPage>{
           password: _controllerPassword.text,
       );
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Dreamy Tales',)),
       );
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -38,7 +39,7 @@ class _LoginPageState extends State<LoginPage>{
         password: _controllerPassword.text,
       );
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => ChildProfilePage()),
       );      
     } on FirebaseAuthException catch (e) {
       setState(() {

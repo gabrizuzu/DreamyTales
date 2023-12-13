@@ -1,10 +1,11 @@
-import 'package:dreamy_tales/pages/welcome_RAM.dart';
+import 'package:dreamy_tales/pages/login_register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamy_tales/pages/analitics_page.dart';
 import 'package:dreamy_tales/pages/myStories.dart';
 import 'package:dreamy_tales/pages/settings_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'app_category.dart';
+import 'package:dreamy_tales/auth.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -23,13 +24,16 @@ class _MyHomePageState extends State<MyHomePage> {
   void _logout() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => WelcomeRAM()),
+      MaterialPageRoute(builder: (context) => LoginPage()),
     );
   }
-
+  Future<void> signOut() async {
+    await Auth().signOut();
+  }
   void _exitApp() {
     Navigator.pop(context); // Chiudi il Drawer
-    _logout(); // Esegui il logout
+    signOut();
+    _logout();
   }
 
   void _incrementCounter() {
