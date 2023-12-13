@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dreamy_tales/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:dreamy_tales/pages/welcome_page.dart';
-
+import 'package:dreamy_tales/pages/welcome_RAM.dart';
+import 'package:dreamy_tales/pages/login_register_page.dart';
 class HomePage extends StatelessWidget{
   HomePage({Key? key}) : super(key:key);
   final User? user = Auth().currentUser;
@@ -23,16 +23,27 @@ class HomePage extends StatelessWidget{
     );
   }
   Widget _welcomeButton(BuildContext context){
-  return ElevatedButton(
-    onPressed: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const WelcomePage()),
-      );
-    },
-    child: const Text('Welcome'),
-  );
-}
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const WelcomeRAM()),
+        );
+      },
+      child: const Text('Welcome'),
+    );
+  }
+  Widget _welcomeRAMButton(BuildContext context){
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const WelcomeRAM()),
+        );
+      },
+      child: const Text('Welcome RAM'),
+    );
+  }
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -50,6 +61,7 @@ class HomePage extends StatelessWidget{
             _userUid(),
             _signOutButton(),
             _welcomeButton(context),
+            _welcomeRAMButton(context),
           ]
         )
       )

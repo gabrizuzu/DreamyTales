@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dreamy_tales/auth.dart';
+import 'package:dreamy_tales/pages/home_page.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key:key);
@@ -20,6 +22,9 @@ class _LoginPageState extends State<LoginPage>{
           email: _controllerEmail.text,
           password: _controllerPassword.text,
       );
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
@@ -32,6 +37,9 @@ class _LoginPageState extends State<LoginPage>{
         email: _controllerEmail.text,
         password: _controllerPassword.text,
       );
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );      
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
