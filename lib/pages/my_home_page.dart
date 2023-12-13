@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dreamy_tales/pages/analitics_page.dart';
 import 'package:dreamy_tales/pages/myStories.dart';
 import 'package:dreamy_tales/pages/settings_page.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'app_category.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -158,9 +159,9 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
             _buildDrawerButton('Home', AppCategory.home, Icons.home),
-           // _buildDrawerButton('My Stories', AppCategory.myStories, FontAwesomeIcons.book),
-            //_buildDrawerButton('Analytics', AppCategory.analytics, FontAwesomeIcons.chartBar),
-            // _buildDrawerButton('Settings', AppCategory.settings, FontAwesomeIcons.cogs),
+            _buildDrawerButton('My Stories', AppCategory.myStories, FontAwesomeIcons.book),
+            _buildDrawerButton('Analytics', AppCategory.analytics, FontAwesomeIcons.chartBar),
+            _buildDrawerButton('Settings', AppCategory.settings, FontAwesomeIcons.gear),
             _buildDrawerButton('EXIT', AppCategory.logout, Icons.exit_to_app, onPressed: onExit),
           ],
         ),

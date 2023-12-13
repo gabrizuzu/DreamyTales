@@ -1,9 +1,9 @@
 
 import 'package:dreamy_tales/pages/login_register_page.dart';
-import 'package:dreamy_tales/utils/colors.dart';
+
 import 'package:dreamy_tales/widgets/app_large_text.dart';
 import 'package:dreamy_tales/widgets/app_text.dart';
-import 'package:dreamy_tales/widgets/responsive_button.dart';
+
 import 'package:flutter/material.dart';
 
 class TutorialScreen extends StatefulWidget {

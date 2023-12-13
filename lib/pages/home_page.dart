@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dreamy_tales/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamy_tales/pages/welcome_RAM.dart';
-import 'package:dreamy_tales/pages/login_register_page.dart';
+
 class HomePage extends StatelessWidget{
   HomePage({Key? key}) : super(key:key);
   final User? user = Auth().currentUser;
