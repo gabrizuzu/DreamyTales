@@ -18,8 +18,6 @@ class _WidgetTreeState extends State<WidgetTree> {
     return StreamBuilder(
         stream: Auth().authStateChanges,
         builder: (context,snapshot) {
-          // ignore: avoid_print
-          print(snapshot.hasData);
           if(snapshot.hasData) {
             return const MyHomePage(title: 'Dreamy Tales',);
           } else {
