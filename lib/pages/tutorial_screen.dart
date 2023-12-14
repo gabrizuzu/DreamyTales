@@ -113,39 +113,63 @@ class _TutorialScreenState extends State<TutorialScreen> {
   }
 
   Widget buildTutorialSlide(BuildContext context, int index) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('img/'+images[index]),
-          fit: BoxFit.cover,
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('img/'+images[index]),
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            AppLargeText(text: largetext[index], size: 40,color: Colors.white),
-            AppText(text: text[index], size: 30,color: Colors.white54),
-            SizedBox(height: 20,),
-            Flexible(
+        Positioned.fill(
+          child: Image.asset(
+            'assets/cornice_1.png',
+            fit: BoxFit.fill, // o la modalità che preferisci
+            colorBlendMode: BlendMode.overlay, // aggiunta di sovraimpressione
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              AppLargeText(text: largetext[index], size: 40, color: Colors.white),
+              AppText(text: text[index], size: 20, color: Colors.white54),
+              SizedBox(height: 20,),
+              Flexible(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Container(
-                    child: AppText(
-                      text: description[index],
-                      size: 18,
-                      color: Colors.black87,
+                    child: Text(
+                      description[index],
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.amber,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black,
+                            offset: Offset(0, 0),
+                            blurRadius: 5,
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                )
-            ),
-          ],
+                ),
+              ),
+
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
+
 
 
   List<Widget> _buildPageIndicator() {
