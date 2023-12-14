@@ -1,3 +1,4 @@
+import 'package:dreamy_tales/widget_tree.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/app_large_text.dart';
@@ -124,7 +125,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
 
                       // Vai alla tua LoginPage
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => const LoginPage()),
+                        MaterialPageRoute(builder: (context) => const WidgetTree()),
                       );
                     },
                     style: ElevatedButton.styleFrom(

@@ -1,5 +1,6 @@
 import 'package:dreamy_tales/pages/my_home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChildProfilePage extends StatefulWidget {
   @override
@@ -302,7 +303,13 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
     );
   }
 
-  void saveProfileData() {
+  void saveProfileData() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', profileData['name']);
+    prefs.setString('gender', profileData['gender']);
+    prefs.setInt('age', profileData['age']);
+    prefs.setStringList('favoriteGenres', profileData['favoriteGenres'].cast<String>());
+
     print('Profile Data Saved: $profileData');
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
