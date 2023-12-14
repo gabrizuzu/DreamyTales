@@ -17,11 +17,11 @@ class _SettingsStoryPageState extends State<SettingsStoryPage> {
             child: Stack(
               children: <Widget>[
                 Positioned.fill(
-                  child: Image.asset('assets/sfondo_fanatsy.jpg', fit: BoxFit.cover),
+                  child: Image.asset('assets/storie_fantasy.jpg', fit: BoxFit.cover),
                 ),
                 Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text('Fantasy', style: TextStyle(fontSize: 24, color: Colors.white)),
+                  alignment: Alignment.center,
+                  child: Text('Fantasy', style: TextStyle(fontSize: 36, color: Colors.amber,shadows: [Shadow(blurRadius: 10, color: Colors.black, offset: Offset(5, 5))])),
                 ),
               ],
             ),
@@ -33,8 +33,8 @@ class _SettingsStoryPageState extends State<SettingsStoryPage> {
                   child: Image.asset('assets/storie_classiche.png', fit: BoxFit.cover),
                 ),
                 Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text('Classic', style: TextStyle(fontSize: 24, color: Colors.white)),
+                  alignment: Alignment.center,
+                  child: Text('Classic', style: TextStyle(fontSize: 36, color: Colors.amber,shadows: [Shadow(blurRadius: 10, color: Colors.black, offset: Offset(5, 5))])),
                 ),
               ],
             ),

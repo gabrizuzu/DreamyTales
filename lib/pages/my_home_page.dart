@@ -22,7 +22,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   AppCategory _currentCategory = AppCategory.home;
-  bool _buttonPressed = false;
+  
   void _logout() {
     Navigator.pushReplacement(
       context,
