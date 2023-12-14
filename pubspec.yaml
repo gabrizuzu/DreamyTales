@@ -74,6 +74,9 @@ flutter:
     - assets/scimmia.png
     - assets/starwars_logo.png
     - assets/tom_jerry.png
+    - assets/sfondo_login.jpeg
+    - assets/ic_launcher.jpeg
+    - assets/logo_login.jpeg
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
