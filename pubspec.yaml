@@ -59,21 +59,7 @@ dev_dependencies:
 flutter:
   assets:
     - img/
-    - assets/welcome_logo.png
-    - assets/animali.png
-    - assets/cornice_1.png
-    - assets/cornice_2.png
-    - assets/decoration_flowers.png
-    - assets/disney_logo.png
-    - assets/female.png
-    - assets/male.png
-    - assets/generic_child.png
-    - assets/harrypotter.jpg
-    - assets/harrypotter_logo.png
-    - assets/marvel_personaggi.png
-    - assets/scimmia.png
-    - assets/starwars_logo.png
-    - assets/tom_jerry.png
+    - assets/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

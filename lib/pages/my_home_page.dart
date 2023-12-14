@@ -18,9 +18,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   AppCategory _currentCategory = AppCategory.home;
-
+  bool _buttonPressed = false;
   void _logout() {
     Navigator.pushReplacement(
       context,
@@ -34,12 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.pop(context); // Chiudi il Drawer
     signOut();
     _logout();
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
   }
 
   void _changeCategory(AppCategory category) {
@@ -63,18 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         elevation: 10,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(30),
-          ),
-        ),
       ),
       body: _buildBody(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
       drawer: MyDrawer(
         currentCategory: _currentCategory,
         onCategorySelected: _changeCategory,
@@ -86,16 +69,116 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildBody() {
     switch (_currentCategory) {
-      case AppCategory.home:
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text('You have pushed the button this many times:'),
-              Text('$_counter', style: Theme.of(context).textTheme.headline6),
-            ],
+    case AppCategory.home:
+      return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/sfondo.jpg"),
+            fit: BoxFit.fill,
           ),
-        );
+        ),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 18.0, top: 70.0),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    'Main Characters:',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color:Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0, top: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start, // Questo allinea i widget a sinistra
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage('assets/female.png'), // Inserisci il percorso della tua immagine qui
+                  ),
+                  SizedBox(width: 20), // Aggiunge spazio tra l'avatar e il pulsante
+                  Container(
+                    width: 100.0, // Imposta la larghezza del pulsante
+                    height: 100.0, // Imposta l'altezza del pulsante
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor, // Imposta il colore del pulsante
+                      shape: BoxShape.circle, // Rende il pulsante tondo
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.add,
+                        size: 50.0,
+                      ),
+                      color: Colors.white, // Imposta il colore dell'icona
+                      onPressed: () {
+                        // Aggiungi qui il tuo codice per aggiungere un personaggio
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 18.0, top: 70.0),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    'Second Characters:',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color:Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0, top: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    width: 100.0, // Imposta la larghezza del pulsante
+                    height: 100.0, // Imposta l'altezza del pulsante
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor, // Imposta il colore del pulsante
+                      shape: BoxShape.circle, // Rende il pulsante tondo
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.add,
+                        size: 50.0,
+                      ),
+                      color: Colors.white, // Imposta il colore dell'icona
+                      onPressed: () {
+                        // Aggiungi qui il tuo codice per aggiungere un personaggio
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          Expanded(
+            child: Container(), // Questo spinge il pulsante in fondo alla pagina
+          ),
+          Container(
+            width: double.infinity, // Questo rende il pulsante largo quanto la pagina
+            height: 60.0, // Imposta l'altezza del pulsante
+            decoration: BoxDecoration(
+              color: Colors.amber, // Imposta il colore di sfondo del pulsante
+            ),
+            child: TextButton.icon(
+              icon: Icon(Icons.star), // Imposta l'icona del pulsante
+              label: Text("Let's start the magic"), // Imposta il testo del pulsante
+              onPressed: () {
+                // Aggiungi qui il tuo codice per iniziare la magia
+              },
+            ),
+          ),
+          ], 
+        ),
+        
+      );
       case AppCategory.myStories:
         return MyStories();
       case AppCategory.analytics:
