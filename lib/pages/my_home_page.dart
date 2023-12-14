@@ -7,7 +7,7 @@ import 'package:dreamy_tales/pages/settings_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'app_category.dart';
 import 'package:dreamy_tales/auth.dart';
-import 'package:dreamy_tales/pages/settings_story.dart';
+
 
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -177,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   label: Text("Let's start the magic"), // Imposta il testo del pulsante
                   onPressed: () {
                   Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => SettingsStoryPage()));
+                          MaterialPageRoute(builder: (context) => const SettingsStoryPage()));
                   },
                 ),
               );

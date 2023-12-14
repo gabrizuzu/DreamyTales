@@ -15,19 +15,27 @@ class _SettingsStoryPageState extends State<SettingsStoryPage> {
         children: <Widget>[
           Expanded(
             child: Stack(
-              alignment: Alignment.bottomCenter,
               children: <Widget>[
-                Image.asset('assets/sfondo_fanatsy.jpg', fit: BoxFit.cover), // Inserisci il percorso della tua immagine fantasy qui
-                Text('Fantasy', style: TextStyle(fontSize: 24, color: Colors.white)),
+                Positioned.fill(
+                  child: Image.asset('assets/sfondo_fanatsy.jpg', fit: BoxFit.cover),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text('Fantasy', style: TextStyle(fontSize: 24, color: Colors.white)),
+                ),
               ],
             ),
           ),
           Expanded(
             child: Stack(
-              alignment: Alignment.bottomCenter,
               children: <Widget>[
-                Image.asset('storie_classiche.png', fit: BoxFit.cover), // Inserisci il percorso della tua immagine classic qui
-                Text('Classic', style: TextStyle(fontSize: 24, color: Colors.white)),
+                Positioned.fill(
+                  child: Image.asset('assets/storie_classiche.png', fit: BoxFit.cover),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text('Classic', style: TextStyle(fontSize: 24, color: Colors.white)),
+                ),
               ],
             ),
           ),
