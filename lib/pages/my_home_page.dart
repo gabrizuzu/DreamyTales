@@ -7,6 +7,7 @@ import 'package:dreamy_tales/pages/settings_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'app_category.dart';
 import 'package:dreamy_tales/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -95,34 +96,62 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 30.0, top: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start, // Questo allinea i widget a sinistra
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage('assets/female.png'), // Inserisci il percorso della tua immagine qui
-                  ),
-                  SizedBox(width: 20), // Aggiunge spazio tra l'avatar e il pulsante
-                  Container(
-                    width: 100.0, // Imposta la larghezza del pulsante
-                    height: 100.0, // Imposta l'altezza del pulsante
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor, // Imposta il colore del pulsante
-                      shape: BoxShape.circle, // Rende il pulsante tondo
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.add,
-                        size: 50.0,
-                      ),
-                      color: Colors.white, // Imposta il colore dell'icona
-                      onPressed: () {
-                        // Aggiungi qui il tuo codice per aggiungere un personaggio
-                      },
-                    ),
-                  ),
-                ],
+              child: Column(
+  children: [
+Row(
+  mainAxisAlignment: MainAxisAlignment.start,
+  children: [
+    FutureBuilder(
+      future: SharedPreferences.getInstance(),
+      builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          String? gender = snapshot.data?.getString('gender');
+          String? name = snapshot.data?.getString('name');
+          String imagePath = gender == 'male' ? 'assets/male.png' : 'assets/female.png';
+          return Column(
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage(imagePath),
+                radius: 50.0,
               ),
+              SizedBox(height: 10), // Aggiunge un po' di spazio tra l'avatar e il nome
+              Text(
+                name ?? 'Guest',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          );
+        } else {
+          return CircularProgressIndicator(); // mostra un indicatore di caricamento mentre attende
+        }
+      },
+    ),
+    SizedBox(width: 20), // Aggiunge spazio tra l'avatar e il pulsante
+    Container(
+      width: 100.0, // Imposta la larghezza del pulsante
+      height: 100.0, // Imposta l'altezza del pulsante
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor, // Imposta il colore del pulsante
+        shape: BoxShape.circle, // Rende il pulsante tondo
+      ),
+      child: IconButton(
+        icon: Icon(
+          Icons.add,
+          size: 50.0,
+        ),
+        color: Colors.white, // Imposta il colore dell'icona
+        onPressed: () {
+          // Aggiungi qui il tuo codice per aggiungere un personaggio
+        },
+      ),
+    ),
+  ],
+),
+  ],
+),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 18.0, top: 70.0),
@@ -239,17 +268,43 @@ class MyDrawer extends StatelessWidget {
                     Colors.deepPurple.withOpacity(0.7),
                   ],
                 ),
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20),
                 ),
               ),
-              child: Text(
-                'Bentornato !',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
+              child: DrawerHeader(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.deepPurple.withOpacity(0.9),
+                      Colors.deepPurple.withOpacity(0.7),
+                    ],
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
+                ),
+                child: FutureBuilder(
+                  future: SharedPreferences.getInstance(),
+                  builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      String? name = snapshot.data?.getString('name');
+                      return Text(
+                        'Welcome back, ${name ?? 'Guest'}!',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                        ),
+                      );
+                    } else {
+                      return CircularProgressIndicator(); // mostra un indicatore di caricamento mentre attende
+                    }
+                  },
                 ),
               ),
             ),

@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChildProfilePage extends StatefulWidget {
+  const ChildProfilePage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ChildProfilePageState createState() => _ChildProfilePageState();
 }
 
@@ -70,7 +73,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
               });
             },
           ),
-          Positioned(
+          const Positioned(
             top: 40.0,
             left: 0,
             right: 0,
@@ -217,7 +220,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                               SizedBox(height: 8),
                               Text(
                                 genderOption['label'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                 ),
                               ),
@@ -264,7 +267,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                               SizedBox(height: 8),
                               Text(
                                 genreOption['label'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                 ),
                               ),
@@ -293,7 +296,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
 
   Widget _buildPageIndicatorItem(bool isActive) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 4.0),
+      margin: const EdgeInsets.symmetric(horizontal: 4.0),
       height: 8.0,
       width: isActive ? 24.0 : 8.0,
       decoration: BoxDecoration(
@@ -311,9 +314,10 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
     prefs.setStringList('favoriteGenres', profileData['favoriteGenres'].cast<String>());
 
     print('Profile Data Saved: $profileData');
+    // ignore: use_build_context_synchronously
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => MyHomePage(title: 'Dreamy Tales'),
+        builder: (context) => const MyHomePage(title: 'Dreamy Tales'),
       ),
     );
   }

@@ -19,7 +19,7 @@ class _SettingsStoryPageState extends State<SettingsStoryPage> {
                 Positioned.fill(
                   child: Image.asset('assets/storie_fantasy.jpg', fit: BoxFit.cover),
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.center,
                   child: Text('Fantasy', style: TextStyle(fontSize: 36, color: Colors.amber,shadows: [Shadow(blurRadius: 10, color: Colors.black, offset: Offset(5, 5))])),
                 ),
@@ -32,7 +32,7 @@ class _SettingsStoryPageState extends State<SettingsStoryPage> {
                 Positioned.fill(
                   child: Image.asset('assets/storie_classiche.png', fit: BoxFit.cover),
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.center,
                   child: Text('Classic', style: TextStyle(fontSize: 36, color: Colors.amber,shadows: [Shadow(blurRadius: 10, color: Colors.black, offset: Offset(5, 5))])),
                 ),
