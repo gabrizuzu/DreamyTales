@@ -1,12 +1,13 @@
+
+import 'package:dreamy_tales/pages/login_register_page.dart';
+
+import 'package:dreamy_tales/widgets/app_large_text.dart';
+import 'package:dreamy_tales/widgets/app_text.dart';
+
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../widgets/app_large_text.dart';
-import '../widgets/app_text.dart';
-import 'login_register_page.dart';
 
 class TutorialScreen extends StatefulWidget {
-  const TutorialScreen({Key? key}) : super(key: key);
-
+  const TutorialScreen({Key? key}) : super(key:key);
   @override
   _TutorialScreenState createState() => _TutorialScreenState();
 }
@@ -14,14 +15,13 @@ class TutorialScreen extends StatefulWidget {
 class _TutorialScreenState extends State<TutorialScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
-  late SharedPreferences _prefs;
 
   List images = [
     'welcome1.jpg',
     'welcome2.jpg',
     'welcome3.jpg',
   ];
-  List largetext = [
+  List largetext= [
     'Dreamy Tales',
     'Original Stories',
     "Educational Purpose",
@@ -34,32 +34,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
   List description = [
     "Dreamy Tales is a platform where you can generate and read stories. You can also share your stories with your friends and family.",
     "You can generate your own original story by selecting the characters, setting, and plot.",
-    "You can choose also a moral lesson to teach to your kids for each story",
+    "You can chose also a moral lesson to teach to your kids for each story",
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    _checkIfFirstTime();
-  }
-
-  _checkIfFirstTime() async {
-    _prefs = await SharedPreferences.getInstance();
-    bool isFirstTime = _prefs.getBool('isFirstTime') ?? true;
-
-    if (!isFirstTime) {
-      // Se non è la prima volta, vai direttamente alla tua LoginPage
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-      );
-    }
-  }
-
-  _setFirstTimeFlag() async {
-    // Imposta il flag che indica che il tutorial è stato visto
-    await _prefs.setBool('isFirstTime', false);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +46,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
             controller: _pageController,
             itemCount: images.length,
             itemBuilder: (context, index) {
-              return buildTutorialSlide(context, index);
+              return buildTutorialSlide(context,index);
             },
             onPageChanged: (int page) {
               setState(() {
@@ -119,13 +95,9 @@ class _TutorialScreenState extends State<TutorialScreen> {
                 if (_currentPage == images.length - 1)
                   ElevatedButton(
                     onPressed: () {
-                      // Imposta il flag che indica che il tutorial è stato visto
-                      _setFirstTimeFlag();
-
-                      // Vai alla tua LoginPage
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => const LoginPage()),
-                      );
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.amber,
@@ -144,7 +116,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('img/' + images[index]),
+          image: AssetImage('img/'+images[index]),
           fit: BoxFit.cover,
         ),
       ),
@@ -154,26 +126,27 @@ class _TutorialScreenState extends State<TutorialScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            AppLargeText(text: largetext[index], size: 40, color: Colors.white),
-            AppText(text: text[index], size: 30, color: Colors.white54),
+            AppLargeText(text: largetext[index], size: 40,color: Colors.white),
+            AppText(text: text[index], size: 30,color: Colors.white54),
             SizedBox(height: 20,),
             Flexible(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  child: AppText(
-                    text: description[index],
-                    size: 18,
-                    color: Colors.black87,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    child: AppText(
+                      text: description[index],
+                      size: 18,
+                      color: Colors.black87,
+                    ),
                   ),
-                ),
-              ),
+                )
             ),
           ],
         ),
       ),
     );
   }
+
 
   List<Widget> _buildPageIndicator() {
     List<Widget> indicators = [];
