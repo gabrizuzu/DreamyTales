@@ -12,6 +12,7 @@ class MyStories extends StatelessWidget {
       body: const Center(
         child: Text('No stories yet'),
       ),
+
     );
   }
 }
