@@ -1,4 +1,5 @@
 import 'package:dreamy_tales/pages/login_register_page.dart';
+import 'package:dreamy_tales/pages/settings_story.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamy_tales/pages/analitics_page.dart';
 import 'package:dreamy_tales/pages/myStories.dart';
@@ -6,6 +7,8 @@ import 'package:dreamy_tales/pages/settings_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'app_category.dart';
 import 'package:dreamy_tales/auth.dart';
+import 'package:dreamy_tales/pages/settings_story.dart';
+
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -161,19 +164,24 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             child: Container(), // Questo spinge il pulsante in fondo alla pagina
           ),
-          Container(
-            width: double.infinity, // Questo rende il pulsante largo quanto la pagina
-            height: 60.0, // Imposta l'altezza del pulsante
-            decoration: BoxDecoration(
-              color: Colors.amber, // Imposta il colore di sfondo del pulsante
-            ),
-            child: TextButton.icon(
-              icon: Icon(Icons.star), // Imposta l'icona del pulsante
-              label: Text("Let's start the magic"), // Imposta il testo del pulsante
-              onPressed: () {
-                // Aggiungi qui il tuo codice per iniziare la magia
-              },
-            ),
+          Builder(
+            builder: (BuildContext context) {
+              return Container(
+                width: double.infinity, // Questo rende il pulsante largo quanto la pagina
+                height: 60.0, // Imposta l'altezza del pulsante
+                decoration: BoxDecoration(
+                  color: Colors.amber, // Imposta il colore di sfondo del pulsante
+                ),
+                child: TextButton.icon(
+                  icon: Icon(Icons.star), // Imposta l'icona del pulsante
+                  label: Text("Let's start the magic"), // Imposta il testo del pulsante
+                  onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => SettingsStoryPage()));
+                  },
+                ),
+              );
+            },
           ),
           ], 
         ),
