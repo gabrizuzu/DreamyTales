@@ -55,6 +55,9 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
     },
   ];
 
+  TextEditingController nameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,6 +135,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
   }
 
   Widget buildProfileSlide(BuildContext context, Map<String, dynamic> option) {
+
     return Container(
       //color: Colors.amber,
       decoration: BoxDecoration(
@@ -162,7 +166,9 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
               ),
             ),
             if (option['type'] == 'text')
+
               TextField(
+                controller: option['key'] == 'name' ? nameController : ageController,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -172,6 +178,13 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                     profileData[option['key']] = value;
                   });
                 },
+                onSubmitted: (value) {
+                  // Conferma l'input e passa alla pagina successiva
+                  _pageController.nextPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.ease,
+                  );
+                },
                 decoration: InputDecoration(
                   labelText: option['title'],
                   filled: true,
@@ -180,6 +193,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
               ),
             if (option['type'] == 'numeric')
               TextField(
+                controller : ageController,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -190,6 +204,13 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                     profileData[option['key']] = int.tryParse(value) ?? 0;
                   });
                 },
+                onSubmitted: (value) {
+                // Conferma l'input e passa alla pagina successiva
+                  _pageController.nextPage(
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.ease,
+                  );
+                },
                 decoration: InputDecoration(
                   labelText: option['title'],
                   filled: true,
@@ -197,6 +218,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                 ),
               ),
             if (option['type'] == 'radio')
+
               Column(
                 children: (option['options'] as List<Map<String, dynamic>>).map((genderOption) {
                   bool isSelected = profileData[option['key']] == genderOption['label'];
@@ -212,17 +234,17 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: isSelected ? Colors.deepPurple : Colors.transparent,
-                              width: 2.0,
+                              width: 4.0,
                             ),
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: BorderRadius.circular(15.0),
                           ),
                           padding: EdgeInsets.all(8.0),
                           child: Column(
                             children: [
                               Image.asset(
                                 'assets/${genderOption['image']}',
-                                width: 80,
-                                height: 80,
+                                width: 100,
+                                height: 100,
                               ),
                               SizedBox(height: 8),
                               Text(
@@ -262,11 +284,10 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: isSelected ? Colors.deepPurple : Colors.transparent,
-                          width: 2.0,
+                          width: 3.0,
                         ),
-                        borderRadius: BorderRadius.circular(isSelected ? 6.0 : 12.0), // Imposta il raggio del bordo
+                        borderRadius: BorderRadius.circular(isSelected ? 20.0 : 20.0), // Imposta il raggio del bordo
                       ),
-                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
