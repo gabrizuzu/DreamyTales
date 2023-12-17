@@ -49,16 +49,13 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Widget _title() {
-    return const Text('Dreamy Tales');
-  }
 
   Widget _logo() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: Image.asset(
         'assets/logo_login.jpeg',
-        height: 120, // Aumentato del 20%
+        height: 130, // Aumentato del 20%
       ),
     );
   }

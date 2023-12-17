@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChildProfilePage extends StatefulWidget {
-  const ChildProfilePage({super.key});
-
   @override
-  // ignore: library_private_types_in_public_api
   _ChildProfilePageState createState() => _ChildProfilePageState();
 }
 
@@ -26,6 +23,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
       'title': 'What\'s your child\'s name?',
       'type': 'text',
       'key': 'name',
+      'image': 'logo_profilazione.jpeg',
     },
     {
       'title': 'Select your child\'s gender',
@@ -41,6 +39,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
       'title': 'How old is your child?',
       'type': 'numeric',
       'key': 'age',
+      'image': 'logo_profilazione.jpeg',
     },
     {
       'title': 'Select your child\'s favorite genres',
@@ -73,29 +72,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
               });
             },
           ),
-          const Positioned(
-            top: 40.0,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Text(
-                'Dreamy Tales',
-                style: TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  decoration: TextDecoration.none,
-                  shadows: [
-                    Shadow(
-                      blurRadius: 5.0,
-                      color: Colors.black,
-                      offset: Offset(3.0, 3.0),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+
           Positioned(
             bottom: 20.0,
             left: 0,
@@ -110,29 +87,29 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
             left: 0,
             right: 0,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end, // Allineato a destra
               children: [
                 if (_currentPage > 0)
                   IconButton(
                     onPressed: () {
                       _pageController.previousPage(
-                        duration: Duration(milliseconds: 500),
+                        duration: Duration(milliseconds: 300),
                         curve: Curves.ease,
                       );
                     },
                     icon: Icon(Icons.arrow_back),
-                    color: Colors.deepPurple,
+                    color: Colors.amber,
                   ),
-                if (_currentPage < profileOptions.length - 1)
+                if (_currentPage < profileOptions.length - 1 || _currentPage == 0)
                   IconButton(
                     onPressed: () {
                       _pageController.nextPage(
-                        duration: Duration(milliseconds: 500),
+                        duration: Duration(milliseconds: 300),
                         curve: Curves.ease,
                       );
                     },
                     icon: Icon(Icons.arrow_forward),
-                    color: Colors.deepPurple,
+                    color: Colors.amber,
                   ),
                 if (_currentPage == profileOptions.length - 1)
                   ElevatedButton(
@@ -141,13 +118,14 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                       // Puoi navigare a una nuova pagina o fare altre operazioni qui
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.deepPurple,
+                      primary: Colors.amber,
                     ),
                     child: Text("Save"),
                   ),
               ],
             ),
           ),
+
         ],
       ),
     );
@@ -155,20 +133,40 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
 
   Widget buildProfileSlide(BuildContext context, Map<String, dynamic> option) {
     return Container(
+      //color: Colors.amber,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/cornice_2.png'),
+          image: AssetImage('assets/cornice_1.png'),
           fit: BoxFit.fill,
         ),
+
       ),
+
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.only(
+            left: 40.0,
+            right: 40.0,
+            top: 0.0,
+            bottom: 0.0    ),
+
         child: Column(
+
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+              padding: EdgeInsets.only(bottom: 5),
+              child: Container(
+
+                child: Image.asset('assets/logo_profilazione.jpeg', width: 100, height: 100),
+              ),
+            ),
             if (option['type'] == 'text')
               TextField(
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
                 onChanged: (value) {
                   setState(() {
                     profileData[option['key']] = value;
@@ -176,10 +174,16 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                 },
                 decoration: InputDecoration(
                   labelText: option['title'],
+                  filled: true,
+                  fillColor: Colors.black.withOpacity(0.5),
                 ),
               ),
             if (option['type'] == 'numeric')
               TextField(
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   setState(() {
@@ -188,11 +192,14 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                 },
                 decoration: InputDecoration(
                   labelText: option['title'],
+                  filled: true,
+                  fillColor: Colors.black.withOpacity(0.5),
                 ),
               ),
             if (option['type'] == 'radio')
               Column(
                 children: (option['options'] as List<Map<String, dynamic>>).map((genderOption) {
+                  bool isSelected = profileData[option['key']] == genderOption['label'];
                   return Column(
                     children: [
                       GestureDetector(
@@ -204,7 +211,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Colors.deepPurple,
+                              color: isSelected ? Colors.deepPurple : Colors.transparent,
                               width: 2.0,
                             ),
                             borderRadius: BorderRadius.circular(12.0),
@@ -220,8 +227,8 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                               SizedBox(height: 8),
                               Text(
                                 genderOption['label'],
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: isSelected ? Colors.deepPurple : Colors.black,
                                 ),
                               ),
                             ],
@@ -233,53 +240,59 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                   );
                 }).toList(),
               ),
+
             if (option['type'] == 'checkbox')
-              Column(
+              GridView.count(
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 children: (option['options'] as List<Map<String, dynamic>>).map((genreOption) {
-                  return Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (profileData[option['key']].contains(genreOption['label'])) {
-                              profileData[option['key']].remove(genreOption['label']);
-                            } else {
-                              profileData[option['key']].add(genreOption['label']);
-                            }
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.deepPurple,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          padding: EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                'assets/${genreOption['image']}',
-                                width: 80,
-                                height: 80,
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                genreOption['label'],
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
+                  bool isSelected = profileData[option['key']].contains(genreOption['label']);
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (profileData[option['key']].contains(genreOption['label'])) {
+                          profileData[option['key']].remove(genreOption['label']);
+                        } else {
+                          profileData[option['key']].add(genreOption['label']);
+                        }
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: isSelected ? Colors.deepPurple : Colors.transparent,
+                          width: 2.0,
                         ),
+                        borderRadius: BorderRadius.circular(isSelected ? 6.0 : 12.0), // Imposta il raggio del bordo
                       ),
-                      SizedBox(height: 16),
-                    ],
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/${genreOption['image']}',
+                            width: 90,
+                            height: 90,
+                          ),
+                          SizedBox(height: 8),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              genreOption['label'],
+                              style: TextStyle(
+                                color: isSelected ? Colors.deepPurple : Colors.black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 }).toList(),
               ),
+
+
           ],
         ),
       ),
@@ -296,11 +309,11 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
 
   Widget _buildPageIndicatorItem(bool isActive) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 4.0),
+      margin: EdgeInsets.symmetric(horizontal: 4.0),
       height: 8.0,
       width: isActive ? 24.0 : 8.0,
       decoration: BoxDecoration(
-        color: isActive ? Colors.deepPurple : Colors.white,
+        color: isActive ? Colors.amber : Colors.white,
         borderRadius: BorderRadius.circular(12.0),
       ),
     );
@@ -314,10 +327,9 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
     prefs.setStringList('favoriteGenres', profileData['favoriteGenres'].cast<String>());
 
     print('Profile Data Saved: $profileData');
-    // ignore: use_build_context_synchronously
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => const MyHomePage(title: 'Dreamy Tales'),
+        builder: (context) => MyHomePage(title: 'Dreamy Tales'),
       ),
     );
   }
