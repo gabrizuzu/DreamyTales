@@ -340,7 +340,7 @@ class MyDrawer extends StatelessWidget {
                 icon,
                 color: isSelected ? Colors.white : Colors.deepPurple,
               ),
-              SizedBox(width: 8),
+              SizedBox(width: 16),
               Text(
                 title,
                 style: TextStyle(
