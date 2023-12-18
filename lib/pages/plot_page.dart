@@ -22,7 +22,7 @@ class _PlotChoiceState extends State<PlotChoice> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Moral Choice'),
+        title: Text('Classic Plot Choice'),
         backgroundColor: Colors.deepPurple,
       ),
       body: Container(

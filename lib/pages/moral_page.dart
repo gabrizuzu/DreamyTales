@@ -10,6 +10,7 @@ class MoralChoice extends StatefulWidget {
 }
 
 class _MoralChoiceState extends State<MoralChoice> {
+  int? selectedCardIndex;
   List<Map<String, String>> morals = [
     {'title': 'Kindness Matters:', 'description': 'Treat others the way you want to be treated. Kindness makes the world a better place. 🌍❤️'},
     {'title': 'Never Give Up:', 'description': 'Even when things are tough, keep trying. Perseverance leads to success. 🌈👊'},
@@ -27,20 +28,20 @@ class _MoralChoiceState extends State<MoralChoice> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Moral Choice'),
+        title: const Text('Moral Choice'),
         backgroundColor: Colors.deepPurple,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/sfondo.jpg"),
             fit: BoxFit.cover,
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.only(top:16.0),
+          padding: const EdgeInsets.only(top:16.0),
         child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: 3 / 2,
             crossAxisSpacing: 10,
@@ -54,6 +55,7 @@ class _MoralChoiceState extends State<MoralChoice> {
                 await prefs.setString('moralPreference', morals[index]['title']!);
                 setState(() {
                   selectedMoral = morals[index]['title'];
+                  selectedCardIndex = index;
                 });
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('You selected ${morals[index]['title']}')),
@@ -61,8 +63,15 @@ class _MoralChoiceState extends State<MoralChoice> {
               },
               child: Card(
                 color: Colors.black.withOpacity(0.6),
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: selectedCardIndex == index ? Colors.deepPurple : Colors.transparent,
+                      width: 5.0,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -70,7 +79,7 @@ class _MoralChoiceState extends State<MoralChoice> {
                         morals[index]['title']!,
                         style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,color:Colors.amber),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         morals[index]['description']!,
                         style: TextStyle(fontSize: 12.0,color:Colors.white),
@@ -91,7 +100,7 @@ class _MoralChoiceState extends State<MoralChoice> {
             MaterialPageRoute(builder: (context) => StoryPage(moral: selectedMoral!)),
           );
         },
-        label: Text('Confirm'),
+        label: const Text('Confirm'),
         backgroundColor: Colors.deepPurple,
       ) : null,
     );

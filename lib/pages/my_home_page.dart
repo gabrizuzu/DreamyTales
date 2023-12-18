@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.deepPurple,
         title: Text(
           widget.title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             fontFamily: 'Comic Sans MS',
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (_currentCategory) {
     case AppCategory.home:
       return Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/sfondo.jpg"),
             fit: BoxFit.fill,
@@ -146,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top:10.0,left:20.0),
+            padding: const EdgeInsets.only(top:10.0,left:8.0),
             child:
           Row(
             children: [    

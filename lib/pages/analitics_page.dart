@@ -7,14 +7,14 @@ class Analytics extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/sfondo.jpg"),
             fit: BoxFit.fill,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+        child: const Padding(
+          padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
