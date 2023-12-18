@@ -24,7 +24,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
   List largetext= [
     'Dreamy Tales',
     'Original Stories',
-    "Educational Purpose",
+    "Educational",
   ];
   List text = [
     "It's story time",

@@ -1,3 +1,4 @@
+import 'package:dreamy_tales/pages/add_main_character_page.dart';
 import 'package:dreamy_tales/pages/login_register_page.dart';
 import 'package:dreamy_tales/pages/settings_story.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     String? gender = snapshot.data?.getString('gender');
-                    String imagePath = gender == 'male' ? 'assets/male.png' : 'assets/female.png';
+                    String imagePath = gender == 'Male' ? 'assets/male.png' : 'assets/female.png';
                     return Column(
                       children: [
                         CircleAvatar(
@@ -135,18 +136,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   color: Colors.white, // Imposta il colore dell'icona
                   onPressed: () {
-                    // Aggiungi qui il tuo codice per aggiungere un personaggio
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddMainCharacterPage()),
+                      );// Aggiungi qui il tuo codice per aggiungere un personaggio
                   },
                 ),
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(left:8.0,top: 10.0),
+            padding: const EdgeInsets.only(top:10.0,left:20.0),
             child:
           Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [    FutureBuilder(
+            children: [    
+              FutureBuilder(
                 future: SharedPreferences.getInstance(),
                 builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
@@ -158,9 +162,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           name ?? 'Guest',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 24,
                           ),
-                        ),),
+                        ),
+                      ),
                       ],
                     );
                   } else {

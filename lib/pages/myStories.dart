@@ -27,13 +27,13 @@ class MyStories extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/sfondo.jpg'),
             fit: BoxFit.cover,
           ),
         ),
-        padding: EdgeInsets.all(16.0),
+        padding:const EdgeInsets.all(16.0),
         child: ListView.builder(
           itemCount: stories.length,
           itemBuilder: (context, index) {

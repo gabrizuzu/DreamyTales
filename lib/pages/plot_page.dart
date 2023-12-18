@@ -1,5 +1,4 @@
 import 'package:dreamy_tales/pages/moral_page.dart';
-import 'package:dreamy_tales/pages/story_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,7 +26,7 @@ class _PlotChoiceState extends State<PlotChoice> {
         backgroundColor: Colors.deepPurple,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/sfondo.jpg"),
             fit: BoxFit.cover,
@@ -36,7 +35,7 @@ class _PlotChoiceState extends State<PlotChoice> {
         child: Padding(
           padding: EdgeInsets.all(16.0),
         child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
             childAspectRatio: 3 / 2,
             crossAxisSpacing: 20,
@@ -60,7 +59,7 @@ itemBuilder: (context, index) {
         Card(
           color: Colors.black.withOpacity(0.6),
           child: Container(
-            height: 200, // Aggiungi questa linea per impostare l'altezza del Container
+            height: 200, 
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(plots[index]['image']!),
@@ -81,7 +80,7 @@ itemBuilder: (context, index) {
             style: TextStyle(
               fontSize: 15.0, 
               fontWeight: FontWeight.bold,
-              color: selectedPlot == plots[index]['description'] ? Colors.amber : Colors.white,
+              color: selectedPlot == plots[index]['description'] ? Colors.deepPurple : Colors.white,
               ),
           ),
         ),
@@ -99,7 +98,7 @@ itemBuilder: (context, index) {
             MaterialPageRoute(builder: (context) => MoralChoice()),
           );
         },
-        label: Text('Confirm'),
+        label: const Text('Confirm'),
         backgroundColor: Colors.deepPurple,
       ) : null,
     );
