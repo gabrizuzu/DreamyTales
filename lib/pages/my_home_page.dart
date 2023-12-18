@@ -144,7 +144,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.only(left:8.0,top: 10.0),
             child:
-          Row(children: [    FutureBuilder(
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [    FutureBuilder(
                 future: SharedPreferences.getInstance(),
                 builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {

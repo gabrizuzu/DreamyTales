@@ -61,7 +61,7 @@ class StoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.black.withOpacity(0.7),
+      color: Colors.black.withOpacity(0.6),
       elevation: 5,
       margin: EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
