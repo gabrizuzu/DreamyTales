@@ -32,48 +32,47 @@ class _AddMainCharacterPageState extends State<AddSecondCharacterPage> {
         ),
         elevation: 10,
       ),
-
        body:
-       Container( decoration: const BoxDecoration(
+       Container( 
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/sfondo.jpg"),
             fit: BoxFit.fill,
           ),
         ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
+      
         child: Form(
-  key: _formKey,
-  child: Column(
-    children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: TextFormField(
-          decoration: InputDecoration(
-            labelText: 'Name',
-            fillColor: Colors.grey,
-            filled: true,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
+        key: _formKey,
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top:180,left:16.0,right:16.0,bottom: 16.0),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                  fillColor: Colors.white,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                  validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please fill this field';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  name = value;
+                },
+              ),
             ),
-          ),
-            validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please fill this field';
-            }
-            return null;
-          },
-          onSaved: (value) {
-            name = value;
-          },
-        ),
-      ),
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: DropdownButtonFormField<String>(
             decoration: InputDecoration(
               labelText: 'Gender',
-              fillColor: Colors.grey,
+              fillColor: Colors.white,
               filled: true,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -105,41 +104,8 @@ class _AddMainCharacterPageState extends State<AddSecondCharacterPage> {
           padding: const EdgeInsets.all(20.0),
           child: DropdownButtonFormField<String>(
             decoration: InputDecoration(
-              labelText: 'Taste',
-              fillColor: Colors.grey,
-              filled: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-            ),
-            items: <String>['Marvel', 'Disney', 'Hogwarts', 'Star Wars', 'Others'].map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-              validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please fill this field';
-              }
-              return null;
-            },
-            onChanged: (String? newValue) {
-              setState(() {
-                taste = newValue;
-              });
-            },
-            onSaved: (String? value) {
-              taste = value;
-            },
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: DropdownButtonFormField<String>(
-            decoration: InputDecoration(
               labelText: 'Role',
-              fillColor: Colors.grey,
+              fillColor: Colors.white,
               filled: true,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -167,32 +133,46 @@ class _AddMainCharacterPageState extends State<AddSecondCharacterPage> {
             },
           ),
         ),
-ElevatedButton(
-  child: const Text('Save'),
-  onPressed: () {
-    if (_formKey.currentState?.validate() ?? false) {
-      _formKey.currentState?.save();
-      saveData();
-      Navigator.pop(context);
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const AlertDialog(
-            content: Text('Please fill all the fields'),
-          );
-        },
-      );
-    }
-  },
-),
 
+          Expanded(
+            child: Container(), 
+          ),
+          Builder(
+            builder: (BuildContext context) {
+              return Container(
+                width: double.infinity, // Questo rende il pulsante largo quanto la pagina
+                height: 60.0, // Imposta l'altezza del pulsante
+                decoration: const BoxDecoration(
+                  color: Colors.amber, // Imposta il colore di sfondo del pulsante
+                ),
+                child: TextButton.icon(
+                  icon: Icon(Icons.check), // Imposta l'icona del pulsante
+                  label: Text("Save"), // Imposta il testo del pulsante
+                  onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                      _formKey.currentState?.save();
+                      saveData();
+                      Navigator.pop(context);
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const AlertDialog(
+                            content: Text('Please fill all the fields'),
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
+              );
+            },
+          ),
     ],
     
   ),
   
       ),
-    ),
     ),
     );
   }
@@ -203,7 +183,6 @@ ElevatedButton(
     'name': name,
     'gender': gender,
     'role': role,
-    'taste': taste,
   });
 }
 }

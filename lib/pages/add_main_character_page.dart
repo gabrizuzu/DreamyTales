@@ -40,18 +40,17 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
             fit: BoxFit.fill,
           ),
         ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
+
         child: Form(
   key: _formKey,
   child: Column(
     children: <Widget>[
       Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(top:120,left:16.0,right:16.0,bottom: 16.0),
         child: TextFormField(
           decoration: InputDecoration(
             labelText: 'Name',
-            fillColor: Colors.grey,
+            fillColor: Colors.white,
             filled: true,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
@@ -73,7 +72,7 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
           child: DropdownButtonFormField<String>(
             decoration: InputDecoration(
               labelText: 'Gender',
-              fillColor: Colors.grey,
+              fillColor: Colors.white,
               filled: true,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -106,7 +105,7 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
           child: DropdownButtonFormField<String>(
             decoration: InputDecoration(
               labelText: 'Tastes',
-              fillColor: Colors.grey,
+              fillColor: Colors.white,
               filled: true,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -161,32 +160,46 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
             ],
           ),
         ),
-ElevatedButton(
-  child: const Text('Save'),
-  onPressed: () {
-    if (_formKey.currentState?.validate() ?? false) {
-      _formKey.currentState?.save();
-      saveData();
-      Navigator.pop(context);
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const AlertDialog(
-            content: Text('Please fill all the fields'),
-          );
-        },
-      );
-    }
-  },
-),
+        Expanded(
+            child: Container(), 
+          ),
+          Builder(
+            builder: (BuildContext context) {
+              return Container(
+                width: double.infinity, 
+                height: 60.0, // Imposta l'altezza del pulsante
+                decoration: const BoxDecoration(
+                  color: Colors.amber, // Imposta il colore di sfondo del pulsante
+                ),
+                child: TextButton.icon(
+                  icon: Icon(Icons.check), // Imposta l'icona del pulsante
+                  label: Text("Save"), // Imposta il testo del pulsante
+                  onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                      _formKey.currentState?.save();
+                      saveData();
+                      Navigator.pop(context);
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const AlertDialog(
+                            content: Text('Please fill all the fields'),
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
+              );
+            },
+          ),
 
     ],
     
   ),
   
       ),
-    ),
     ),
     );
   }
