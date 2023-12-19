@@ -15,7 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-
+  
   final String title;
 
   @override
@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(left: 18.0, top: 70.0),
+              padding: const EdgeInsets.only(left: 18.0, top: 50.0),
               child: Row(
                 children: <Widget>[
                   Text(
@@ -95,90 +95,72 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0, top: 20.0),
-              child: Column(
-            children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              FutureBuilder(
-                future: SharedPreferences.getInstance(),
-                builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    String? gender = snapshot.data?.getString('gender');
-                    String imagePath = gender == 'Male' ? 'assets/male.png' : 'assets/female.png';
-                    return Column(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: AssetImage(imagePath),
-                          radius: 50.0,
-                        ),
-                      ],
-                    );
-                  } else {
-                    return CircularProgressIndicator(); // mostra un indicatore di caricamento mentre attende
-                  }
-                },
-              ),
-              SizedBox(width: 20), // Aggiunge spazio tra l'avatar e il pulsante
-              Container(
-                width: 100.0, // Imposta la larghezza del pulsante
-                height: 100.0, // Imposta l'altezza del pulsante
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor, // Imposta il colore del pulsante
-                  shape: BoxShape.circle, // Rende il pulsante tondo
-                ),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.add,
-                    size: 50.0,
+Padding(
+  padding: const EdgeInsets.only(left:40.0,top: 30.0),
+  child: SizedBox(
+    height: 144,
+    child: ListView(
+      scrollDirection: Axis.horizontal,
+      children: [
+        FutureBuilder(
+          future: SharedPreferences.getInstance(),
+          builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              String? gender = snapshot.data?.getString('gender');
+              String? name = snapshot.data?.getString('name');
+              String imagePath = gender == 'Male' ? 'assets/male.png' : 'assets/female.png';
+              return Column(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage(imagePath),
+                    radius: 50.0,
                   ),
-                  color: Colors.white, // Imposta il colore dell'icona
-                  onPressed: () {
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AddMainCharacterPage()),
-                      );// Aggiungi qui il tuo codice per aggiungere un personaggio
-                  },
-                ),
+                  const SizedBox(height: 10),
+                  Text(
+                    name ?? 'Guest',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return CircularProgressIndicator(); // mostra un indicatore di caricamento mentre attende
+            }
+          },
+        ),
+        const SizedBox(width: 30), // Aggiunge spazio tra l'avatar e il pulsante
+        Column(
+          children:[
+            Container(
+              width: 100.0, // Imposta la larghezza del pulsante
+              height: 100.0, // Imposta l'altezza del pulsante
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor, // Imposta il colore del pulsante
+                shape: BoxShape.circle, // Rende il pulsante tondo
               ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top:10.0,left:8.0),
-            child:
-          Row(
-            children: [    
-              FutureBuilder(
-                future: SharedPreferences.getInstance(),
-                builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    String? name = snapshot.data?.getString('name');
-                    return Column(
-                      children: [
-                        Center(child: 
-                        Text(
-                          name ?? 'Guest',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                          ),
-                        ),
-                      ),
-                      ],
-                    );
-                  } else {
-                    return CircularProgressIndicator(); // mostra un indicatore di caricamento mentre attende
-                  }
+              child: IconButton(
+                icon: const Icon(
+                  Icons.add,
+                  size: 50.0,
+                ),
+                color: Colors.white, // Imposta il colore dell'icona
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddMainCharacterPage()),
+                  );
                 },
               ),
-              ],
-              ),
-              ),
-            ],
-          ),
             ),
+            Text(''),
+        ],
+        ),
+      ],
+    ),
+    ),
+  ),
             Padding(
               padding: const EdgeInsets.only(left: 18.0, top: 70.0),
               child: Row(

@@ -33,6 +33,7 @@ dependencies:
   font_awesome_flutter: ^10.2.0
   shared_preferences: ^2.0.9
   google_fonts: ^2.0.0
+  cloud_firestore: ^4.13.6
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -95,3 +96,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/icon.png"

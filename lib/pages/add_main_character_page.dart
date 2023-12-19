@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AddMainCharacterPage extends StatefulWidget {
   const AddMainCharacterPage({Key? key}) : super(key: key);
@@ -9,6 +11,7 @@ class AddMainCharacterPage extends StatefulWidget {
 
 class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
   final _formKey = GlobalKey<FormState>();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String? name;
   String? gender;
   double age = 0;
@@ -54,6 +57,12 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
               borderRadius: BorderRadius.circular(10.0),
             ),
           ),
+            validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please fill this field';
+            }
+            return null;
+          },
           onSaved: (value) {
             name = value;
           },
@@ -76,6 +85,12 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                 child: Text(value),
               );
             }).toList(),
+              validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please fill this field';
+              }
+              return null;
+            },
             onChanged: (String? newValue) {
               setState(() {
                 gender = newValue;
@@ -103,13 +118,19 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                 child: Text(value),
               );
             }).toList(),
+              validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please fill this field';
+              }
+              return null;
+            },
             onChanged: (String? newValue) {
               setState(() {
-                gender = newValue;
+                tastes = newValue;
               });
             },
             onSaved: (String? value) {
-              gender = value;
+              tastes = value;
             },
           ),
         ),
@@ -120,7 +141,7 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
             children: [
               Text(
                 'Età: ${age.toInt()}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -140,16 +161,26 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
             ],
           ),
         ),
-        ElevatedButton(
-        child: Text('Save'),
-        onPressed: () {
-
-            // Salva i dati nel database o in un'altra posizione
-
-            // Ritorna alla pagina my_home_page.dart
-            Navigator.pop(context);
+ElevatedButton(
+  child: const Text('Save'),
+  onPressed: () {
+    if (_formKey.currentState?.validate() ?? false) {
+      _formKey.currentState?.save();
+      saveData();
+      Navigator.pop(context, name);
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            content: Text('Please fill all the fields'),
+          );
         },
-      ),
+      );
+    }
+  },
+),
+
     ],
     
   ),
@@ -159,4 +190,14 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
     ),
     );
   }
+  void saveData() async {
+  String? userId = FirebaseAuth.instance.currentUser?.uid;
+  await _firestore.collection('characters').add({
+    'userId': userId,
+    'name': name,
+    'gender': gender,
+    'age': age.toInt(),
+    'taste': tastes,
+  });
+}
 }
