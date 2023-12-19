@@ -1,6 +1,8 @@
 import 'package:dreamy_tales/pages/my_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ChildProfilePage extends StatefulWidget {
   @override
@@ -347,6 +349,15 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
     prefs.setInt('age', profileData['age']);
     prefs.setStringList('favoriteGenres', profileData['favoriteGenres'].cast<String>());
 
+    final firestore = FirebaseFirestore.instance;
+    String? userId = FirebaseAuth.instance.currentUser?.uid;
+    await firestore.collection('characters').add({
+      'userId': userId,
+      'name': profileData['name'],
+      'gender': profileData['gender'],
+      'age': profileData['age'],
+      'favoriteGenres': profileData['favoriteGenres'].cast<String>(),
+    });
     print('Profile Data Saved: $profileData');
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(

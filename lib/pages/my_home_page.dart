@@ -1,4 +1,5 @@
 import 'package:dreamy_tales/pages/add_main_character_page.dart';
+import 'package:dreamy_tales/pages/add_second_character_page.dart';
 import 'package:dreamy_tales/pages/login_register_page.dart';
 import 'package:dreamy_tales/pages/settings_story.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'app_category.dart';
 import 'package:dreamy_tales/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -96,73 +98,92 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
 Padding(
-  padding: const EdgeInsets.only(left:40.0,top: 30.0),
+
+  padding: const EdgeInsets.only(left:16.0,top: 45.0),
   child: SizedBox(
-    height: 144,
-    child: ListView(
+  height: 160,
+  child: StreamBuilder<QuerySnapshot>(
+  stream: FirebaseFirestore.instance.collection('characters').where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid).snapshots(),
+  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    if (snapshot.hasError) {
+      return const Text('Something went wrong');
+    }
+
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Text("Loading");
+    }
+
+    return ListView(
       scrollDirection: Axis.horizontal,
-      children: [
-        FutureBuilder(
-          future: SharedPreferences.getInstance(),
-          builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              String? gender = snapshot.data?.getString('gender');
-              String? name = snapshot.data?.getString('name');
-              String imagePath = gender == 'Male' ? 'assets/male.png' : 'assets/female.png';
-              return Column(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(imagePath),
-                    radius: 50.0,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    name ?? 'Guest',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
+      children: snapshot.data!.docs.map((DocumentSnapshot document) {
+        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+        String imagePath = data['gender'] == 'Male' ? 'assets/male.png' : 'assets/female.png';
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage(imagePath),
+                radius: 50.0,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                data['name'],
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList()..add(
+        Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+                         Container(
+                    width: 100.0, // Imposta la larghezza del pulsante
+                    height: 100.0, // Imposta l'altezza del pulsante
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor, // Imposta il colore del pulsante
+                      shape: BoxShape.circle, // Rende il pulsante tondo
+                    ),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.add,
+                        size: 50.0,
+                      ),
+                      color: Colors.white, // Imposta il colore dell'icona
+                      onPressed: () {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => AddMainCharacterPage()),
+                          );
+                      },
                     ),
                   ),
-                ],
-              );
-            } else {
-              return CircularProgressIndicator(); // mostra un indicatore di caricamento mentre attende
-            }
-          },
-        ),
-        const SizedBox(width: 30), // Aggiunge spazio tra l'avatar e il pulsante
-        Column(
-          children:[
-            Container(
-              width: 100.0, // Imposta la larghezza del pulsante
-              height: 100.0, // Imposta l'altezza del pulsante
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor, // Imposta il colore del pulsante
-                shape: BoxShape.circle, // Rende il pulsante tondo
-              ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.add,
-                  size: 50.0,
+                  const SizedBox(height: 10),
+              const Text(
+                'Add',
+                style: TextStyle(
+                  color: Colors.deepPurple,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                 ),
-                color: Colors.white, // Imposta il colore dell'icona
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AddMainCharacterPage()),
-                  );
-                },
               ),
-            ),
-            Text(''),
-        ],
-        ),
-      ],
-    ),
-    ),
+          ],
+          ),
+       ),
+      ),
+    );
+  },
+),
+),
   ),
             Padding(
-              padding: const EdgeInsets.only(left: 18.0, top: 70.0),
+              padding: const EdgeInsets.only(left: 18.0, top: 45.0),
               child: Row(
                 children: <Widget>[
                   Text(
@@ -173,11 +194,52 @@ Padding(
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30.0, top: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
+
+  padding: const EdgeInsets.only(left:16.0,top: 45.0),
+  child: SizedBox(
+  height: 160,
+  child: StreamBuilder<QuerySnapshot>(
+  stream: FirebaseFirestore.instance.collection('second_characters').where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid).snapshots(),
+  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    if (snapshot.hasError) {
+      return const Text('Something went wrong');
+    }
+
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Text("Loading");
+    }
+
+    return ListView(
+      scrollDirection: Axis.horizontal,
+      children: snapshot.data!.docs.map((DocumentSnapshot document) {
+        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+        String imagePath = data['gender'] == 'Male' ? 'assets/male.png' : 'assets/female.png';
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage(imagePath),
+                radius: 50.0,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                data['name'],
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList()..add(
+        Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+                         Container(
                     width: 100.0, // Imposta la larghezza del pulsante
                     height: 100.0, // Imposta l'altezza del pulsante
                     decoration: BoxDecoration(
@@ -185,19 +247,37 @@ Padding(
                       shape: BoxShape.circle, // Rende il pulsante tondo
                     ),
                     child: IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.add,
                         size: 50.0,
                       ),
                       color: Colors.white, // Imposta il colore dell'icona
                       onPressed: () {
-                        // Aggiungi qui il tuo codice per aggiungere un personaggio
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => AddSecondCharacterPage()),
+                          );
                       },
                     ),
                   ),
-                ],
+              const SizedBox(height: 10),
+              const Text(
+                'Add',
+                style: TextStyle(
+                  color: Colors.deepPurple,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
+          ],
+          ),
+       ),
+      ),
+    );
+  },
+),
+),
+  ),
           Expanded(
             child: Container(), // Questo spinge il pulsante in fondo alla pagina
           ),
@@ -348,7 +428,7 @@ class MyDrawer extends StatelessWidget {
                 icon,
                 color: isSelected ? Colors.white : Colors.deepPurple,
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Text(
                 title,
                 style: TextStyle(

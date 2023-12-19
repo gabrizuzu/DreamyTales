@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AddMainCharacterPage extends StatefulWidget {
-  const AddMainCharacterPage({Key? key}) : super(key: key);
+class AddSecondCharacterPage extends StatefulWidget {
+  const AddSecondCharacterPage({Key? key}) : super(key: key);
 
   @override
-  State<AddMainCharacterPage> createState() => _AddMainCharacterPageState();
+  State<AddSecondCharacterPage> createState() => _AddMainCharacterPageState();
 }
 
-class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
+class _AddMainCharacterPageState extends State<AddSecondCharacterPage> {
   final _formKey = GlobalKey<FormState>();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String? name;
   String? gender;
-  double age = 0;
-  String? tastes;
+  String? role;
+  String? taste;
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +105,7 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
           padding: const EdgeInsets.all(20.0),
           child: DropdownButtonFormField<String>(
             decoration: InputDecoration(
-              labelText: 'Tastes',
+              labelText: 'Taste',
               fillColor: Colors.grey,
               filled: true,
               border: OutlineInputBorder(
@@ -126,39 +126,45 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
             },
             onChanged: (String? newValue) {
               setState(() {
-                tastes = newValue;
+                taste = newValue;
               });
             },
             onSaved: (String? value) {
-              tastes = value;
+              taste = value;
             },
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Età: ${age.toInt()}',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+          child: DropdownButtonFormField<String>(
+            decoration: InputDecoration(
+              labelText: 'Role',
+              fillColor: Colors.grey,
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
               ),
-              Slider(
-                value: age,
-                min: 0,
-                max: 10,
-                divisions: 10,
-                label: age.round().toString(),
-                onChanged: (double value) {
-                  setState(() {
-                    age = value;
-                  });
-                },
-              ),
-            ],
+            ),
+            items: <String>['Grandparent', 'Parent', 'Sibling', 'Friend', 'Other'].map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+              validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please fill this field';
+              }
+              return null;
+            },
+            onChanged: (String? newValue) {
+              setState(() {
+                role = newValue;
+              });
+            },
+            onSaved: (String? value) {
+              role = value;
+            },
           ),
         ),
 ElevatedButton(
@@ -192,12 +198,12 @@ ElevatedButton(
   }
   void saveData() async {
   String? userId = FirebaseAuth.instance.currentUser?.uid;
-  await _firestore.collection('characters').add({
+  await _firestore.collection('second_characters').add({
     'userId': userId,
     'name': name,
     'gender': gender,
-    'age': age.toInt(),
-    'taste': tastes,
+    'role': role,
+    'taste': taste,
   });
 }
 }
