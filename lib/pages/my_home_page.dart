@@ -26,7 +26,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   AppCategory _currentCategory = AppCategory.home;
-  
+  bool? color = false;
   void _logout() {
     Navigator.pushReplacement(
       context,
@@ -122,10 +122,45 @@ Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              CircleAvatar(
+              GestureDetector(
+                
+              onLongPress: () async {
+                color = true;
+                bool? shouldDelete = await showDialog<bool>(
+                  
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Confirm'),
+                      content: const Text('Are you sure you want to delete this character?'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('Cancel'),
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          },
+                        ),
+                        TextButton(
+                          child: const Text('Delete'),
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+
+                if (shouldDelete == true) {
+                  FirebaseFirestore.instance.collection('characters').doc(document.id).delete();
+                }
+              },
+              child: CircleAvatar(
                 backgroundImage: AssetImage(imagePath),
+                
                 radius: 50.0,
               ),
+            ),
               const SizedBox(height: 10),
               Text(
                 data['name'],
@@ -218,10 +253,41 @@ Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              CircleAvatar(
+              GestureDetector(
+              onLongPress: () async {
+                bool? shouldDelete = await showDialog<bool>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Confirm'),
+                      content: const Text('Are you sure you want to delete this character?'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('Cancel'),
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          },
+                        ),
+                        TextButton(
+                          child: const Text('Delete'),
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+
+                if (shouldDelete == true) {
+                  FirebaseFirestore.instance.collection('second_characters').doc(document.id).delete();
+                }
+              },
+              child: CircleAvatar(
                 backgroundImage: AssetImage(imagePath),
                 radius: 50.0,
               ),
+            ),
               const SizedBox(height: 10),
               Text(
                 data['name'],
