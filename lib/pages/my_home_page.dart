@@ -135,9 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: snapshot.data!.docs.map((DocumentSnapshot document) {
                           Map<String, dynamic> data =
                           document.data() as Map<String, dynamic>;
-                          String imagePath = data['gender'] == 'Male'
-                              ? 'assets/avatar_M5.png'
-                              : 'assets/avatar_F6.png';
+                          String imagePath = data['avatar'];
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -291,9 +289,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: snapshot.data!.docs.map((DocumentSnapshot document) {
                           Map<String, dynamic> data =
                           document.data() as Map<String, dynamic>;
-                          String imagePath = data['gender'] == 'Male'
-                              ? 'assets/avatar_M5.png'
-                              : 'assets/avatar_F6.png';
+                          String imagePath = data['avatar'];
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
