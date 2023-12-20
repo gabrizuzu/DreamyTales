@@ -1,8 +1,17 @@
-spostare prima freccetta a sinistra
-backend per salvare il profilo
-levare bottoni superflui (fatto)
-aggiungere protagonisti e personaggi
-gestire archivi storie
+levare i taste dalla profilazione, mettere altri dettagli bambini
+sistemare freccette profiling
+rivedere i testi del tutorial (magari migliorarlo)
+archivio storie
+gestire database storie
+rendere le storie generate più carine visivamente
+aggiungere funzionalità voiceover
+dare la possibilità di scegliersi l'avatar (a tutti i personaggi)
+aggiungere magari più plot e morali
+gestire e implementare i settings (vedere quale tenere e quale levare)
+vedere cosa si può fare di analytics(idee: numero storie generate, da quanti giorni logghi di fila, qual'è la tipologia di storia preferita)
+migliorare autentificazione
+dare la possibilità di recensire le storie (possiamo mettere anche solo like o dislike) (se siamo pazzi introdurre rec sys ma dubito)
+
 
 
 Genera una storia della buonanotte personalizzata per [Nome del Bambino], un/a piccolo/a appassionato/a di [interesse del bambino, es. animali, fantasia]. I personaggi principali sono [Nome del Personaggio Principale], [Nome del Personaggio Amico 1] e [Nome del Personaggio Amico 2]. La storia dovrebbe svolgersi in un contesto [specifico, es. foresta magica, regno lontano]. La morale della storia dovrebbe insegnare [morale desiderata, es. gentilezza, coraggio].

@@ -1,4 +1,4 @@
-import 'package:dreamy_tales/pages/moral_page.dart';
+import 'package:dreamy_tales/pages/fantasy_plot.dart';
 import 'package:dreamy_tales/pages/plot_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,7 +21,7 @@ class _SettingsStoryPageState extends State<SettingsStoryPage> {
               onTap: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 await prefs.setString('storyPreference', 'Fantasy');
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MoralChoice()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => FantasyPlotPage()));
               },
               child: Stack(
                 children: <Widget>[
