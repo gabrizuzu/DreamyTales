@@ -1,5 +1,15 @@
 name: dreamy_tales
-description: "A new Flutter project."
+description: "L'applicazione si propone di creare un'esperienza di narrazione unica, tenendo conto delle preferenze individuali, dell'età, dei gusti e dei valori educativi inseriti dai genitori.
+Funzionalità principali:
+1. Profilazione personalizzata:
+   - I genitori possono inserire informazioni dettagliate sulle preferenze dei loro figli, come personaggi, luoghi, temi e valori educativi che desiderano siano presenti nelle storie.
+2. Intelligenza Artificiale:
+   - Un algoritmo di intelligenza artificiale analizza le informazioni fornite dai genitori per generare storie personalizzate. L'AI impara continuamente dalle scelte e propone sempre storie differenti avendo traccia delle storie già presentate
+3. Interfaccia utente intuitiva:
+   - Un'interfaccia utente semplice e intuitiva consente ai genitori di inserire e modificare facilmente le preferenze per le storie dei loro bambini. Potranno selezionare tra varie categorie e tipologie di tematiche su cui far sviluppare la storia.
+4. Educazione del bambino:
+   -La finalità è anche quella di riuscire a costruire una storia intorno ad un morale da insegnare
+"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -23,16 +33,13 @@ environment:
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
+# consider running `flutter pub upgrade --major-versions`.
 dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: ^10.2.0
   shared_preferences: ^2.0.9
-  google_fonts: ^2.0.0
+  google_fonts: ^6.1.0
   cloud_firestore: ^4.13.6
   http: ^0.13.3
   flutter_rating_bar: ^4.0.0
@@ -43,6 +50,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.24.2
   firebase_auth: ^4.15.2
+  flutter_tts: ^3.8.5
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
@@ -54,7 +62,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -62,7 +70,6 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - img/
     - assets/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
