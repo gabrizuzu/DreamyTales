@@ -3,6 +3,8 @@ import 'package:dreamy_tales/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamy_tales/pages/welcome_RAM.dart';
 
+import '../widgets/app_text.dart';
+
 class HomePage extends StatelessWidget{
   HomePage({Key? key}) : super(key:key);
   final User? user = Auth().currentUser;
@@ -11,7 +13,7 @@ class HomePage extends StatelessWidget{
     await Auth().signOut();
   }
   Widget _title(){
-    return const Text('Dreamy Tales');
+    return AppText(text:'Dreamy Tales', size: 20, color: Colors.white);
   }
   Widget _userUid(){
     return Text(user?.email ?? 'User email');
