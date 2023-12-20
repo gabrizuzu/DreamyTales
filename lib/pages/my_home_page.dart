@@ -118,11 +118,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('characters')
-                        .where('userId',
-                            isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                         .snapshots(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasError) {
                         return const Text('Something went wrong');
                       }
@@ -133,33 +131,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       return ListView(
                         scrollDirection: Axis.horizontal,
-                        children: snapshot.data!.docs
-                            .map((DocumentSnapshot document) {
+                        children: snapshot.data!.docs.map((DocumentSnapshot document) {
                           Map<String, dynamic> data =
-                              document.data() as Map<String, dynamic>;
+                          document.data() as Map<String, dynamic>;
                           String imagePath = data['gender'] == 'Male'
-                              ? 'assets/male.png'
-                              : 'assets/female.png';
+                              ? 'assets/avatar_M5.png'
+                              : 'assets/avatar_F6.png';
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
-                                GestureDetector(
+                                InkWell(
                                   onLongPress: () async {
-                                    color = true;
                                     bool? shouldDelete = await showDialog<bool>(
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
                                           title: const Text('Confirm'),
                                           content: const Text(
-                                              'Are you sure you want to delete this character?'),
+                                            'Are you sure you want to delete this character?',
+                                          ),
                                           actions: <Widget>[
                                             TextButton(
                                               child: const Text('Cancel'),
                                               onPressed: () {
-                                                Navigator.of(context)
-                                                    .pop(false);
+                                                Navigator.of(context).pop(false);
                                               },
                                             ),
                                             TextButton(
@@ -180,9 +176,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                           .delete();
                                     }
                                   },
-                                  child: CircleAvatar(
-                                    backgroundImage: AssetImage(imagePath),
-                                    radius: 50.0,
+
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      imagePath,
+                                      width: 100.0,
+                                      height: 100.0,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 10),
@@ -205,14 +206,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                 children: [
                                   Container(
                                     width: 100.0,
-                                    // Imposta la larghezza del pulsante
                                     height: 100.0,
-                                    // Imposta l'altezza del pulsante
                                     decoration: BoxDecoration(
                                       color: Theme.of(context).primaryColor,
-                                      // Imposta il colore del pulsante
-                                      shape: BoxShape
-                                          .circle, // Rende il pulsante tondo
+                                      shape: BoxShape.circle,
                                     ),
                                     child: IconButton(
                                       icon: const Icon(
@@ -220,13 +217,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                         size: 50.0,
                                       ),
                                       color: Colors.white,
-                                      // Imposta il colore dell'icona
                                       onPressed: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  AddMainCharacterPage()),
+                                            builder: (context) => AddMainCharacterPage(),
+                                          ),
                                         );
                                       },
                                     ),
@@ -249,6 +245,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
+
+
               Padding(
                 padding: const EdgeInsets.only(left: 18.0, top: 45.0),
                 child: Row(
@@ -276,11 +274,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('second_characters')
-                        .where('userId',
-                            isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                         .snapshots(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasError) {
                         return const Text('Something went wrong');
                       }
@@ -291,18 +287,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       return ListView(
                         scrollDirection: Axis.horizontal,
-                        children: snapshot.data!.docs
-                            .map((DocumentSnapshot document) {
+                        children: snapshot.data!.docs.map((DocumentSnapshot document) {
                           Map<String, dynamic> data =
-                              document.data() as Map<String, dynamic>;
+                          document.data() as Map<String, dynamic>;
                           String imagePath = data['gender'] == 'Male'
-                              ? 'assets/male.png'
-                              : 'assets/female.png';
+                              ? 'assets/avatar_M5.png'
+                              : 'assets/avatar_F6.png';
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
-                                GestureDetector(
+                                InkWell(
                                   onLongPress: () async {
                                     bool? shouldDelete = await showDialog<bool>(
                                       context: context,
@@ -310,13 +305,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                         return AlertDialog(
                                           title: const Text('Confirm'),
                                           content: const Text(
-                                              'Are you sure you want to delete this character?'),
+                                            'Are you sure you want to delete this character?',
+                                          ),
                                           actions: <Widget>[
                                             TextButton(
                                               child: const Text('Cancel'),
                                               onPressed: () {
-                                                Navigator.of(context)
-                                                    .pop(false);
+                                                Navigator.of(context).pop(false);
                                               },
                                             ),
                                             TextButton(
@@ -337,9 +332,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                           .delete();
                                     }
                                   },
-                                  child: CircleAvatar(
-                                    backgroundImage: AssetImage(imagePath),
-                                    radius: 50.0,
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      imagePath,
+                                      width: 100.0,
+                                      height: 100.0,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 10),
@@ -362,14 +361,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                 children: [
                                   Container(
                                     width: 100.0,
-                                    // Imposta la larghezza del pulsante
                                     height: 100.0,
-                                    // Imposta l'altezza del pulsante
                                     decoration: BoxDecoration(
                                       color: Theme.of(context).primaryColor,
-                                      // Imposta il colore del pulsante
-                                      shape: BoxShape
-                                          .circle, // Rende il pulsante tondo
+                                      shape: BoxShape.circle,
                                     ),
                                     child: IconButton(
                                       icon: const Icon(
@@ -377,13 +372,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                         size: 50.0,
                                       ),
                                       color: Colors.white,
-                                      // Imposta il colore dell'icona
                                       onPressed: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  AddSecondCharacterPage()),
+                                            builder: (context) => AddSecondCharacterPage(),
+                                          ),
                                         );
                                       },
                                     ),
@@ -406,6 +400,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
+
               Expanded(
                 child:
                     Container(), // Questo spinge il pulsante in fondo alla pagina
