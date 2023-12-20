@@ -9,7 +9,7 @@ class WelcomeRAM extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/cornice_2.png'),
             fit: BoxFit.fill,
@@ -22,7 +22,7 @@ class WelcomeRAM extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).padding.top + 20.0,
               ),
-              Text(
+              const Text(
                 'Dreamy Tales',
                 style: TextStyle(
                   fontSize: 36,
@@ -38,14 +38,14 @@ class WelcomeRAM extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Image.asset(
                 'assets/welcome_logo.png',
                 width: 200,
                 height: 200,
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'Welcome to the Personalized Dreamy Tales App!',
                 style: TextStyle(
                   fontSize: 18,
@@ -54,7 +54,7 @@ class WelcomeRAM extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -75,7 +75,7 @@ class WelcomeRAM extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
