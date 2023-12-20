@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
         password: _controllerPassword.text,
       );
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Dreamy Tales')),
+        MaterialPageRoute(builder: (context) => const MyHomePage()),
       );
     } on FirebaseAuthException catch (e) {
       setState(() {

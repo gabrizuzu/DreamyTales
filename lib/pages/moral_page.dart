@@ -97,7 +97,7 @@ class _MoralChoiceState extends State<MoralChoice> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => StoryPage(moral: selectedMoral!)),
+            MaterialPageRoute(builder: (context) => StoryPage()),
           );
         },
         label: const Text('Confirm'),

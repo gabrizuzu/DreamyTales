@@ -361,7 +361,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
     print('Profile Data Saved: $profileData');
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => MyHomePage(title: 'Dreamy Tales'),
+        builder: (context) => MyHomePage(),
       ),
     );
   }

@@ -16,9 +16,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -55,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
         title: Text(
-          widget.title,
+          "Dreamy Tales",
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
