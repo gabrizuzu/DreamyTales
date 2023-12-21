@@ -16,7 +16,10 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
   String? gender;
   double age = 0;
   String? tastes;
-  String? selectedAvatar;
+  String avatarDefault = 'assets/avatar_M1.png';
+  String? selectedAvatar; // avatar default
+
+
 
   // Lista completa di avatar
   final List<String> allAvatars = [
@@ -199,12 +202,12 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                           imagePath: selectedAvatar!,
                           onPressed: () {
                             setState(() {
-                              selectedAvatar = null;
+                              selectedAvatar = avatarDefault;
                             });
                           },
                           isSelected: true,
                         ),
-                      // Anteprima delle prime 3 immagini (escludendo l'avatar selezionato)
+                      // Anteprima delle prime 6 immagini (escludendo l'avatar selezionato)
                       for (int i = 0; i < 6; i++)
                         if (allAvatars[i] != selectedAvatar)
                           AvatarPreview(
@@ -227,7 +230,7 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: const Text(
-                            'Vedi altri',
+                            'Show all',
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,

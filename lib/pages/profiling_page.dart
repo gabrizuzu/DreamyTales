@@ -356,7 +356,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
       'name': profileData['name'],
       'gender': profileData['gender'],
       'age': profileData['age'],
-      'favoriteGenres': profileData['favoriteGenres'].cast<String>(),
+      'taste': profileData['favoriteGenres'].cast<String>(),
     });
     print('Profile Data Saved: $profileData');
     Navigator.of(context).pushReplacement(

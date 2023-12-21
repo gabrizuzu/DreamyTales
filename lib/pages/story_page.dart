@@ -77,6 +77,7 @@ class _StoryPageState extends State<StoryPage> {
         'title': _title,
         'characters': await _getCharacters(),
         'date': DateFormat('dd/MM/yyyy').format(DateTime.now()),
+        'moral': moralPreference,
         'rating': null,
       });
     } else {
@@ -138,8 +139,15 @@ Widget build(BuildContext context) {
                   child: Text(
                     'Good things take time...',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
+                      color: Colors.amber,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black,
+                          blurRadius: 5,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -162,7 +170,7 @@ Widget build(BuildContext context) {
         children: <Widget>[
           Expanded(
             child: ListView(
-                                padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   children: [
                     // CircleAvatar
                     const CircleAvatar(
