@@ -17,7 +17,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
     'name': '',
     'gender': '',
     'age': 0,
-    'favoriteGenres': <String>[],
+    'avatar': '',
   };
 
   final List<Map<String, dynamic>> profileOptions = [
@@ -44,14 +44,14 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
       'image': 'logo_profilazione.jpeg',
     },
     {
-      'title': 'Select your child\'s favorite genres',
+      'title': 'Select your Avatar',
       'type': 'checkbox',
-      'key': 'favoriteGenres',
+      'key': 'avatar',
       'options': [
-        {'label': 'Marvel', 'image': 'marvel_personaggi.png'},
-        {'label': 'Star Wars', 'image': 'starwars_logo.png'},
-        {'label': 'Disney', 'image': 'disney_logo.png'},
-        {'label': 'Harry Potter', 'image': 'harrypotter_logo.png'},
+        {'label': 'Hero 1', 'image': 'assets/avatar_F3.png'},
+        {'label': 'Hero 2', 'image': 'assets/avatar_M4.png'},
+        {'label': 'Hero 3', 'image': 'assets/avatar_M8.png'},
+        {'label': 'Hero 4', 'image': 'assets/avatar_F1.png'},
         // Add more options if needed
       ],
     },
@@ -89,10 +89,10 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
           ),
           Positioned(
             bottom: 40.0,
-            left: 0,
-            right: 0,
+            left: 16.0,
+            right: 16.0, // Imposta il margine destro
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end, // Allineato a destra
+              mainAxisAlignment: MainAxisAlignment.spaceBetween, // Allineato spazialmente tra gli elementi
               children: [
                 if (_currentPage > 0)
                   IconButton(
@@ -105,7 +105,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                     icon: Icon(Icons.arrow_back),
                     color: Colors.amber,
                   ),
-                if (_currentPage < profileOptions.length - 1 || _currentPage == 0)
+                if (_currentPage < profileOptions.length - 1)
                   IconButton(
                     onPressed: () {
                       _pageController.nextPage(
@@ -117,19 +117,27 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                     color: Colors.amber,
                   ),
                 if (_currentPage == profileOptions.length - 1)
-                  ElevatedButton(
-                    onPressed: () {
-                      saveProfileData();
-                      // Puoi navigare a una nuova pagina o fare altre operazioni qui
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.amber,
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        saveProfileData();
+                        // Puoi navigare a una nuova pagina o fare altre operazioni qui
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.amber,
+                      ),
+                      child: Text("Save"),
                     ),
-                    child: Text("Save"),
                   ),
               ],
             ),
           ),
+
+
+
+
+
 
         ],
       ),
@@ -220,7 +228,6 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                 ),
               ),
             if (option['type'] == 'radio')
-
               Column(
                 children: (option['options'] as List<Map<String, dynamic>>).map((genderOption) {
                   bool isSelected = profileData[option['key']] == genderOption['label'];
@@ -270,16 +277,12 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                 crossAxisCount: 2,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                children: (option['options'] as List<Map<String, dynamic>>).map((genreOption) {
-                  bool isSelected = profileData[option['key']].contains(genreOption['label']);
+                children: (option['options'] as List<Map<String, dynamic>>).map((avatarOption) {
+                  bool isSelected = profileData[option['key']].contains(avatarOption['image']);
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        if (profileData[option['key']].contains(genreOption['label'])) {
-                          profileData[option['key']].remove(genreOption['label']);
-                        } else {
-                          profileData[option['key']].add(genreOption['label']);
-                        }
+                        profileData[option['key']] = avatarOption['image'];
                       });
                     },
                     child: Container(
@@ -288,13 +291,13 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                           color: isSelected ? Colors.deepPurple : Colors.transparent,
                           width: 3.0,
                         ),
-                        borderRadius: BorderRadius.circular(isSelected ? 20.0 : 20.0), // Imposta il raggio del bordo
+                        borderRadius: BorderRadius.circular(isSelected ? 20.0 : 20.0),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            'assets/${genreOption['image']}',
+                            '${avatarOption['image']}',
                             width: 90,
                             height: 90,
                           ),
@@ -302,7 +305,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                           Container(
                             alignment: Alignment.center,
                             child: Text(
-                              genreOption['label'],
+                              avatarOption['label'],
                               style: TextStyle(
                                 color: isSelected ? Colors.deepPurple : Colors.black,
                               ),
@@ -314,6 +317,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                   );
                 }).toList(),
               ),
+
 
 
           ],
@@ -347,7 +351,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
     prefs.setString('name', profileData['name']);
     prefs.setString('gender', profileData['gender']);
     prefs.setInt('age', profileData['age']);
-    prefs.setStringList('favoriteGenres', profileData['favoriteGenres'].cast<String>());
+    prefs.setString('avatar', profileData['avatar']);
 
     final firestore = FirebaseFirestore.instance;
     String? userId = FirebaseAuth.instance.currentUser?.uid;
@@ -356,7 +360,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
       'name': profileData['name'],
       'gender': profileData['gender'],
       'age': profileData['age'],
-      'taste': profileData['favoriteGenres'].cast<String>(),
+      'avatar': profileData['avatar'],
     });
     print('Profile Data Saved: $profileData');
     Navigator.of(context).pushReplacement(
