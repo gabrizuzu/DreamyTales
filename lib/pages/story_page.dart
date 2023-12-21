@@ -7,10 +7,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:intl/intl.dart';
 class StoryPage extends StatefulWidget {
-  
-
-  const StoryPage({Key? key}) : super(key: key);
+  StoryPage({Key? key}) : super(key: key);
 
   @override
   State<StoryPage> createState() => _StoryPageState();
@@ -77,7 +76,7 @@ class _StoryPageState extends State<StoryPage> {
         'text': _story,
         'title': _title,
         'characters': await _getCharacters(),
-        'date': DateTime.now(),
+        'date': DateFormat('dd/MM/yyyy').format(DateTime.now()),
         'rating': null,
       });
     } else {
