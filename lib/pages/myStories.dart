@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class MyStories extends StatelessWidget {
   const MyStories({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class MyStories extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        padding:const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: StreamBuilder<QuerySnapshot>(
           stream: stories.where('userId', isEqualTo: currentUserId).snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -34,12 +35,47 @@ class MyStories extends StatelessWidget {
             return ListView(
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-                String text = data['text'];
-                // ignore: prefer_interpolation_to_compose_strings
-                String shortText = text.length > 20 ? text.substring(0, 20) + '...' : text;
-                return ListTile(
-                  title: Text(data['title']),
-                  subtitle: Text('Data: ${data['date']}\n Text: $shortText'),
+                String title = data['title'];
+                List<String> protagonists;
+                var protagonistsData = data['characters'];
+
+                if (protagonistsData is String) {
+                  protagonists = protagonistsData.split(', '); // separa la stringa in una lista utilizzando la virgola come separatore
+                } else if (protagonistsData is List) {
+                  protagonists = List<String>.from(protagonistsData);
+                } else {
+                  throw Exception('Unexpected data type for protagonists');
+                }
+                double rating = data['rating'];
+
+                return Card(
+                  color: Colors.black,
+                  elevation: 5,
+                  child: ListTile(
+                    title: Text(
+                      title,
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Protagonists: ${protagonists.join(', ')}',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        RatingBarIndicator(
+                          rating: rating,
+                          itemBuilder: (context, index) => const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          itemCount: 5,
+                          itemSize: 20.0,
+                          direction: Axis.horizontal,
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               }).toList(),
             );
@@ -98,3 +134,4 @@ class StoryCard extends StatelessWidget {
     );
   }
 }
+
