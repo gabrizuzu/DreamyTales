@@ -1,17 +1,17 @@
-levare i taste dalla profilazione, mettere altri dettagli bambini
-sistemare freccette profiling
-rivedere i testi del tutorial (magari migliorarlo)
-archivio storie
-gestire database storie
-rendere le storie generate più carine visivamente
-aggiungere funzionalità voiceover
-dare la possibilità di scegliersi l'avatar (a tutti i personaggi)
-aggiungere magari più plot e morali
-gestire e implementare i settings (vedere quale tenere e quale levare)
-vedere cosa si può fare di analytics(idee: numero storie generate, da quanti giorni logghi di fila, qual'è la tipologia di storia preferita)
-migliorare autentificazione
-dare la possibilità di recensire le storie (possiamo mettere anche solo like o dislike) (se siamo pazzi introdurre rec sys ma dubito)
-
+1) rivedere i testi del tutorial (magari migliorarlo)
+2) Sistemare frecciette del tutorial e del Profiling Child
+3) Sistemare pagina login ( tasti login e register un po' brutti e poco chiari)
+4) Possibilità di poter modificare un personaggio una volta già inserito tenendo premuto su di esso
+5) archivio storie renderlo più carino
+6) Valutare se aggiungere immagini alle stories
+7) Voice Over anche in archivio storie, passare al voice over la versione pulita del testo prima del formatting
+8) Gestire i parametri dei settings con firebase (lingua e notifiche)
+9) Implementare le notifiche
+10) aggiunta di nuovi personaggi genera overflow pixels (fixare aspetto grafico)
+11) sistemare freccette profiling
+12) Migliorare autenticazione (password nascosata, recupera password cazzi e mazzi)
+13) ANALYTICS (vedere cosa si può fare)
+14) Migliorare il prompt
 
 
 Genera una storia della buonanotte personalizzata per [Nome del Bambino], un/a piccolo/a appassionato/a di [interesse del bambino, es. animali, fantasia]. I personaggi principali sono [Nome del Personaggio Principale], [Nome del Personaggio Amico 1] e [Nome del Personaggio Amico 2]. La storia dovrebbe svolgersi in un contesto [specifico, es. foresta magica, regno lontano]. La morale della storia dovrebbe insegnare [morale desiderata, es. gentilezza, coraggio].

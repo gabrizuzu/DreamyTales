@@ -5,7 +5,7 @@ import '../auth.dart';
 import 'login_register_page.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
@@ -56,55 +56,55 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             // Opzione 4: Feedback
             ListTile(
-              title: Text('Feedback'),
-              subtitle: Text('Send feedback or report issues'),
-              trailing: Icon(Icons.arrow_forward),
+              title: const Text('Feedback'),
+              subtitle: const Text('Send feedback or report issues'),
+              trailing: const Icon(Icons.arrow_forward),
               onTap: () {
                 _showFeedbackDialog(context);
               },
             ),
-            Divider(),
+            const Divider(),
 
             // Opzione 5: Informazioni sull'app
             InkWell(
               onTap: () {
                 _showAppInformationDialog(context);
               },
-              child: ListTile(
+              child: const ListTile(
                 title: Text('App Information'),
                 subtitle: Text('View information about the app'),
                 trailing: Icon(Icons.arrow_forward),
               ),
             ),
-            Divider(),
+            const Divider(),
 
             // Opzione 6: Privacy
             InkWell(
               onTap: () {
                 _showPrivacyDialog(context);
               },
-              child: ListTile(
+              child: const ListTile(
                 title: Text('Privacy'),
                 subtitle: Text('View our privacy policy'),
                 trailing: Icon(Icons.arrow_forward),
               ),
             ),
-            Divider(),
+            const Divider(),
 
             // Opzione 7: Esci dall'account
             ListTile(
-              title: Text('Sign Out'),
-              subtitle: Text('Sign out from your account'),
-              trailing: Icon(Icons.arrow_forward),
+              title: const Text('Sign Out'),
+              subtitle: const Text('Sign out from your account'),
+              trailing: const Icon(Icons.arrow_forward),
               onTap: () {
                 signOut();
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
                 );
               },
             ),
-            Divider(),
+            const Divider(),
 
 
           ],
@@ -144,18 +144,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Cancel'),
-                  ),
+
                   TextButton(
                     onPressed: () {
                       // Implementa qui la logica per inviare il feedback
                       Navigator.pop(context);
                     },
-                    child: const Text('Send'),
+                    child: const Text('Ok'),
                   ),
                 ],
               ),
@@ -245,11 +240,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: Text('Notification Settings'),
+              title: const Text('Notification Settings'),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Do you want to receive notifications?'),
+                  const Text('Do you want to receive notifications?'),
                   Switch(
                     value: receiveNotifications,
                     onChanged: (value) {
@@ -265,19 +260,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('Cancel'),
-                      ),
+
                       TextButton(
                         onPressed: () {
                           // Salvare le impostazioni delle notifiche e chiudere la finestra
                           Navigator.pop(context);
                           // Implementa qui la logica per salvare le impostazioni delle notifiche
                         },
-                        child: Text('Confirm'),
+                        child: const Text('Ok'),
                       ),
                     ],
                   ),
@@ -297,12 +287,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('App Information'),
+          title: const Text('App Information'),
           content: SingleChildScrollView(
             child: RichText(
               text: TextSpan(
                 style: DefaultTextStyle.of(context).style,
-                children: [
+                children: const [
                   TextSpan(
                     text: 'Dreamy Tales is a bedtime story app for children. ',
                     style: TextStyle(
@@ -327,7 +317,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -346,7 +336,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: RichText(
               text: TextSpan(
                 style: DefaultTextStyle.of(context).style,
-                children: <TextSpan>[
+                children: const <TextSpan>[
                   TextSpan(
                     text: 'Privacy Policy\n\n',
                     style: TextStyle(
@@ -417,7 +407,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
