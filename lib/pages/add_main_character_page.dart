@@ -363,8 +363,8 @@ class _AvatarPreviewState extends State<AvatarPreview> {
         padding: const EdgeInsets.all(8.0),
         child: ClipOval(
           child: Container(
-            width: 50.0,
-            height: 50.0,
+            width: 70.0,
+            height: 70.0,
             color: widget.isSelected ? Colors.amber : Colors.transparent,
             child: FittedBox(
               fit: BoxFit.contain, // Imposta il tipo di adattamento
