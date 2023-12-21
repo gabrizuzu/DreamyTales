@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
+import '../auth.dart';
 import 'login_register_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -17,13 +18,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/sfondo.jpg'),
             fit: BoxFit.cover,
           ),
         ),
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -32,28 +33,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onTap: () {
                 _showLanguageSelectionDialog(context);
               },
-              child: ListTile(
+              child: const ListTile(
                 title: Text('Language'),
                 subtitle: Text('Select the language of the app'),
                 trailing: Icon(Icons.arrow_forward),
               ),
             ),
-            Divider(),
+            const Divider(),
 
             // Opzione 2: Notifiche
             InkWell(
               onTap: () {
-                // Implementa la gestione dell'opzione qui
-                // Ad esempio, mostra una modalità per abilitare/disabilitare le notifiche
                 _showNotificationsDialog(context);
               },
-              child: ListTile(
+              child: const ListTile(
                 title: Text('Notifications'),
                 subtitle: Text('Enable or disable app notifications'),
                 trailing: Icon(Icons.arrow_forward),
               ),
             ),
-            Divider(),
+            const Divider(),
 
             // Opzione 4: Feedback
             ListTile(
@@ -69,8 +68,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             // Opzione 5: Informazioni sull'app
             InkWell(
               onTap: () {
-                // Implementa la gestione dell'opzione qui
-                // Ad esempio, mostra una modalità con informazioni sull'app
                 _showAppInformationDialog(context);
               },
               child: ListTile(
@@ -84,8 +81,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             // Opzione 6: Privacy
             InkWell(
               onTap: () {
-                // Implementa la gestione dell'opzione qui
-                // Ad esempio, mostra una modalità con la politica sulla privacy
                 _showPrivacyDialog(context);
               },
               child: ListTile(
@@ -102,6 +97,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               subtitle: Text('Sign out from your account'),
               trailing: Icon(Icons.arrow_forward),
               onTap: () {
+                signOut();
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => LoginPage()),
@@ -110,16 +106,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             Divider(),
 
-            // Opzione 8: Resetta impostazioni
-            ListTile(
-              title: Text('Reset Settings'),
-              subtitle: Text('Restore default app settings'),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () {
-                // Implementa la gestione dell'opzione qui
-              },
-            ),
-            Divider(),
+
           ],
         ),
       ),
@@ -131,17 +118,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Feedback'),
+          title: const Text('Feedback'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Send feedback or report issues to:'),
+              const Text('Send feedback or report issues to:'),
               GestureDetector(
                 onTap: () {
                   // Aprire l'app di posta predefinita con la mail di destinazione
-                  launch('mailto:dreamytales@flutter.com');
+                  launchUrlString('mailto:dreamytales@flutter.com');
                 },
-                child: Text(
+                child: const Text(
                   'dreamytales@flutter.com',
                   style: TextStyle(
                     color: Colors.blue, // Colore blu per indicare un link
@@ -161,14 +148,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                   ),
                   TextButton(
                     onPressed: () {
                       // Implementa qui la logica per inviare il feedback
                       Navigator.pop(context);
                     },
-                    child: Text('Send'),
+                    child: const Text('Send'),
                   ),
                 ],
               ),
@@ -186,12 +173,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: Text('Language Selection'),
+              title: const Text('Language Selection'),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ListTile(
-                    title: Text('Italiano'),
+                    title: const Text('Italiano'),
                     onTap: () {
                       setState(() {
                         selectedLanguage = 'Italiano';
@@ -208,7 +195,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   ListTile(
-                    title: Text('English'),
+                    title: const Text('English'),
                     onTap: () {
                       setState(() {
                         selectedLanguage = 'English';
@@ -233,17 +220,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     children: [
                       TextButton(
                         onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('Cancel'),
-                      ),
-                      TextButton(
-                        onPressed: () {
                           // Salvare la lingua selezionata e chiudere la finestra
                           Navigator.pop(context);
                           // Implementa qui la logica per salvare la lingua selezionata
                         },
-                        child: Text('Confirm'),
+                        child: const Text('Ok'),
                       ),
                     ],
                   ),
@@ -444,4 +425,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  Future<void> signOut() async {
+    await Auth().signOut();
+  }
+
+
 }
+
