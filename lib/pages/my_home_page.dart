@@ -6,11 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:dreamy_tales/pages/analitics_page.dart';
 import 'package:dreamy_tales/pages/myStories.dart';
 import 'package:dreamy_tales/pages/settings_page.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../widgets/myDrawer.dart';
 import 'app_category.dart';
 import 'package:dreamy_tales/auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
