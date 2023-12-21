@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dreamy_tales/pages/reading_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -31,12 +32,18 @@ class MyStories extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Text("Loading...");
             }
-
+            List<DocumentSnapshot> docs = snapshot.data!.docs;
+              if (docs.isEmpty) {
+                return Center(
+                  child: Text("You haven't written any stories yet"),
+                );
+              } else {
             return ListView(
-              children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              children: docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data = document.data() as Map<String, dynamic>;
                 String title = data['title'];
                 List<String> protagonists;
+                double? rating;
                 var protagonistsData = data['characters'];
 
                 if (protagonistsData is String) {
@@ -46,16 +53,61 @@ class MyStories extends StatelessWidget {
                 } else {
                   throw Exception('Unexpected data type for protagonists');
                 }
-                double rating = data['rating'];
+               
+                rating = data['rating'];
+
 
                 return Card(
-                  color: Colors.black,
+                  color: Colors.black.withOpacity(0.6),
                   elevation: 5,
                   child: ListTile(
-                    title: Text(
-                      title,
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
+                    // elimina storia
+                      onLongPress: () {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Delete story'),
+                                content: const Text('Do you want to delete this story?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context, 'No'),
+                                    child: const Text('No'),
+                                  ),
+                                TextButton(
+                                  onPressed: () async {
+                                    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+                                      .collection('stories')
+                                      .where('title', isEqualTo: title)
+                                      .get();
+
+                                    if (querySnapshot.docs.isNotEmpty) {
+                                      querySnapshot.docs[0].reference.delete();
+                                    }
+
+                                    Navigator.pop(context, 'Conferma');
+                                  },
+                                  child: const Text('Conferma', style: TextStyle(color: Colors.red)),
+                                ),
+                                ],
+                              ),
+                            );
+                          },
+                        onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ReadingPage(storyText: data['text']),
+                          ),
+                        );
+                      },
+                      
+                      title: title != '' ? Text(
+                        title,
+                        style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
+                      ): Text(
+                        'Amazing Story',
+                        style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
+                      ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -63,6 +115,22 @@ class MyStories extends StatelessWidget {
                           'Protagonists: ${protagonists.join(', ')}',
                           style: TextStyle(color: Colors.white),
                         ),
+                        Text(
+                          'Date: ${data['date']}',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Row(
+                          children:[
+                        Text(
+                          'Rating:',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        rating == null ?
+                          Text(
+                          'No rating',
+                          style: TextStyle(color: Colors.white),
+                        )
+                        :
                         RatingBarIndicator(
                           rating: rating,
                           itemBuilder: (context, index) => const Icon(
@@ -72,6 +140,8 @@ class MyStories extends StatelessWidget {
                           itemCount: 5,
                           itemSize: 20.0,
                           direction: Axis.horizontal,
+                        )
+                        ]
                         ),
                       ],
                     ),
@@ -79,6 +149,7 @@ class MyStories extends StatelessWidget {
                 );
               }).toList(),
             );
+            }
           },
         ),
       ),
@@ -86,52 +157,4 @@ class MyStories extends StatelessWidget {
   }
 }
 
-class Story {
-  final String title;
-  final String date;
-  final String text;
-
-  Story({required this.title, required this.text, required this.date});
-}
-
-class StoryCard extends StatelessWidget {
-  final Story story;
-
-  const StoryCard({Key? key, required this.story}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.black.withOpacity(0.6),
-      elevation: 5,
-      margin: EdgeInsets.symmetric(vertical: 8.0),
-      child: ListTile(
-        contentPadding: EdgeInsets.all(16.0),
-        title: Text(
-          story.title,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 8.0),
-            Text(
-              'Author: ${story.text}',
-              style: TextStyle(color: Colors.white),
-            ),
-            SizedBox(height: 4.0),
-            Text(
-              'Date: ${story.date}',
-              style: TextStyle(color: Colors.white),
-            ),
-          ],
-        ),
-        onTap: () {
-          // Implementa la navigazione alla pagina della storia completa
-          // Puoi utilizzare Navigator.push per spostarti a una nuova pagina
-        },
-      ),
-    );
-  }
-}
 
