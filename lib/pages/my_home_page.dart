@@ -54,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
+        iconTheme: IconThemeData(color: Colors.amber), // Imposta il colore desiderato
         title: Text(
           "Dreamy Tales",
           style: const TextStyle(
@@ -61,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
             fontWeight: FontWeight.bold,
             fontFamily: 'Comic Sans MS',
             color: Colors.amber,
-
           ),
         ),
         elevation: 10,
@@ -115,9 +115,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('characters')
-                        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                        .where('userId',
+                            isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                         .snapshots(),
-                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasError) {
                         return const Text('Something went wrong');
                       }
@@ -128,9 +130,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       return ListView(
                         scrollDirection: Axis.horizontal,
-                        children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                        children: snapshot.data!.docs
+                            .map((DocumentSnapshot document) {
                           Map<String, dynamic> data =
-                          document.data() as Map<String, dynamic>;
+                              document.data() as Map<String, dynamic>;
                           String imagePath = data['avatar'];
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -150,7 +153,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                             TextButton(
                                               child: const Text('Cancel'),
                                               onPressed: () {
-                                                Navigator.of(context).pop(false);
+                                                Navigator.of(context)
+                                                    .pop(false);
                                               },
                                             ),
                                             TextButton(
@@ -171,7 +175,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                           .delete();
                                     }
                                   },
-
                                   child: ClipOval(
                                     child: Image.asset(
                                       imagePath,
@@ -182,12 +185,48 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-                                Text(
-                                  data['name'],
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: data['name'] != null &&
+                                            data['name'].isNotEmpty
+                                            ? data['name']![0].toUpperCase()
+                                            : '',
+                                        style: TextStyle(
+                                          color: Colors.amber,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 24,
+                                          decoration: TextDecoration.none,
+                                          shadows: [
+                                            Shadow(
+                                              color: Colors.black, // Colore dell'ombra
+                                              offset: Offset(1.0, 1.0), // Offset dell'ombra rispetto al testo
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: data['name'] != null &&
+                                            data['name'].length > 1
+                                            ? data['name']!
+                                            .substring(1)
+                                            .toLowerCase()
+                                            : '',
+                                        style: TextStyle(
+                                          color: Colors.amber,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          decoration: TextDecoration.none,
+                                          shadows: [
+                                            Shadow(
+                                              color: Colors.black, // Colore dell'ombra
+                                              offset: Offset(1.0, 1.0), // Offset dell'ombra rispetto al testo
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -216,7 +255,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => AddMainCharacterPage(),
+                                            builder: (context) =>
+                                                AddMainCharacterPage(),
                                           ),
                                         );
                                       },
@@ -240,8 +280,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-
-
               Padding(
                 padding: const EdgeInsets.only(left: 18.0, top: 45.0),
                 child: Row(
@@ -269,9 +307,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('second_characters')
-                        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                        .where('userId',
+                            isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                         .snapshots(),
-                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasError) {
                         return const Text('Something went wrong');
                       }
@@ -282,9 +322,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       return ListView(
                         scrollDirection: Axis.horizontal,
-                        children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                        children: snapshot.data!.docs
+                            .map((DocumentSnapshot document) {
                           Map<String, dynamic> data =
-                          document.data() as Map<String, dynamic>;
+                              document.data() as Map<String, dynamic>;
                           String imagePath = data['avatar'];
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -304,7 +345,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                             TextButton(
                                               child: const Text('Cancel'),
                                               onPressed: () {
-                                                Navigator.of(context).pop(false);
+                                                Navigator.of(context)
+                                                    .pop(false);
                                               },
                                             ),
                                             TextButton(
@@ -335,12 +377,48 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-                                Text(
-                                  data['name'],
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
+                                RichText(
+                                text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: data['name'] != null &&
+                                                data['name'].isNotEmpty
+                                            ? data['name']![0].toUpperCase()
+                                            : '',
+                                        style: TextStyle(
+                                          color: Colors.amber,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 24,
+                                          decoration: TextDecoration.none,
+                                          shadows: [
+                                            Shadow(
+                                              color: Colors.black, // Colore dell'ombra
+                                              offset: Offset(1.0, 1.0), // Offset dell'ombra rispetto al testo
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: data['name'] != null &&
+                                                data['name'].length > 1
+                                            ? data['name']!
+                                                .substring(1)
+                                                .toLowerCase()
+                                            : '',
+                                        style: TextStyle(
+                                          color: Colors.amber,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          decoration: TextDecoration.none,
+                                          shadows: [
+                                            Shadow(
+                                              color: Colors.black, // Colore dell'ombra
+                                              offset: Offset(1.0, 1.0), // Offset dell'ombra rispetto al testo
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -369,7 +447,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => AddSecondCharacterPage(),
+                                            builder: (context) =>
+                                                AddSecondCharacterPage(),
                                           ),
                                         );
                                       },
@@ -393,7 +472,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-
               Expanded(
                 child:
                     Container(), // Questo spinge il pulsante in fondo alla pagina
@@ -436,4 +514,3 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 }
-

@@ -45,10 +45,7 @@ class MyDrawer extends StatelessWidget {
                     Colors.deepPurple.withOpacity(0.7),
                   ],
                 ),
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
+
               ),
               child: DrawerHeader(
                 decoration: BoxDecoration(
@@ -60,10 +57,6 @@ class MyDrawer extends StatelessWidget {
                       Colors.deepPurple.withOpacity(0.7),
                     ],
                   ),
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
                 ),
                 child: FutureBuilder(
                   future: SharedPreferences.getInstance(),
@@ -71,14 +64,30 @@ class MyDrawer extends StatelessWidget {
                       AsyncSnapshot<SharedPreferences> snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       String? name = snapshot.data?.getString('name');
-                      return Text(
-                        'Welcome back, ${name ?? 'Guest'}!',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
+                      return RichText(
+                        text: TextSpan(
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                          ),
+                          children: [
+                            const TextSpan(
+                              text: 'Welcome back,\n',
+                            ),
+                            TextSpan(
+                              text: '${(name ?? 'Guest').toUpperCase()}',
+                              style: TextStyle(
+                                color: Colors.amber,
+                              ),
+                            ),
+                            const TextSpan(
+                              text: ' !',
+                            ),
+                          ],
                         ),
                       );
+
                     } else {
                       return CircularProgressIndicator(); // mostra un indicatore di caricamento mentre attende
                     }
@@ -122,13 +131,13 @@ class MyDrawer extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                color: isSelected ? Colors.white : Colors.deepPurple,
+                color: isSelected ? Colors.white : Colors.amber,
               ),
               const SizedBox(width: 16),
               Text(
                 title,
                 style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.deepPurple,
+                  color: isSelected ? Colors.white : Colors.amber,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
