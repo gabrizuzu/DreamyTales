@@ -49,6 +49,7 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
             fontSize: 22,
             fontWeight: FontWeight.bold,
             fontFamily: 'Comic Sans MS',
+            color: Colors.amber,
           ),
         ),
         elevation: 10,
@@ -188,53 +189,58 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Row(
-                  children: [
-                    // Metti l'avatar selezionato come primo tra i quattro
-                    if (selectedAvatar != null)
-                      AvatarPreview(
-                        imagePath: selectedAvatar!,
-                        onPressed: () {
-                          setState(() {
-                            selectedAvatar = null;
-                          });
-                        },
-                        isSelected: true,
-                      ),
-                    // Anteprima delle prime 3 immagini (escludendo l'avatar selezionato)
-                    for (int i = 0; i < 3; i++)
-                      if (allAvatars[i] != selectedAvatar)
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      // Metti l'avatar selezionato come primo tra i quattro
+                      if (selectedAvatar != null)
                         AvatarPreview(
-                          imagePath: allAvatars[i],
+                          imagePath: selectedAvatar!,
                           onPressed: () {
                             setState(() {
-                              selectedAvatar = allAvatars[i];
+                              selectedAvatar = null;
                             });
                           },
+                          isSelected: true,
                         ),
-                    // Bottone per visualizzare altri avatar
-                    GestureDetector(
-                      onTap: () {
-                        _showAllAvatarsDialog();
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          color: Colors.amber,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: const Text(
-                          'Vedi altri',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                      // Anteprima delle prime 3 immagini (escludendo l'avatar selezionato)
+                      for (int i = 0; i < 6; i++)
+                        if (allAvatars[i] != selectedAvatar)
+                          AvatarPreview(
+                            imagePath: allAvatars[i],
+                            onPressed: () {
+                              setState(() {
+                                selectedAvatar = allAvatars[i];
+                              });
+                            },
+                          ),
+                      // Bottone per visualizzare altri avatar
+                      GestureDetector(
+                        onTap: () {
+                          _showAllAvatarsDialog(); // Chiamata alla tua funzione esistente
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            color: Colors.amber,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: const Text(
+                            'Vedi altri',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
+
+
               Expanded(
                 child: Container(),
               ),
@@ -278,45 +284,32 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
   }
 
   void _showAllAvatarsDialog() {
-    showDialog(
+    showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Seleziona un avatar'),
-          content: SingleChildScrollView(
-            child: Column(
-              children: [
-                // Metti l'avatar selezionato come primo
-                if (selectedAvatar != null)
-                  AvatarPreview(
-                    imagePath: selectedAvatar!,
-                    onPressed: () {
-                      setState(() {
-                        selectedAvatar = null;
-                      });
-                      Navigator.pop(context);
-                    },
-                    isSelected: true,
-                  ),
-                // Mostra tutte le immagini degli avatar
-                for (String avatarPath in _sortedAvatarList())
-                  if (avatarPath != selectedAvatar)
-                    AvatarPreview(
-                      imagePath: avatarPath,
-                      onPressed: () {
-                        setState(() {
-                          selectedAvatar = avatarPath;
-                        });
-                        Navigator.pop(context);
-                      },
-                    ),
-              ],
-            ),
+        return Container(
+          height: 150.0, // Altezza fissa dello slider orizzontale
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: _sortedAvatarList().length,
+            itemBuilder: (BuildContext context, int index) {
+              String avatarPath = _sortedAvatarList()[index];
+              return AvatarPreview(
+                imagePath: avatarPath,
+                onPressed: () {
+                  setState(() {
+                    selectedAvatar = avatarPath;
+                  });
+                  Navigator.pop(context);
+                },
+              );
+            },
           ),
         );
       },
     );
   }
+
 
   List<String> _sortedAvatarList() {
     List<String> sortedList = List.from(allAvatars);
