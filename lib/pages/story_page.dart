@@ -23,7 +23,7 @@ class _StoryPageState extends State<StoryPage> {
   DocumentReference? docRef;
   bool _isPlaying = false;
   double? _currentRating;
-  FlutterTts _flutterTts = FlutterTts();
+  final FlutterTts _flutterTts = FlutterTts();
 
 
   @override
@@ -75,7 +75,7 @@ class _StoryPageState extends State<StoryPage> {
         _story = data['choices'][0]['message']['content'];
         RegExp titleExp = RegExp(r'Title: (.*?)\*\*');
         RegExpMatch? titleMatch = titleExp.firstMatch(_story);
-        _title = titleMatch != null ? titleMatch.group(1)?.trim() : "";
+        _title = titleMatch != null ? titleMatch.group(1)?.trim() : "Amazing Story";
         _isGenerating = false;
       });
       var firestore = FirebaseFirestore.instance;

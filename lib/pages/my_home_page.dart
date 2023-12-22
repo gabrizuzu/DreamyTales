@@ -52,16 +52,29 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     Navigator.pop(context); // Chiudi il Drawer
   }
-
+  String _getTitleForCurrentCategory() {
+  switch (_currentCategory) {
+    case AppCategory.home:
+      return "Dreamy Tales";
+    case AppCategory.myStories:
+      return "My Stories";
+    case AppCategory.analytics:
+      return "Analytics";
+    case AppCategory.settings:
+      return "Settings";
+    default:
+      return "Dreamy Tales";
+  }
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
         iconTheme: const IconThemeData(color: Colors.amber), // Imposta il colore desiderato
-        title: const Text(
-          "Dreamy Tales",
-          style: TextStyle(
+        title: Text(
+          _getTitleForCurrentCategory(),
+          style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             fontFamily: 'Comic Sans MS',

@@ -1,10 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 
 class Analytics extends StatelessWidget {
   const Analytics({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String? userId = FirebaseAuth.instance.currentUser!.uid;
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -13,42 +18,64 @@ class Analytics extends StatelessWidget {
             fit: BoxFit.fill,
           ),
         ),
-        child: const Padding(
-          padding: EdgeInsets.all(16.0),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Numero totale di storie lette:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('stories')
+                    .where('userId', isEqualTo: userId)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Card(
+                      color: Colors.deepPurpleAccent,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text('Generated Stories: ${snapshot.data!.docs.length}', style: const TextStyle(fontSize: 20, color: Colors.white)),
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('Errore: ${snapshot.error}');
+                  }
+                  return const CircularProgressIndicator();
+                },
               ),
-              SizedBox(height: 8),
-              Text(
-                '25', // Sostituire con il dato dinamico
-                style: TextStyle(fontSize: 30, color: Colors.blue),
+              const SizedBox(height: 20),
+              const Text('Top 5 stories', style: TextStyle(fontSize: 24, color: Colors.deepPurple)),
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('stories')
+                    .where('userId', isEqualTo: userId)
+                    .orderBy('rating', descending: true)
+                    .limit(5)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              child: Text('${index + 1}'),
+                              backgroundColor: Colors.deepPurple,
+                              foregroundColor: Colors.white,
+                            ),
+                            title: Text(snapshot.data!.docs[index]['title'], style: const TextStyle(fontSize: 18)),
+                            subtitle: Text('Rating: ${snapshot.data!.docs[index]['rating']}', style: const TextStyle(fontSize: 16)),
+                          ),
+                        );
+                      },
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('Errore: ${snapshot.error}');
+                  }
+                  return const CircularProgressIndicator();
+                },
               ),
-              SizedBox(height: 24),
-              Text(
-                'Tempo medio di lettura:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-              ),
-              SizedBox(height: 8),
-              Text(
-                '10 minuti', // Sostituire con il dato dinamico
-                style: TextStyle(fontSize: 30, color: Colors.green),
-              ),
-              SizedBox(height: 24),
-              Text(
-                'Storie preferite:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Storia A, Storia B, Storia Cccccccccc', // Sostituire con il dato dinamico
-                style: TextStyle(fontSize: 30, color: Colors.orange),
-              ),
-              SizedBox(height: 24),
-              // Aggiungi altri dati e grafici come necessario...
             ],
           ),
         ),

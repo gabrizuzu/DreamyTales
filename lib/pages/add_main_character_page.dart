@@ -129,45 +129,6 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
-                    labelText: 'Tastes',
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  items: <String>[
-                    'Marvel',
-                    'Disney',
-                    'Hogwarts',
-                    'Star Wars',
-                    'Others'
-                  ].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please fill this field';
-                    }
-                    return null;
-                  },
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      tastes = newValue;
-                    });
-                  },
-                  onSaved: (String? value) {
-                    tastes = value;
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -259,8 +220,8 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                           .amber, // Imposta il colore di sfondo del pulsante
                     ),
                     child: TextButton.icon(
-                      icon: Icon(Icons.check), // Imposta l'icona del pulsante
-                      label: Text("Save"), // Imposta il testo del pulsante
+                      icon: const Icon(Icons.check), // Imposta l'icona del pulsante
+                      label: const Text("Save"), // Imposta il testo del pulsante
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
                           _formKey.currentState?.save();

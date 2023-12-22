@@ -1,2 +1,2 @@
 // app_category.dart
-enum AppCategory {home, myStories, profiling, analytics, settings, logout}
+enum AppCategory {home, myStories, analytics, settings, logout}
