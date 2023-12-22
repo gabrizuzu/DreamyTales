@@ -3,6 +3,7 @@ import 'package:dreamy_tales/pages/reading_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:share/share.dart';
 
 class MyStories extends StatelessWidget {
   const MyStories({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class MyStories extends StatelessWidget {
             }
             List<DocumentSnapshot> docs = snapshot.data!.docs;
               if (docs.isEmpty) {
-                return Center(
+                return const Center(
                   child: Text("You haven't written any stories yet"),
                 );
               } else {
@@ -42,6 +43,7 @@ class MyStories extends StatelessWidget {
               children: docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data = document.data() as Map<String, dynamic>;
                 String title = data['title'];
+                
                 List<String> protagonists;
                 double? rating;
                 var protagonistsData = data['characters'];
@@ -101,32 +103,43 @@ class MyStories extends StatelessWidget {
                         );
                       },
                       
-                      title: title != '' ? Text(
-                        title,
-                        style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
-                      ): Text(
-                        'Amazing Story',
-                        style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
+                      title: Row ( children:[
+                        Expanded(
+                          child: title != '' ? Text(
+                            title,
+                            style: const TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
+                          ): const Text(
+                            'Amazing Story',
+                            style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        IconButton(
+                          icon:const  Icon(Icons.send),
+                          onPressed: () {
+                            Share.share('Look at my bedtime Storie generated with DreamyTales : ${data['text']}');
+                          },
+                        ),
+                       ]
                       ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Protagonists: ${protagonists.join(', ')}',
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                         Text(
                           'Date: ${data['date']}',
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                         Row(
                           children:[
-                        Text(
+                        const Text(
                           'Rating:',
                           style: TextStyle(color: Colors.white),
                         ),
                         rating == null ?
-                          Text(
+                        const Text(
                           'No rating',
                           style: TextStyle(color: Colors.white),
                         )

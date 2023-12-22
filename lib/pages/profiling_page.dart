@@ -94,7 +94,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween, // Allineato spazialmente tra gli elementi
               children: [
-                if (_currentPage > 0)
+                if (_currentPage > 0 && _currentPage != 0)
                   IconButton(
                     onPressed: () {
                       _pageController.previousPage(
@@ -105,7 +105,23 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                     icon: Icon(Icons.arrow_back),
                     color: Colors.amber,
                   ),
-                if (_currentPage < profileOptions.length - 1)
+                  if (_currentPage == 0)
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: IconButton(
+                          onPressed: () {
+                            _pageController.nextPage(
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.ease,
+                            );
+                          },
+                          icon: Icon(Icons.arrow_forward),
+                          color: Colors.amber,
+                        ),
+                      ),
+                    ),
+                if (_currentPage < profileOptions.length - 1 && _currentPage != 0)
                   IconButton(
                     onPressed: () {
                       _pageController.nextPage(
@@ -148,7 +164,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
 
     return Container(
       //color: Colors.amber,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/cornice_1.png'),
           fit: BoxFit.fill,
@@ -157,7 +173,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
       ),
 
       child: Padding(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
             left: 40.0,
             right: 40.0,
             top: 0.0,
@@ -169,17 +185,17 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.only(bottom: 5),
-              child: Container(
+              padding: const EdgeInsets.only(bottom: 5),
+              
 
-                child: Image.asset('assets/logo_profilazione.jpeg', width: 100, height: 100),
-              ),
+              child: Image.asset('assets/logo_profilazione.jpeg', width: 100, height: 100),
+              
             ),
             if (option['type'] == 'text')
 
               TextField(
                 controller: option['key'] == 'name' ? nameController : ageController,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
@@ -198,13 +214,13 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                 decoration: InputDecoration(
                   labelText: option['title'],
                   filled: true,
-                  fillColor: Colors.black.withOpacity(0.5),
+                  fillColor: Colors.grey.withOpacity(0.5),
                 ),
               ),
             if (option['type'] == 'numeric')
               TextField(
                 controller : ageController,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
@@ -247,7 +263,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                             ),
                             borderRadius: BorderRadius.circular(15.0),
                           ),
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
                               Image.asset(
@@ -255,7 +271,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                                 width: 100,
                                 height: 100,
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Text(
                                 genderOption['label'],
                                 style: TextStyle(
@@ -266,7 +282,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                     ],
                   );
                 }).toList(),
@@ -301,7 +317,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                             width: 90,
                             height: 90,
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           Container(
                             alignment: Alignment.center,
                             child: Text(
@@ -317,9 +333,6 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                   );
                 }).toList(),
               ),
-
-
-
           ],
         ),
       ),
@@ -336,7 +349,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
 
   Widget _buildPageIndicatorItem(bool isActive) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 4.0),
+      margin: const EdgeInsets.symmetric(horizontal: 4.0),
       height: 8.0,
       width: isActive ? 24.0 : 8.0,
       decoration: BoxDecoration(

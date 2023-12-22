@@ -136,7 +136,7 @@ class _StoryPageState extends State<StoryPage> {
               children: <Widget>[
                 // Immagine di sfondo animata
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/sfondo.jpg'),
                       // sostituisci con il percorso della tua immagine animata
@@ -146,11 +146,15 @@ class _StoryPageState extends State<StoryPage> {
                 ),
                 // Indicatore di progresso al centro
                 Center(
-                  child: CircularProgressIndicator(),
+                  child: Image.asset(
+                    'assets/picmix.com_406047.gif', // sostituisci con il percorso della tua GIF
+                    width: double.infinity, 
+                    height: double.infinity, 
+                  ),
                 ),
                 // Testo di attesa
-                Positioned(
-                  bottom: 20,
+                const Positioned(
+                  bottom: 50,
                   left: 0,
                   right: 0,
                   child: Center(

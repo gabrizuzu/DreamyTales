@@ -24,11 +24,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   AppCategory _currentCategory = AppCategory.home;
   bool? color = false;
+  String? userEmail = FirebaseAuth.instance.currentUser!.email;
 
   void _logout() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
+      MaterialPageRoute(builder: (context) => const LoginPage()),
     );
   }
 
@@ -54,10 +55,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
-        iconTheme: IconThemeData(color: Colors.amber), // Imposta il colore desiderato
-        title: Text(
+        iconTheme: const IconThemeData(color: Colors.amber), // Imposta il colore desiderato
+        title: const Text(
           "Dreamy Tales",
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             fontFamily: 'Comic Sans MS',
@@ -100,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.amber,
                           shadows: List.generate(
                               1,
-                              (index) => Shadow(
+                              (index) => const Shadow(
                                   color: Colors.black,
                                   blurRadius: 10,
                                   offset: Offset(1, 1)))),
@@ -193,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             data['name'].isNotEmpty
                                             ? data['name']![0].toUpperCase()
                                             : '',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.amber,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 24,
@@ -213,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             .substring(1)
                                             .toLowerCase()
                                             : '',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.amber,
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
@@ -292,7 +293,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.amber,
                           shadows: List.generate(
                               1,
-                              (index) => Shadow(
+                              (index) => const Shadow(
                                   color: Colors.black,
                                   blurRadius: 10,
                                   offset: Offset(1, 1)))),
@@ -385,7 +386,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 data['name'].isNotEmpty
                                             ? data['name']![0].toUpperCase()
                                             : '',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.amber,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 24,
@@ -405,7 +406,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 .substring(1)
                                                 .toLowerCase()
                                             : '',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.amber,
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
@@ -448,7 +449,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                AddSecondCharacterPage(),
+                                                const AddSecondCharacterPage(),
                                           ),
                                         );
                                       },
@@ -483,14 +484,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     // Questo rende il pulsante largo quanto la pagina
                     height: 60.0,
                     // Imposta l'altezza del pulsante
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors
                           .amber, // Imposta il colore di sfondo del pulsante
                     ),
                     child: TextButton.icon(
-                      icon: Icon(Icons.star),
+                      icon: const Icon(Icons.star),
                       // Imposta l'icona del pulsante
-                      label: Text("Let's start the magic"),
+                      label: const Text("Let's start the magic"),
                       // Imposta il testo del pulsante
                       onPressed: () {
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
