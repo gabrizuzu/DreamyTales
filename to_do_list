@@ -1,17 +1,17 @@
-1) rivedere i testi del tutorial (magari migliorarlo)
-2) Sistemare frecciette del tutorial e del Profiling Child
-3) Sistemare pagina login ( tasti login e register un po' brutti e poco chiari)
-4) Possibilità di poter modificare un personaggio una volta già inserito tenendo premuto su di esso
-5) archivio storie renderlo più carino
-6) Valutare se aggiungere immagini alle stories
-7) Voice Over anche in archivio storie, passare al voice over la versione pulita del testo prima del formatting
-8) Gestire i parametri dei settings con firebase (lingua e notifiche)
-9) Implementare le notifiche
-10) aggiunta di nuovi personaggi genera overflow pixels (fixare aspetto grafico)
-11) sistemare freccette profiling
-12) Migliorare autenticazione (password nascosata, recupera password cazzi e mazzi)
-13) ANALYTICS (vedere cosa si può fare)
-14) Migliorare il prompt
+1) rivedere i testi del tutorial (magari migliorarlo) Gabri
+2) Sistemare frecciette del tutorial e del Profiling Child Gabri
+3) Sistemare pagina login ( tasti login e register un po' brutti e poco chiari)  Gabri
+4) Possibilità di poter modificare un personaggio una volta già inserito tenendo premuto su di esso Ram
+5) archivio storie renderlo più carino Ram
+6) Valutare se aggiungere immagini alle stories Ram
+7) Voice Over anche in archivio storie, passare al voice over la versione pulita del testo prima del formatting Ram
+8) Gestire i parametri dei settings con firebase (lingua) Gabri
+9) Implementare le notifiche Gabri
+10) aggiunta di nuovi personaggi genera overflow pixels (fixare aspetto grafico) Gabri
+12) Migliorare autenticazione (password nascosata, recupera password cazzi e mazzi) Gabri
+13) ANALYTICS (vedere cosa si può fare) ??
+14) Migliorare il prompt Gabri
+15) migliorare pagina attesa Gabri
 
 
 Genera una storia della buonanotte personalizzata per [Nome del Bambino], un/a piccolo/a appassionato/a di [interesse del bambino, es. animali, fantasia]. I personaggi principali sono [Nome del Personaggio Principale], [Nome del Personaggio Amico 1] e [Nome del Personaggio Amico 2]. La storia dovrebbe svolgersi in un contesto [specifico, es. foresta magica, regno lontano]. La morale della storia dovrebbe insegnare [morale desiderata, es. gentilezza, coraggio].

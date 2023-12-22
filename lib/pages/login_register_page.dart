@@ -64,29 +64,46 @@ class _LoginPageState extends State<LoginPage> {
   Widget _entryField(
       String title,
       TextEditingController controller,
+      {bool isPassword = false}
       ) {
-    return TextField(
-      controller: controller,
-      style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-      ),
-      decoration: InputDecoration(
-        labelText: title,
-        labelStyle: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-        filled: true,
-        fillColor: Colors.black.withOpacity(0.5), // Colore scuro di sfondo
-      ),
-    );
+      return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return TextField(
+              controller: controller,
+              obscureText: isPassword,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+              decoration: InputDecoration(
+                labelText: title,
+                labelStyle: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                filled: true,
+                fillColor: Colors.black.withOpacity(0.5), // Colore scuro di sfondo
+                suffixIcon: isPassword ? IconButton(
+                  icon: const Icon(
+                    Icons.remove_red_eye,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isPassword = !isPassword;
+                    });
+                  },
+                ) : null,
+              ),
+            );
+          }
+        );
   }
 
   Widget _errorMessage() {
     return Text(
-      errorMessage == '' ? '' : 'Humm ? $errorMessage',
-      style: TextStyle(
+      errorMessage == '' ? '' : 'Warning ? $errorMessage',
+      style: const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.bold,
       ),
@@ -97,11 +114,11 @@ class _LoginPageState extends State<LoginPage> {
     return ElevatedButton(
       onPressed: isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
       style: ElevatedButton.styleFrom(
-        primary: Colors.black.withOpacity(0.5), // Colore scuro di sfondo
+        backgroundColor: Colors.black.withOpacity(0.5), // Colore scuro di sfondo
       ),
       child: Text(
         isLogin ? 'Login' : 'Register',
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.amber,
           fontWeight: FontWeight.bold,
         ),
@@ -117,12 +134,11 @@ class _LoginPageState extends State<LoginPage> {
         });
       },
       style: TextButton.styleFrom(
-        primary: Colors.black.withOpacity(0.5), // Colore scuro di sfondo
         backgroundColor: Colors.black.withOpacity(0.5)
       ),
       child: Text(
         isLogin ? 'Register instead' : 'Login instead',
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.amber,
           fontWeight: FontWeight.bold,
         ),
@@ -137,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
         height: double.infinity,
         width: double.infinity,
         padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/sfondo_login.jpeg'),
             fit: BoxFit.cover,
@@ -149,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             _logo(),
             _entryField('email', _controllerEmail),
-            _entryField('password', _controllerPassword),
+            _entryField('password', _controllerPassword, isPassword: true),
             _errorMessage(),
             _submitButton(),
             _loginOrRegisterButton(),
