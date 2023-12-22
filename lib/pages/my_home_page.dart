@@ -12,6 +12,9 @@ import 'package:dreamy_tales/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'edit_character.dart';
+import 'edit_second_character.dart';
+
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -141,6 +144,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Column(
                               children: [
                                 InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => EditCharacterPage(
+                                          characterId: document.id,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   onLongPress: () async {
                                     bool? shouldDelete = await showDialog<bool>(
                                       context: context,
@@ -333,6 +346,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Column(
                               children: [
                                 InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => EditSecondCharacterPage(
+                                          characterId: document.id,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   onLongPress: () async {
                                     bool? shouldDelete = await showDialog<bool>(
                                       context: context,

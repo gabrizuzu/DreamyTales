@@ -23,12 +23,14 @@ class _StoryPageState extends State<StoryPage> {
   DocumentReference? docRef;
   bool _isPlaying = false;
   double? _currentRating;
-  final FlutterTts _flutterTts = FlutterTts();
+  FlutterTts _flutterTts = FlutterTts();
+
 
   @override
   void initState() {
     super.initState();
     _generateStory();
+    _flutterTts.setLanguage('en-US');
   }
 
   Future<void> _generateStory() async {
@@ -309,53 +311,90 @@ class _StoryPageState extends State<StoryPage> {
                         ],
                       ),
                     ),
-                    if (_isPlaying)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        if (!_isPlaying)
+                          IconButton(
+                            icon: Icon(Icons.play_arrow),
+                            onPressed: _play,
+                          ),
+                        if (_isPlaying)
                           IconButton(
                             icon: Icon(Icons.pause),
-                            onPressed: () async {
-                              await _flutterTts.pause();
-                            },
+                            onPressed: _pause,
                           ),
+                        if (_isPlaying)
                           IconButton(
                             icon: Icon(Icons.stop),
-                            onPressed: () async {
-                              await _flutterTts.stop();
-                              setState(() {
-                                _isPlaying = false;
-                              });
-                            },
+                            onPressed: _stop,
                           ),
-                        ],
-                      )
-                    else
-                      GestureDetector(
-                        onTap: () async {
-                          await _flutterTts.speak(_story);
-                          setState(() {
-                            _isPlaying = true;
-                          });
-                        },
-                        child: Container(
-                          height: 50,
-                          color: Colors.amber,
-                          child: const Center(
-                            child: Text(
-                              'Magic Reader',
-                              style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontSize: 18,
-                              ),
-                            ),
+                        if (!_isPlaying)
+                          IconButton(
+                            icon: Icon(Icons.refresh),
+                            onPressed: _reset,
                           ),
-                        ),
-                      ),
+                      ],
+                    ),
+
                   ],
                 ),
               ],
-            ),
+      )
     );
   }
+
+  void _play() async {
+    await _flutterTts.speak(_story);
+    setState(() {
+      _isPlaying = true;
+    });
+  }
+
+  void _pause() async {
+    await _flutterTts.pause();
+    setState(() {
+      _isPlaying = false;
+    });
+  }
+
+  void _stop() async {
+    await _flutterTts.stop();
+    setState(() {
+      _isPlaying = false;
+    });
+  }
+
+  void _reset() async {
+    await _flutterTts.stop();
+    await _flutterTts.speak(_story);
+    setState(() {
+      _isPlaying = true;
+    });
+  }
+
+  void _resetState() {
+    setState(() {
+      _isPlaying = false;
+      // Aggiungi qui altre variabili di stato che desideri reimpostare
+    });
+  }
+
+  @override
+  void deactivate() {
+    if (_isPlaying) {
+      _flutterTts.pause();
+    }
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    if (_isPlaying) {
+      _flutterTts.pause();
+    }
+    super.dispose();
+  }
+
+
 }
