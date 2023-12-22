@@ -18,7 +18,6 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
   String? name;
   String? gender;
   double age = 0;
-  String? tastes;
   String avatarDefault = 'assets/avatar_M1.png';
   String? selectedAvatar;
   late TextEditingController _nameController;
@@ -62,7 +61,6 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
       setState(() {
         _nameController.text = data['name'] ?? '';
         gender = data['gender'] ?? '';
-        tastes = data['taste'] ?? '';
         age = data['age']?.toDouble() ?? 0;
         selectedAvatar = data['avatar'] ?? '';
       });
@@ -139,41 +137,6 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please select a gender';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                DropdownButtonFormField<String>(
-                  value: tastes,
-                  decoration: InputDecoration(
-                    labelText: 'Tastes',
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  items: <String>[
-                    'Marvel',
-                    'Disney',
-                    'Hogwarts',
-                    'Star Wars',
-                    'Others'
-                  ].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      tastes = newValue;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please select tastes';
                     }
                     return null;
                   },
@@ -331,10 +294,6 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
 
       if (gender != null && gender!.isNotEmpty) {
         existingData['gender'] = gender;
-      }
-
-      if (tastes != null && tastes!.isNotEmpty) {
-        existingData['taste'] = tastes;
       }
 
       existingData['age'] = age.toInt();

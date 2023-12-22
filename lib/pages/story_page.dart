@@ -29,22 +29,41 @@ class _StoryPageState extends State<StoryPage> {
   @override
   void initState() {
     super.initState();
+
     _generateStory();
-    _flutterTts.setLanguage('en-US');
+
   }
 
   Future<void> _generateStory() async {
     setState(() {
       _isGenerating = true;
     });
+
+    // Recupera la lingua salvata nei SharedPreferences
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String selectedLanguage = preferences.getString('selectedLanguage') ?? 'English';
+
+    // Configura il TTS sulla lingua selezionata
+    if (selectedLanguage == 'English') {
+      _flutterTts.setLanguage('en-US');
+    } else {
+      _flutterTts.setLanguage('it-IT');
+    }
     var characters = await _getCharacters();
     var secondaryCharacters = await _getSecondaryCharacters();
     var plotPreference = await _getPlotPreference();
     var moralPreference = await _getMoralPreference();
 
-    // Costruisci il messaggio dell'utente
-    var userMessage =
-        'Generate a bedtime story for children setted in the world of $plotPreference and where the protagonists are: $characters, with the following secondary characters $secondaryCharacters. The story should contain the moral $moralPreference.The should have a title and should be divided into chapters, the title and the chapter must be written in bold.';
+    // Costruisci il messaggio dell'utente basato sulla lingua selezionata
+    var userMessage;
+    if (selectedLanguage == 'Italiano') {
+      userMessage =
+      'Genera una storia della buonanotte per bambini ambientata nel mondo di $plotPreference e dove i protagonisti sono: $characters, con i seguenti personaggi secondari $secondaryCharacters. La storia dovrebbe contenere la morale $moralPreference. Il titolo e il capitolo devono essere scritti in grassetto.';
+    } else {
+      userMessage =
+      'Generate a bedtime story for children set in the world of $plotPreference and where the protagonists are: $characters, with the following secondary characters $secondaryCharacters. The story should contain the moral $moralPreference. The title and the chapter must be written in bold.';
+    }
+
     print(userMessage);
     var url = Uri.parse('https://api.openai.com/v1/chat/completions');
     var response = await http.post(

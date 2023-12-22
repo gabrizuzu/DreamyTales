@@ -1,11 +1,11 @@
 G 1) Rivedere i testi del tutorial (magari migliorarlo), sistemare frecciette del tutorial e del Profiling Child (Fatto)
-R 2) Voice Over nell'archivio 
+R 2) Voice Over nell'archivio (Fatto)
 G 3) Sistemare pagina login (tasti login e register un po' brutti e poco chiari), migliorare autenticazione (password nascosata, recupera password cazzi e mazzi) (fatto)
-R 4) Possibilità di poter modificare dati/avatar di un personaggio una volta già inserito tenendo premuto su di esso
+R 4) Possibilità di poter modificare dati/avatar di un personaggio una volta già inserito tenendo premuto su di esso (Fatto)
 G 5) archivio storie renderlo più carino + possibilità di condividere al di fuori (condivisione fatto)
-R 6) Valutare se aggiungere immagini alle stories con dall e o alternative
-R 7) Voice Over nella storia generata, sistemare i pulsanti e passare al voice over la versione pulita del testo prima del formatting
-R 8) Vedere se si può fare app in piu lingue senza sbatti o switch brutti
+R 6) Valutare se aggiungere immagini alle stories con dall e o alternative (da discutere)
+R 7) Voice Over nella storia generata, sistemare i pulsanti e passare al voice over la versione pulita del testo prima del formatting (Fatto)
+R 8) Storia generabile in inglese o in italiano in base ai settings (Fatto)
 G 9) Implementare le notifiche
 G 10) ANALYTICS (vedere cosa si può fare)
 G 11) Rendere più carina la pagina di attesa e Sistemare vari bug di navigator e bug tipo Overflow pixels aggiunta nuovi personaggi (fixare aspetto grafico) (fatto)
