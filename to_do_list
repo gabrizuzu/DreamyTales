@@ -1,18 +1,17 @@
-1) rivedere i testi del tutorial (magari migliorarlo) Gabri
-2) Sistemare frecciette del tutorial e del Profiling Child Gabri
-3) Sistemare pagina login ( tasti login e register un po' brutti e poco chiari)  Gabri
-4) Possibilità di poter modificare un personaggio una volta già inserito tenendo premuto su di esso Ram
-5) archivio storie renderlo più carino Ram
-6) Valutare se aggiungere immagini alle stories Ram
-7) Voice Over anche in archivio storie, passare al voice over la versione pulita del testo prima del formatting Ram
-8) Gestire i parametri dei settings con firebase (lingua) Gabri
-9) Implementare le notifiche Gabri
-10) aggiunta di nuovi personaggi genera overflow pixels (fixare aspetto grafico) Gabri
-12) Migliorare autenticazione (password nascosata, recupera password cazzi e mazzi) Gabri
-13) ANALYTICS (vedere cosa si può fare) ??
-14) Migliorare il prompt Gabri
-15) migliorare pagina attesa Gabri
-
+G 1) Rivedere i testi del tutorial (magari migliorarlo), sistemare frecciette del tutorial e del Profiling Child
+R 2) Voice Over nell'archivio
+G 3) Sistemare pagina login (tasti login e register un po' brutti e poco chiari), migliorare autenticazione (password nascosata, recupera password cazzi e mazzi)
+R 4) Possibilità di poter modificare dati/avatar di un personaggio una volta già inserito tenendo premuto su di esso
+G 5) archivio storie renderlo più carino + possibilità di condividere al di fuori
+R 6) Valutare se aggiungere immagini alle stories con dall e o alternative
+R 7) Voice Over nella storia generata, sistemare i pulsant e passare al voice over la versione pulita del testo prima del formatting
+R 8) Vedere se si può fare app in piu lingue senza sbatti o switch brutti
+G 9) Implementare le notifiche
+G 10 ANALYTICS (vedere cosa si può fare)
+G 11) Rendere più carina la pagina di attesa e Sistemare vari bug di navigator e bug tipo Overflow pixels aggiunta nuovi personaggi (fixare aspetto grafico)
+12) Migliorare il prompt
+13) SCRIVERE MAIL AL PROF
+14) Iniziare presentazione
 
 Genera una storia della buonanotte personalizzata per [Nome del Bambino], un/a piccolo/a appassionato/a di [interesse del bambino, es. animali, fantasia]. I personaggi principali sono [Nome del Personaggio Principale], [Nome del Personaggio Amico 1] e [Nome del Personaggio Amico 2]. La storia dovrebbe svolgersi in un contesto [specifico, es. foresta magica, regno lontano]. La morale della storia dovrebbe insegnare [morale desiderata, es. gentilezza, coraggio].
 
