@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../auth.dart';
 import 'login_register_page.dart';
 
@@ -13,7 +15,26 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool receiveNotifications = true; // Add this variable
-  String selectedLanguage = 'English'; // Impostazione predefinita
+  late SharedPreferences _preferences;
+  late String selectedLanguage;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLanguage();
+  }
+
+  Future<void> _loadLanguage() async {
+    _preferences = await SharedPreferences.getInstance();
+    setState(() {
+      selectedLanguage = _preferences.getString('selectedLanguage') ?? 'English';
+    });
+  }
+
+  Future<void> _saveLanguage(String language) async {
+    await _preferences.setString('selectedLanguage', language);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -214,10 +235,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextButton(
-                        onPressed: () {
-                          // Salvare la lingua selezionata e chiudere la finestra
+                        onPressed: () async {
+                          // Salva la lingua selezionata e chiudi la finestra
+                          await _saveLanguage(selectedLanguage);
                           Navigator.pop(context);
-                          // Implementa qui la logica per salvare la lingua selezionata
                         },
                         child: const Text('Ok'),
                       ),
@@ -231,6 +252,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       },
     );
   }
+
 
 
   void _showNotificationsDialog(BuildContext context) {
