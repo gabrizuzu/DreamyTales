@@ -1,8 +1,8 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../pages/app_category.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -63,7 +63,7 @@ class MyDrawer extends StatelessWidget {
                   builder: (BuildContext context,
                       AsyncSnapshot<SharedPreferences> snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
-                      String? name = snapshot.data?.getString('name');
+                      String? email = FirebaseAuth.instance.currentUser!.email;;
                       return RichText(
                         text: TextSpan(
                           style: const TextStyle(
@@ -73,23 +73,22 @@ class MyDrawer extends StatelessWidget {
                           ),
                           children: [
                             const TextSpan(
-                              text: 'Welcome back,\n',
+                              text: 'Welcome back!\n\n',
                             ),
                             TextSpan(
-                              text: '${(name ?? 'Guest').toUpperCase()}',
-                              style: TextStyle(
+                              text: (email ?? 'Guest'),
+                              style: const TextStyle(
+                                fontSize: 15,
                                 color: Colors.amber,
                               ),
                             ),
-                            const TextSpan(
-                              text: ' !',
-                            ),
+
                           ],
                         ),
                       );
 
                     } else {
-                      return CircularProgressIndicator(); // mostra un indicatore di caricamento mentre attende
+                      return const CircularProgressIndicator(); // mostra un indicatore di caricamento mentre attende
                     }
                   },
                 ),

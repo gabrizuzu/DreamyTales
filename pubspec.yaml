@@ -47,6 +47,7 @@ dependencies:
   intl: ^0.18.1
   flutter_markdown: ^0.6.6
   firebase_messaging: ^14.7.9
+  share: ^2.0.4
 
   flutter_localizations:
     sdk: flutter

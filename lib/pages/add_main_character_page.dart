@@ -64,9 +64,12 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
             fit: BoxFit.fill,
           ),
         ),
-        child: Form(
+       child: Column(
+        children:[
+        Form(
           key: _formKey,
-          child: Column(
+          child: Expanded(
+          child: ListView(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(
@@ -242,12 +245,11 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                   ),
                 ),
               ),
-
-
-              Expanded(
-                child: Container(),
-              ),
-              Builder(
+            ],
+          ),
+        ),
+        ),
+                              Builder(
                 builder: (BuildContext context) {
                   return Container(
                     width: double.infinity,
@@ -279,9 +281,9 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                   );
                 },
               ),
-            ],
-          ),
-        ),
+        ]
+
+      ),
       ),
     );
   }
