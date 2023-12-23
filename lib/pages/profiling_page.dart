@@ -143,7 +143,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.amber,
                       ),
-                      child: Text("Save"),
+                      child: const Text("Save"),
                     ),
                   ),
               ],
@@ -207,7 +207,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                 onSubmitted: (value) {
                   // Conferma l'input e passa alla pagina successiva
                   _pageController.nextPage(
-                    duration: Duration(milliseconds: 300),
+                    duration:const Duration(milliseconds: 300),
                     curve: Curves.ease,
                   );
                 },
@@ -233,7 +233,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                 onSubmitted: (value) {
                 // Conferma l'input e passa alla pagina successiva
                   _pageController.nextPage(
-                  duration: Duration(milliseconds: 300),
+                  duration:const Duration(milliseconds: 300),
                   curve: Curves.ease,
                   );
                 },
@@ -254,6 +254,10 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                           setState(() {
                             profileData[option['key']] = genderOption['label'];
                           });
+                              _pageController.nextPage(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.ease,
+                            );
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -292,7 +296,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
               GridView.count(
                 crossAxisCount: 2,
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 children: (option['options'] as List<Map<String, dynamic>>).map((avatarOption) {
                   bool isSelected = profileData[option['key']].contains(avatarOption['image']);
                   return GestureDetector(
@@ -375,10 +379,10 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
       'age': profileData['age'],
       'avatar': profileData['avatar'],
     });
-    print('Profile Data Saved: $profileData');
+   
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => MyHomePage(),
+        builder: (context) => const MyHomePage(),
       ),
     );
   }

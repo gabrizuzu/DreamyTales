@@ -223,20 +223,31 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                       icon: const Icon(Icons.check), // Imposta l'icona del pulsante
                       label: const Text("Save"), // Imposta il testo del pulsante
                       onPressed: () {
-                        if (_formKey.currentState?.validate() ?? false) {
-                          _formKey.currentState?.save();
-                          saveData();
-                          Navigator.pop(context);
-                        } else {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        if (selectedAvatar == null) {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return const AlertDialog(
-                                content: Text('Please fill all the fields'),
+                                content: Text('Please select an avatar'),
                               );
                             },
                           );
+                        } else {
+                          _formKey.currentState?.save();
+                          saveData();
+                          Navigator.pop(context);
                         }
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const AlertDialog(
+                              content: Text('Please fill all the fields'),
+                            );
+                          },
+                        );
+                      }
                       },
                     ),
                   );

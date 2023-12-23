@@ -72,7 +72,7 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Edit Second Character',
           style: TextStyle(
             color: Colors.amber,
@@ -82,19 +82,24 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
         backgroundColor: Colors.deepPurple,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/sfondo.jpg"),
             fit: BoxFit.cover,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
+          child: Column(
+          
+          children: [
+           Form(
             key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
+            child: Expanded (
+            child: ListView(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 120, left: 16.0, right: 16.0, bottom: 16.0),
+                child: TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(
                     labelText: 'Name',
@@ -111,8 +116,10 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
-                DropdownButtonFormField<String>(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: DropdownButtonFormField<String>(
                   value: gender,
                   decoration: InputDecoration(
                     labelText: 'Gender',
@@ -139,9 +146,11 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
                     }
                     return null;
                   },
-                ),
-                const SizedBox(height: 16),
-                DropdownButtonFormField<String>(
+                ), 
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: DropdownButtonFormField<String>(
                   value: role,
                   decoration: InputDecoration(
                     labelText: 'Role',
@@ -175,7 +184,10 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                    child: 
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -222,11 +234,14 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: Container(),
-                ),
-                Container(
+              ),
+ 
+
+              ],
+            ),
+          ),
+           ),
+                           Container(
                   width: double.infinity,
                   height: 60.0,
                   decoration: const BoxDecoration(
@@ -244,8 +259,8 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return AlertDialog(
-                              content: const Text('Please fill all the fields'),
+                            return const  AlertDialog(
+                              content: Text('Please fill all the fields'),
                             );
                           },
                         );
@@ -253,9 +268,7 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
                     },
                   ),
                 ),
-              ],
-            ),
-          ),
+          ]
         ),
       ),
     );

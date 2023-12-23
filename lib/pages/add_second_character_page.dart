@@ -239,20 +239,31 @@ class _AddMainCharacterPageState extends State<AddSecondCharacterPage> {
                       label: const Text("Save"),
                       // Imposta il testo del pulsante
                       onPressed: () {
-                        if (_formKey.currentState?.validate() ?? false) {
-                          _formKey.currentState?.save();
-                          saveData();
-                          Navigator.pop(context);
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return const AlertDialog(
-                                content: Text('Please fill all the fields'),
-                              );
-                            },
+                    if (_formKey.currentState?.validate() ?? false) {
+                      if (selectedAvatar == null) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const AlertDialog(
+                              content: Text('Please select an avatar'),
+                            );
+                          },
+                        );
+                      } else {
+                        _formKey.currentState?.save();
+                        saveData();
+                        Navigator.pop(context);
+                      }
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const AlertDialog(
+                            content: Text('Please fill all the fields'),
                           );
-                        }
+                        },
+                      );
+                    }
                       },
                     ),
                   );

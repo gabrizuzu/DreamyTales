@@ -73,7 +73,7 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Edit Character',
           style: TextStyle(
             color: Colors.amber,
@@ -83,19 +83,24 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
         backgroundColor: Colors.deepPurple,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/sfondo.jpg"),
             fit: BoxFit.cover,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
+        child: Column(
+          
+          children: [
+            Form(
             key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
+            child: Expanded (
+            child: ListView(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 120, left: 16.0, right: 16.0, bottom: 16.0),
+                child: TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(
                     labelText: 'Name',
@@ -112,8 +117,10 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
-                DropdownButtonFormField<String>(
+              ),
+                Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: DropdownButtonFormField<String>(
                   value: gender,
                   decoration: InputDecoration(
                     labelText: 'Gender',
@@ -141,8 +148,10 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
-                Column(
+                ),
+                Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -166,7 +175,10 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                ),
+               Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: 
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -213,11 +225,13 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: Container(),
-                ),
-                Container(
+               ),
+            
+              ],
+            ),
+          ),
+          ),
+          Container(
                   width: double.infinity,
                   height: 60.0,
                   decoration: const BoxDecoration(
@@ -234,9 +248,7 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
                     },
                   ),
                 ),
-              ],
-            ),
-          ),
+          ]
         ),
       ),
     );

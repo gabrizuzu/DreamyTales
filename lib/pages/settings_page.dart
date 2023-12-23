@@ -55,7 +55,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 _showLanguageSelectionDialog(context);
               },
               child: const ListTile(
-                title: Text('Language'),
+                title: Text('Language', style: TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Text('Select the language of the app'),
                 trailing: Icon(Icons.arrow_forward),
               ),
@@ -68,7 +68,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 _showNotificationsDialog(context);
               },
               child: const ListTile(
-                title: Text('Notifications'),
+                title: Text('Notifications', style: TextStyle(fontWeight: FontWeight.bold),),
                 subtitle: Text('Enable or disable app notifications'),
                 trailing: Icon(Icons.arrow_forward),
               ),
@@ -77,7 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             // Opzione 4: Feedback
             ListTile(
-              title: const Text('Feedback'),
+              title: const Text('Feedback', style: TextStyle(fontWeight: FontWeight.bold)),
               subtitle: const Text('Send feedback or report issues'),
               trailing: const Icon(Icons.arrow_forward),
               onTap: () {
@@ -92,7 +92,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 _showAppInformationDialog(context);
               },
               child: const ListTile(
-                title: Text('App Information'),
+                title: Text('App Information', style: TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Text('View information about the app'),
                 trailing: Icon(Icons.arrow_forward),
               ),
@@ -105,7 +105,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 _showPrivacyDialog(context);
               },
               child: const ListTile(
-                title: Text('Privacy'),
+                title: Text('Privacy', style: TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Text('View our privacy policy'),
                 trailing: Icon(Icons.arrow_forward),
               ),
@@ -114,7 +114,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             // Opzione 7: Esci dall'account
             ListTile(
-              title: const Text('Sign Out'),
+              title: const Text('Sign Out', style: TextStyle(fontWeight: FontWeight.bold)),
               subtitle: const Text('Sign out from your account'),
               trailing: const Icon(Icons.arrow_forward),
               onTap: () {
