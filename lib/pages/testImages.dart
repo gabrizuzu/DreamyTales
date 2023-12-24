@@ -1,14 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_tts/flutter_tts.dart';
-import 'package:intl/intl.dart';
-
-// Importa i pacchetti per usare DALL-E e GPT API
-//import 'package:openai/openai.dart';
 
 
+
+class Api{
+  static final url = Uri.parse('https://api.openai.com/v1/images/generations');
+
+  static final headers = {
+    'Authorization':
+    'Bearer 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',
+    'Content-Type': 'application/json',
+  };
+
+  static generateImages(String text) async{
+    var res = await http.post(
+        url,
+        headers: headers,
+        body: jsonEncode({
+          "prompt": "text",
+          "n": 1,
+          "model": "dall-e-2",
+          "size": "1024x1024",
+          "quality": "standard"
+        }),
+
+    );
+
+    print('Response status: ${res.statusCode}');
+    print('Response body: ${res.body}');
+
+    if (res.statusCode == 200) {
+      var jsonResponse = jsonDecode(res.body);
+      print(jsonResponse);
+      return jsonResponse['data'][0]['url'];
+    } else {
+      print('Request failed with status: ${res.statusCode}.');
+    }
+  }
+}
