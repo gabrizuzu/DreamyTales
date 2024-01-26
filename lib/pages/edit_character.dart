@@ -90,165 +90,151 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
           ),
         ),
         child: Column(
-          
           children: [
             Form(
-            key: _formKey,
-            child: Expanded (
-            child: ListView(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 120, left: 16.0, right: 16.0, bottom: 16.0),
-                child: TextFormField(
-                  controller: _nameController,
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a name';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-                Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: DropdownButtonFormField<String>(
-                  value: gender,
-                  decoration: InputDecoration(
-                    labelText: 'Gender',
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  items: <String>['Male', 'Female'].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      gender = newValue;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please select a gender';
-                    }
-                    return null;
-                  },
-                ),
-                ),
-                Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Età: ${age.toInt()}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Slider(
-                      value: age,
-                      min: 0,
-                      max: 10,
-                      divisions: 10,
-                      label: age.round().toString(),
-                      onChanged: (double value) {
-                        setState(() {
-                          age = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                ),
-               Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: 
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      if (selectedAvatar != null)
-                        AvatarPreview(
-                          imagePath: selectedAvatar!,
-                          onPressed: () {
-                            setState(() {
-                              selectedAvatar = avatarDefault;
-                            });
-                          },
-                          isSelected: true,
-                        ),
-                      for (int i = 0; i < 6; i++)
-                        if (allAvatars[i] != selectedAvatar)
-                          AvatarPreview(
-                            imagePath: allAvatars[i],
-                            onPressed: () {
-                              setState(() {
-                                selectedAvatar = allAvatars[i];
-                              });
-                            },
-                          ),
-                      GestureDetector(
-                        onTap: () {
-                          _showAllAvatarsDialog();
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                            color: Colors.amber,
+              key: _formKey,
+              child: Expanded(
+                child: ListView(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 120, left: 16.0, right: 16.0, bottom: 16.0),
+                      child: TextFormField(
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                          labelText: 'Name',
+                          fillColor: Colors.white,
+                          filled: true,
+                          border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          child: const Text(
-                            'Show all',
-                            style: TextStyle(
-                              color: Colors.black,
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a name';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: DropdownButtonFormField<String>(
+                        value: gender,
+                        decoration: InputDecoration(
+                          labelText: 'Gender',
+                          fillColor: Colors.white,
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        items: <String>['Male', 'Female'].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            gender = newValue;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select a gender';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Age: ${age.toInt()}',
+                            style: const TextStyle(
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                          Slider(
+                            value: age,
+                            min: 0,
+                            max: 10,
+                            divisions: 10,
+                            label: age.round().toString(),
+                            onChanged: (double value) {
+                              setState(() {
+                                age = value;
+                              });
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Swipe right to explore avatars',
+                                style: TextStyle(
+                                  color: Colors.amber,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.amber,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            // Anteprima di tutti gli avatar nello slider
+                            for (String avatarPath in allAvatars)
+                              AvatarPreview(
+                                imagePath: avatarPath,
+                                onPressed: () {
+                                  setState(() {
+                                    selectedAvatar = avatarPath;
+                                  });
+                                },
+                                isSelected: avatarPath == selectedAvatar,
+                              ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-               ),
-            
-              ],
+              ),
             ),
-          ),
-          ),
-          Container(
-                  width: double.infinity,
-                  height: 60.0,
-                  decoration: const BoxDecoration(
-                    color: Colors.amber,
-                  ),
-                  child: TextButton.icon(
-                    icon: const Icon(Icons.check),
-                    label: const Text("Save"),
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        updateCharacter(widget.characterId);
-                        Navigator.pop(context);
-                      }
-                    },
-                  ),
-                ),
-          ]
+            Container(
+              width: double.infinity,
+              height: 60.0,
+              decoration: const BoxDecoration(
+                color: Colors.amber,
+              ),
+              child: TextButton.icon(
+                icon: const Icon(Icons.check),
+                label: const Text("Save"),
+                onPressed: () {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    updateCharacter(widget.characterId);
+                    Navigator.pop(context);
+                  }
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -351,21 +337,30 @@ class _AvatarPreviewState extends State<AvatarPreview> {
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ClipOval(
-          child: Container(
-            width: 70.0,
-            height: 70.0,
-            color: widget.isSelected ? Colors.amber : Colors.transparent,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Image.asset(
-                widget.imagePath,
-                width: 50.0,
-                height: 50.0,
-                fit: BoxFit.cover,
+        child: Column(
+          children: [
+            ClipOval(
+              child: Container(
+                width: 70.0,
+                height: 70.0,
+                color: widget.isSelected ? Colors.amber : Colors.transparent,
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Image.asset(
+                    widget.imagePath,
+                    width: 50.0,
+                    height: 50.0,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
-          ),
+            if (widget.isSelected)
+              const Icon(
+                Icons.check_circle,
+                color: Colors.amber,
+              ),
+          ],
         ),
       ),
     );

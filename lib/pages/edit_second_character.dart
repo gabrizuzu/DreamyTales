@@ -9,7 +9,8 @@ class EditSecondCharacterPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<EditSecondCharacterPage> createState() => _EditSecondCharacterPageState();
+  State<EditSecondCharacterPage> createState() =>
+      _EditSecondCharacterPageState();
 }
 
 class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
@@ -88,226 +89,179 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
             fit: BoxFit.cover,
           ),
         ),
-          child: Column(
-          
+        child: Column(
           children: [
-           Form(
-            key: _formKey,
-            child: Expanded (
-            child: ListView(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 120, left: 16.0, right: 16.0, bottom: 16.0),
-                child: TextFormField(
-                  controller: _nameController,
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a name';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: DropdownButtonFormField<String>(
-                  value: gender,
-                  decoration: InputDecoration(
-                    labelText: 'Gender',
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  items: <String>['Male', 'Female'].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      gender = newValue;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please select a gender';
-                    }
-                    return null;
-                  },
-                ), 
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: DropdownButtonFormField<String>(
-                  value: role,
-                  decoration: InputDecoration(
-                    labelText: 'Role',
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  items: <String>[
-                    'Grandparent',
-                    'Parent',
-                    'Sibling',
-                    'Friend',
-                    'Other'
-                  ].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      role = newValue;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please select a role';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                    child: 
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      if (selectedAvatar != null)
-                        AvatarPreview(
-                          imagePath: selectedAvatar!,
-                          onPressed: () {
-                            setState(() {
-                              selectedAvatar = null;
-                            });
-                          },
-                          isSelected: true,
-                        ),
-                      for (int i = 0; i < 6; i++)
-                        if (allAvatars[i] != selectedAvatar)
-                          AvatarPreview(
-                            imagePath: allAvatars[i],
-                            onPressed: () {
-                              setState(() {
-                                selectedAvatar = allAvatars[i];
-                              });
-                            },
-                          ),
-                      GestureDetector(
-                        onTap: () {
-                          _showAllAvatarsDialog();
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                            color: Colors.amber,
+            Form(
+              key: _formKey,
+              child: Expanded(
+                child: ListView(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 120, left: 16.0, right: 16.0, bottom: 16.0),
+                      child: TextFormField(
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                          labelText: 'Name',
+                          fillColor: Colors.white,
+                          filled: true,
+                          border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          child: const Text(
-                            'Show all',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a name';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: DropdownButtonFormField<String>(
+                        value: gender,
+                        decoration: InputDecoration(
+                          labelText: 'Gender',
+                          fillColor: Colors.white,
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
+                        items: <String>['Male', 'Female'].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            gender = newValue;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select a gender';
+                          }
+                          return null;
+                        },
                       ),
-                    ],
-                  ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: DropdownButtonFormField<String>(
+                        value: role,
+                        decoration: InputDecoration(
+                          labelText: 'Role',
+                          fillColor: Colors.white,
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        items: <String>[
+                          'Grandparent',
+                          'Parent',
+                          'Sibling',
+                          'Friend',
+                          'Other'
+                        ].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            role = newValue;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select a role';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                'Swipe right to explore avatars',
+                                style: TextStyle(
+                                  color: Colors.amber,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.amber,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                for (String avatarPath in allAvatars)
+                                  AvatarPreview(
+                                    imagePath: avatarPath,
+                                    onPressed: () {
+                                      setState(() {
+                                        selectedAvatar = avatarPath;
+                                      });
+                                    },
+                                    isSelected: avatarPath == selectedAvatar,
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
- 
-
-              ],
             ),
-          ),
-           ),
-                           Container(
-                  width: double.infinity,
-                  height: 60.0,
-                  decoration: const BoxDecoration(
-                    color: Colors.amber,
-                  ),
-                  child: TextButton.icon(
-                    icon: const Icon(Icons.check),
-                    label: const Text("Save"),
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        _formKey.currentState?.save();
-                        updateCharacter(widget.characterId);
-                        Navigator.pop(context);
-                      } else {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return const  AlertDialog(
-                              content: Text('Please fill all the fields'),
-                            );
-                          },
+            Container(
+              width: double.infinity,
+              height: 60.0,
+              decoration: const BoxDecoration(
+                color: Colors.amber,
+              ),
+              child: TextButton.icon(
+                icon: const Icon(Icons.check),
+                label: const Text("Save"),
+                onPressed: () {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    _formKey.currentState?.save();
+                    updateCharacter(widget.characterId);
+                    Navigator.pop(context);
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const AlertDialog(
+                          content: Text('Please fill all the fields'),
                         );
-                      }
-                    },
-                  ),
-                ),
-          ]
+                      },
+                    );
+                  }
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
-  }
-
-  void _showAllAvatarsDialog() {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 150.0,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: _sortedAvatarList().length,
-            itemBuilder: (BuildContext context, int index) {
-              String avatarPath = _sortedAvatarList()[index];
-              return AvatarPreview(
-                imagePath: avatarPath,
-                onPressed: () {
-                  setState(() {
-                    selectedAvatar = avatarPath;
-                  });
-                  Navigator.pop(context);
-                },
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
-
-  List<String> _sortedAvatarList() {
-    List<String> sortedList = List.from(allAvatars);
-    if (selectedAvatar != null) {
-      sortedList.remove(selectedAvatar);
-      sortedList.insert(0, selectedAvatar!);
-    }
-    return sortedList;
   }
 
   void updateCharacter(String characterId) async {
@@ -373,21 +327,30 @@ class _AvatarPreviewState extends State<AvatarPreview> {
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ClipOval(
-          child: Container(
-            width: 70.0,
-            height: 70.0,
-            color: widget.isSelected ? Colors.amber : Colors.transparent,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Image.asset(
-                widget.imagePath,
-                width: 50.0,
-                height: 50.0,
-                fit: BoxFit.cover,
+        child: Column(
+          children: [
+            ClipOval(
+              child: Container(
+                width: 70.0,
+                height: 70.0,
+                color: widget.isSelected ? Colors.amber : Colors.transparent,
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Image.asset(
+                    widget.imagePath,
+                    width: 50.0,
+                    height: 50.0,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
-          ),
+            if (widget.isSelected)
+              const Icon(
+                Icons.check_circle,
+                color: Colors.amber,
+              ),
+          ],
         ),
       ),
     );
