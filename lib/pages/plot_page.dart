@@ -11,10 +11,10 @@ class PlotChoice extends StatefulWidget {
 
 class _PlotChoiceState extends State<PlotChoice> {
   List<Map<String, String>> plots = [
-    {'image': 'assets/cappuccettorosso.jpg', 'description': 'Cappuccetto rosso'},
-    {'image': 'assets/bellaaddormentata.jpg', 'description': 'La bella addormentata'},
-    {'image': 'assets/cenerentola.jpg', 'description': 'Cenerentola'},
-    {'image': 'assets/treporcellini.jpg', 'description': 'I 3 porcellini'},
+    {'image': 'assets/cappuccettorosso.jpg', 'description': 'Little Red Riding Hood'},
+    {'image': 'assets/bellaaddormentata.jpg', 'description': 'Sleeping Beauty'},
+    {'image': 'assets/cenerentola.jpg', 'description': 'Cinderella'},
+    {'image': 'assets/treporcellini.jpg', 'description': 'The Three Little Pigs'},
 
   ];
   String? selectedPlot;
