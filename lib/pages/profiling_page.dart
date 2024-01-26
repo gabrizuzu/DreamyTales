@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:responsive_framework/responsive_framework.dart';
+
 
 class ChildProfilePage extends StatefulWidget {
   @override
@@ -293,50 +295,53 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
               ),
 
             if (option['type'] == 'checkbox')
-              GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: (option['options'] as List<Map<String, dynamic>>).map((avatarOption) {
-                  bool isSelected = profileData[option['key']].contains(avatarOption['image']);
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        profileData[option['key']] = avatarOption['image'];
-                      });
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: isSelected ? Colors.deepPurple : Colors.transparent,
-                          width: 3.0,
-                        ),
-                        borderRadius: BorderRadius.circular(isSelected ? 20.0 : 20.0),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            '${avatarOption['image']}',
-                            width: 90,
-                            height: 90,
-                          ),
-                          const SizedBox(height: 8),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              avatarOption['label'],
-                              style: TextStyle(
-                                color: isSelected ? Colors.deepPurple : Colors.black,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }).toList(),
+if (option['type'] == 'checkbox')
+  GridView.count(
+    crossAxisCount: ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? 2 : 4, // Modifica il numero di colonne in base alla dimensione dello schermo
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    childAspectRatio: ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? 1.0 : 0.8, // Modifica il rapporto in base alla dimensione dello schermo
+    children: (option['options'] as List<Map<String, dynamic>>).map((avatarOption) {
+      bool isSelected = profileData[option['key']].contains(avatarOption['image']);
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            profileData[option['key']] = avatarOption['image'];
+          });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: isSelected ? Colors.deepPurple : Colors.transparent,
+              width: 3.0,
+            ),
+            borderRadius: BorderRadius.circular(isSelected ? 10.0 : 10.0),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                '${avatarOption['image']}',
+                width: 90,
+                height: 90,
               ),
+              const SizedBox(height: 8),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  avatarOption['label'],
+                  style: TextStyle(
+                    
+                    color: isSelected ? Colors.deepPurple : Colors.black,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }).toList(),
+  ),
           ],
         ),
       ),
