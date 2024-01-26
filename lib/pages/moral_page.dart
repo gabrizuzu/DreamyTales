@@ -58,8 +58,15 @@ class _MoralChoiceState extends State<MoralChoice> {
                   selectedCardIndex = index;
                 });
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('You selected ${morals[index]['title']}')),
+                  SnackBar(content: Text('You selected ${morals[index]['title']?.substring(0, morals[index]['title']!.length - 1)}')),
                 );
+
+                // Nascondi la snack bar dopo 1 secondo
+                Future.delayed(Duration(seconds: 1), () {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                });
+
+
               },
               child: Card(
                 color: Colors.black.withOpacity(0.6),

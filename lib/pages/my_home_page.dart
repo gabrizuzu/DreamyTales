@@ -530,7 +530,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       label: const Text("Let's start the magic"),
                       // Imposta il testo del pulsante
                       onPressed: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const SettingsStoryPage()));
                       },
                     ),

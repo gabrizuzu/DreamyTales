@@ -52,6 +52,12 @@ itemBuilder: (context, index) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('You selected ${plots[index]['description']}')),
       );
+
+      // Nascondi la snack bar dopo 1 secondo
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      });
+
     },
     child: Column(
       children: [
