@@ -3,7 +3,7 @@ import 'package:dreamy_tales/widget_tree.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-
+import 'package:responsive_framework/responsive_framework.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -25,6 +25,18 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
       ),
       home: const WidgetTree(),
+      builder: (context, widget) => ResponsiveWrapper.builder(
+        widget,
+        maxWidth: 1200,
+        minWidth: 450,
+        defaultScale: true,
+        breakpoints: [
+          const ResponsiveBreakpoint.resize(450, name: MOBILE),
+          const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+          const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+        ],
+        background: Container(color: const Color(0xFFF5F5F5)),
+      ),
     );
   }
 

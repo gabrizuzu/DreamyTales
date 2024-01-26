@@ -43,6 +43,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
       body: Stack(
         children: [
           PageView.builder(
+            physics: const ClampingScrollPhysics(),
             controller: _pageController,
             itemCount: images.length,
             itemBuilder: (context, index) {
@@ -70,7 +71,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (_currentPage > 0)
+                if (_currentPage > 0 && _currentPage != 0)
                   IconButton(
                     onPressed: () {
                       _pageController.previousPage(
@@ -81,7 +82,23 @@ class _TutorialScreenState extends State<TutorialScreen> {
                     icon: Icon(Icons.arrow_back),
                     color: Colors.white,
                   ),
-                if (_currentPage < images.length - 1)
+                if (_currentPage == 0)
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: IconButton(
+                          onPressed: () {
+                            _pageController.nextPage(
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.ease,
+                            );
+                          },
+                          icon: Icon(Icons.arrow_forward),
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                if (_currentPage < images.length - 1 && _currentPage != 0)
                   IconButton(
                     onPressed: () {
                       _pageController.nextPage(
@@ -119,7 +136,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/'+images[index]),
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
           ),
         ),
@@ -130,7 +147,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
             colorBlendMode: BlendMode.overlay, // aggiunta di sovraimpressione
           ),
         ),
-        Padding(
+        Center(
+        child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -162,9 +180,9 @@ class _TutorialScreenState extends State<TutorialScreen> {
                   ),
                 ),
               ),
-
             ],
           ),
+        ),
         ),
       ],
     );
