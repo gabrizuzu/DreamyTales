@@ -56,7 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
               child: const ListTile(
                 title: Text('Language', style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text('Select the language of the app'),
+                subtitle: Text('Select the language of the stories'),
                 trailing: Icon(Icons.arrow_forward),
               ),
             ),
@@ -189,7 +189,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: const Text('Language Selection'),
+              title: const Text('In which Language do you want to generate the Stories?'),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [

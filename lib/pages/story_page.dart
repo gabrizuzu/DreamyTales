@@ -104,6 +104,7 @@ class _StoryPageState extends State<StoryPage> {
         'date': DateFormat('dd/MM/yyyy').format(DateTime.now()),
         'moral': moralPreference,
         'rating': null,
+        'language': selectedLanguage,
       });
     } else {
       print('Failed to generate story: ${response.statusCode}');

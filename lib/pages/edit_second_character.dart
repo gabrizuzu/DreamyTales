@@ -24,7 +24,6 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
 
   final List<String> allAvatars = [
     'assets/avatar_M1.png',
-    'assets/avatar_M2.png',
     'assets/avatar_M3.png',
     'assets/avatar_M4.png',
     'assets/avatar_M5.png',

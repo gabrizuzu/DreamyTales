@@ -4,8 +4,9 @@ import 'package:flutter_tts/flutter_tts.dart';
 
 class ReadingPage extends StatefulWidget {
   final String storyText;
+  final String language;
 
-  ReadingPage({required this.storyText});
+  ReadingPage({required this.storyText, required this.language});
 
   @override
   _ReadingPageState createState() => _ReadingPageState();
@@ -22,7 +23,8 @@ class _ReadingPageState extends State<ReadingPage> {
   }
 
   void _initTts() {
-    _flutterTts.setLanguage('en-US');
+    // Imposta la lingua corretta in base al parametro 'language'
+    _flutterTts.setLanguage(widget.language == 'Italiano' ? 'it-IT' : 'en-US');
     _flutterTts.setCompletionHandler(() {
       setState(() {
         _isPlaying = false;
