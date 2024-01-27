@@ -18,7 +18,7 @@ import 'edit_second_character.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -283,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                AddMainCharacterPage(),
+                                                const AddMainCharacterPage(),
                                           ),
                                         );
                                       },
@@ -526,7 +526,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         // Visualizza uno spinner di caricamento mentre si attende i dati da Firebase
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                       }
 
                       // Verifica se c'è almeno un personaggio principale
@@ -561,7 +561,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             label: const Text("Add a Main Character to start the magic"),
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => AddMainCharacterPage(),
+                                builder: (context) => const AddMainCharacterPage(),
                               ));
                             },
                           ),
@@ -571,17 +571,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
               ),
-
-
             ],
           ),
         );
       case AppCategory.myStories:
-        return MyStories();
+        return const MyStories();
       case AppCategory.analytics:
-        return Analytics();
+        return const Analytics();
       case AppCategory.settings:
-        return SettingsScreen();
+        return const SettingsScreen();
       default:
         return Container();
     }
