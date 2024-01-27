@@ -1,12 +1,9 @@
-G 1) Rivedere i testi del tutorial (magari migliorarlo), sistemare frecciette del tutorial e del Profiling Child
-R 2) Voice Over in italiano legge il testo male, formatta.
+R 2) Voice Over in italiano legge il testo male solo su android, formatta.
 G 3) Sistemare pagina login (tasti login e register un po' brutti e poco chiari)
 R 6) Valutare se aggiungere immagini alle stories con dall e o alternative (da discutere)
-R 7) Voice Over nella storia generata, sistemare i pulsanti e passare al voice over la versione pulita del testo prima del formatting (Fatto)
-R 8) Storia generabile in inglese o in italiano in base ai settings (Fatto)
 G 9) Implementare le notifiche (fatto)
 G 10) ANALYTICS (vedere cosa si può fare)
-G 11) Rendere più carina la pagina di attesa e Sistemare vari bug di navigator e bug tipo Overflow pixels aggiunta nuovi personaggi (fixare aspetto grafico) (fatto)
+G 11) Rendere più carina la pagina di attesa e  bug tipo Overflow pixels (fixare aspetto grafico) (fatto)
 15) Pulire il codice da warnings e da pezzi inutili (magari riorganizzarlo in una buona divisione)
 12) Migliorare il prompt
 13) SCRIVERE MAIL AL PROF
