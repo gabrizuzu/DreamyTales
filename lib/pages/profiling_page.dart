@@ -155,6 +155,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
+                      key: const Key('saveButton'),
                       onPressed: () {
                         if (_validateAllFields()) {
                           saveProfileData();
@@ -165,6 +166,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                       ),
                       child: const Text("Save"),
                     ),
+
                   ),
               ],
             ),
