@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class MoralChoice extends StatefulWidget {
-  const MoralChoice({Key? key}) : super(key: key);
+  const MoralChoice({super.key});
 
   @override
   State<MoralChoice> createState() => _MoralChoiceState();
@@ -63,7 +63,7 @@ class _MoralChoiceState extends State<MoralChoice> {
                 );
 
                 // Nascondi la snack bar dopo 1 secondo
-                Future.delayed(Duration(seconds: 1), () {
+                Future.delayed(const Duration(seconds: 1), () {
                   ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 });
 
@@ -85,12 +85,12 @@ class _MoralChoiceState extends State<MoralChoice> {
                     children: [
                       Text(
                         morals[index]['title']!,
-                        style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,color:Colors.amber),
+                        style: const TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,color:Colors.amber),
                       ),
                       const SizedBox(height: 10),
                       Text(
                         morals[index]['description']!,
-                        style: TextStyle(fontSize: 12.0,color:Colors.white),
+                        style: const TextStyle(fontSize: 12.0,color:Colors.white),
                       ),
                     ],
                   ),
@@ -105,7 +105,7 @@ class _MoralChoiceState extends State<MoralChoice> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => StoryPage()),
+            MaterialPageRoute(builder: (context) => const StoryPage()),
           );
         },
         label: const Text('Confirm'),

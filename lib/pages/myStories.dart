@@ -6,7 +6,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:share/share.dart';
 
 class MyStories extends StatelessWidget {
-  const MyStories({Key? key}) : super(key: key);
+  const MyStories({super.key});
 
   @override
   Widget build(BuildContext context) {

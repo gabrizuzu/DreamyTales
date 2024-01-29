@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class PlotChoice extends StatefulWidget {
-  const PlotChoice({Key? key}) : super(key: key);
+  const PlotChoice({super.key});
 
   @override
   State<PlotChoice> createState() => _PlotChoiceState();
@@ -23,7 +23,7 @@ class _PlotChoiceState extends State<PlotChoice> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Classic Plot Choice'),
+        title: const Text('Classic Plot Choice'),
         backgroundColor: Colors.deepPurple,
       ),
       body: Container(
@@ -34,7 +34,7 @@ class _PlotChoiceState extends State<PlotChoice> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
@@ -56,7 +56,7 @@ itemBuilder: (context, index) {
       );
 
       // Nascondi la snack bar dopo 1 secondo
-      Future.delayed(Duration(milliseconds: 1000), () {
+      Future.delayed(const Duration(milliseconds: 1000), () {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
       });
 
@@ -81,7 +81,7 @@ itemBuilder: (context, index) {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top:10.0),
+          padding: const EdgeInsets.only(top:10.0),
           child: Text(
             plots[index]['description']!,
             style: TextStyle(
@@ -102,7 +102,7 @@ itemBuilder: (context, index) {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MoralChoice()),
+            MaterialPageRoute(builder: (context) => const MoralChoice()),
           );
         },
         label: const Text('Confirm'),

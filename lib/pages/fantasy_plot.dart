@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class FantasyPlotPage extends StatefulWidget {
-  const FantasyPlotPage({Key? key}) : super(key: key);
+  const FantasyPlotPage({super.key});
 
   @override
   State<FantasyPlotPage> createState() => _PlotChoiceState();
@@ -22,7 +22,7 @@ class _PlotChoiceState extends State<FantasyPlotPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Fantasy Plot Choice'),
+        title: const Text('Fantasy Plot Choice'),
         backgroundColor: Colors.deepPurple,
       ),
       body: Container(
@@ -80,7 +80,7 @@ itemBuilder: (context, index) {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top:5.0),
+          padding: const EdgeInsets.only(top:5.0),
           child: Text(
             plots[index]['description']!,
             style: TextStyle(
@@ -101,7 +101,7 @@ itemBuilder: (context, index) {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MoralChoice()),
+            MaterialPageRoute(builder: (context) => const MoralChoice()),
           );
         },
         label: const Text('Confirm'),

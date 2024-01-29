@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Analytics extends StatelessWidget {
-  const Analytics({Key? key}) : super(key: key);
+  const Analytics({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +75,9 @@ class Analytics extends StatelessWidget {
                         return Card(
                           child: ListTile(
                             leading: CircleAvatar(
-                              child: Text('${index + 1}'),
                               backgroundColor: Colors.deepPurple,
                               foregroundColor: Colors.white,
+                              child: Text('${index + 1}'),
                             ),
                             title: Text(snapshot.data!.docs[index]['title'], style: const TextStyle(fontSize: 18)),
                             subtitle: Text('Rating: ${snapshot.data!.docs[index]['rating']}', style: const TextStyle(fontSize: 16)),

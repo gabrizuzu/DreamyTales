@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AddMainCharacterPage extends StatefulWidget {
-  const AddMainCharacterPage({Key? key}) : super(key: key);
+  const AddMainCharacterPage({super.key});
 
   @override
   State<AddMainCharacterPage> createState() => _AddMainCharacterPageState();
@@ -250,12 +250,12 @@ class AvatarPreview extends StatefulWidget {
   final VoidCallback onPressed;
   final bool isSelected;
 
-  AvatarPreview({
-    Key? key,
+  const AvatarPreview({
+    super.key,
     required this.imagePath,
     required this.onPressed,
     this.isSelected = false,
-  }) : super(key: key);
+  });
 
   @override
   _AvatarPreviewState createState() => _AvatarPreviewState();

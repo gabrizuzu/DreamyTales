@@ -10,7 +10,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:intl/intl.dart';
 
 class StoryPage extends StatefulWidget {
-  StoryPage({Key? key}) : super(key: key);
+  const StoryPage({super.key});
 
   @override
   State<StoryPage> createState() => _StoryPageState();
@@ -52,7 +52,7 @@ class _StoryPageState extends State<StoryPage> {
     var moralPreference = await _getMoralPreference();
   
 
-    var userMessage;
+    String userMessage;
     if (selectedLanguage == 'Italiano') {
       userMessage =
       'Genera il titolo e una storia della buonanotte per bambini ambientata nel mondo di $plotPreference e dove i protagonisti sono: $characters, con i seguenti personaggi secondari $secondaryCharacters. La storia dovrebbe contenere la morale $moralPreference. Il titolo e il capitolo devono essere scritti in grassetto.';
@@ -61,7 +61,6 @@ class _StoryPageState extends State<StoryPage> {
       'Generate the title and a bedtime story for children set in the world of $plotPreference and where the protagonists are: $characters, with the following secondary characters $secondaryCharacters. The story should contain the moral $moralPreference. The title and the chapter must be written in bold.';
     }
 
-    print(userMessage);
     var url = Uri.parse('https://api.openai.com/v1/chat/completions');
     var response = await http.post(
       url,
@@ -83,15 +82,11 @@ class _StoryPageState extends State<StoryPage> {
       }),
     );
 
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-    print(_getAvatar().toString());
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       setState(() {
         _story = data['choices'][0]['message']['content'];
         _title = _story.split('\n').first.trim();
-        print(_title);
         _isGenerating = false;
       });
       var firestore = FirebaseFirestore.instance;
@@ -107,7 +102,6 @@ class _StoryPageState extends State<StoryPage> {
         'language': selectedLanguage,
       });
     } else {
-      print('Failed to generate story: ${response.statusCode}');
       setState(() {
         _isGenerating = false;
       });
@@ -224,7 +218,7 @@ class _StoryPageState extends State<StoryPage> {
                     future: _getAvatar(),
                     builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator(); // mostra un indicatore di caricamento mentre si attende
+                        return const CircularProgressIndicator(); // mostra un indicatore di caricamento mentre si attende
                       } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
                       } else {
@@ -268,7 +262,7 @@ class _StoryPageState extends State<StoryPage> {
                           ),
                         ),
                       );
-                    }).toList(),
+                    }),
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: ElevatedButton(
@@ -347,22 +341,22 @@ class _StoryPageState extends State<StoryPage> {
                 children: <Widget>[
                   if (!_isPlaying)
                     IconButton(
-                      icon: Icon(Icons.play_arrow),
+                      icon: const Icon(Icons.play_arrow),
                       onPressed: _play,
                     ),
                   if (_isPlaying)
                     IconButton(
-                      icon: Icon(Icons.pause),
+                      icon: const Icon(Icons.pause),
                       onPressed: _pause,
                     ),
                   if (_isPlaying)
                     IconButton(
-                      icon: Icon(Icons.stop),
+                      icon: const Icon(Icons.stop),
                       onPressed: _stop,
                     ),
                   if (!_isPlaying)
                     IconButton(
-                      icon: Icon(Icons.refresh),
+                      icon: const Icon(Icons.refresh),
                       onPressed: _reset,
                     ),
                 ],
