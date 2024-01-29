@@ -71,7 +71,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
           style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.red,
-        duration: const Duration(milliseconds: 1500),
+        duration: const Duration(milliseconds: 1000),
       ),
     );
   }
@@ -89,6 +89,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
             },
             onPageChanged: (int page) {
               setState(() {
+                FocusScope.of(context).unfocus();
                 _currentPage = page;
               });
             },
@@ -127,6 +128,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                       child: IconButton(
                         onPressed: () {
                           if (_validateField(0)) {
+                            
                             _pageController.nextPage(
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.ease,
@@ -143,6 +145,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                   IconButton(
                     onPressed: () {
                       if (_validateField(_currentPage)) {
+                        
                         _pageController.nextPage(
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.ease,
@@ -216,6 +219,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                 },
                 onSubmitted: (value) {
                   if (_validateCurrentPage()) {
+                    
                     _pageController.nextPage(
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.ease,
@@ -243,6 +247,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                 },
                 onSubmitted: (value) {
                   if (_validateCurrentPage()) {
+                    
                     _pageController.nextPage(
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.ease,
@@ -269,6 +274,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                             profileData[option['key']] = genderOption['label'];
                           });
                           if (_validateCurrentPage()) {
+                           
                             _pageController.nextPage(
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.ease,
@@ -286,7 +292,8 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                             borderRadius: BorderRadius.circular(15.0),
                           ),
                           padding: const EdgeInsets.all(8.0),
-                          child: Column(
+                          child: MediaQuery.of(context).orientation == Orientation.portrait
+                          ?Column(
                             children: [
                               Image.asset(
                                 'assets/${genderOption['image']}',
@@ -303,10 +310,28 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                                 ),
                               ),
                             ],
-                          ),
+                          ): SizedBox(
+                            width: MediaQuery.of(context).size.width / 4,
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/${genderOption['image']}',
+                              width: 100,
+                              height: 100,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              genderOption['label'],
+                              style: TextStyle(
+                                color: isSelected ? Colors.deepPurple : Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                        ),
                         ),
                       ),
-                      const SizedBox(height: 16),
                     ],
                   );
                 }).toList(),

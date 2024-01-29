@@ -18,7 +18,7 @@ class StoryPage extends StatefulWidget {
 
 class _StoryPageState extends State<StoryPage> {
   String _story = '';
-  String? _title;
+  String _title = '';
   bool _isGenerating = false;
   DocumentReference? docRef;
   bool _isPlaying = false;
@@ -87,6 +87,10 @@ class _StoryPageState extends State<StoryPage> {
       setState(() {
         _story = data['choices'][0]['message']['content'];
         _title = _story.split('\n').first.trim();
+        _title = _title.replaceAll('*', '');
+        if (_title.startsWith('Title:')) {
+          _title = _title.replaceFirst('Title:', '').trim(); // Sostituisci 'Title:' con una stringa vuota
+        }
         _isGenerating = false;
       });
       var firestore = FirebaseFirestore.instance;

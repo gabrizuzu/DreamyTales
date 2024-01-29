@@ -46,6 +46,7 @@ class MyStories extends StatelessWidget {
                   Map<String, dynamic> data =
                       document.data() as Map<String, dynamic>;
                   String title = data['title'];
+                  
                 var story = data['storyId'];
 
                   List<String> protagonists;
@@ -116,7 +117,7 @@ class MyStories extends StatelessWidget {
                         Expanded(
                           child: title != ''
                               ? Text(
-                                  title,
+                                  title.replaceAll('*', ''),
                                   style: const TextStyle(
                                       color: Colors.amber,
                                       fontWeight: FontWeight.bold),

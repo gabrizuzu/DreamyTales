@@ -47,8 +47,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             // Opzione 1: Lingua
             InkWell(
