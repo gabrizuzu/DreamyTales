@@ -104,6 +104,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           child: Column(
+            children: <Widget> [
+              Expanded(
+
+          child: ListView(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(left: 18.0, top: 50.0),
@@ -505,35 +509,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              Expanded(
-                child:
-                    Container(), // Questo spinge il pulsante in fondo alla pagina
-              ),
-              Builder(
-                builder: (BuildContext context) {
-                  return StreamBuilder<int>(
-                    stream: FirebaseFirestore.instance
-                        .collection('characters')
-                        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-                        .limit(1)  // Limita la query a un solo documento
-                        .snapshots()
-                        .map((snapshot) => snapshot.docs.length),  // Mappa la lunghezza della lista di documenti
-                    builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                      if (snapshot.hasError) {
-                        // Gestisci eventuali errori durante il recupero dei dati da Firebase
-                        return const Text('Error retrieving characters');
-                      }
-
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        // Visualizza uno spinner di caricamento mentre si attende i dati da Firebase
-                        return const CircularProgressIndicator();
-                      }
-
-                      // Verifica se c'è almeno un personaggio principale
-                      bool hasMainCharacter = snapshot.data! > 0;
-
-                      if (hasMainCharacter) {
-                        return Container(
+            ],
+          ),
+          ),
+          Container(
                           width: double.infinity,
                           height: 60.0,
                           decoration: const BoxDecoration(
@@ -548,29 +527,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ));
                             },
                           ),
-                        );
-                      } else {
-                        return Container(
-                          width: double.infinity,
-                          height: 60.0,
-                          decoration: const BoxDecoration(
-                            color: Colors.grey, // Imposta il colore di sfondo del pulsante inattivo
-                          ),
-                          child: TextButton.icon(
-                            icon: const Icon(Icons.star),
-                            label: const Text("Add a Main Character to start the magic"),
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const AddMainCharacterPage(),
-                              ));
-                            },
-                          ),
-                        );
-                      }
-                    },
-                  );
-                },
-              ),
+                        ),
             ],
           ),
         );

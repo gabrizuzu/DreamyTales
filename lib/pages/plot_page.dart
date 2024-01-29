@@ -66,7 +66,9 @@ itemBuilder: (context, index) {
         Card(
           color: Colors.black.withOpacity(0.6),
           child: Container(
-            height: ResponsiveWrapper.of(context).isTablet ? MediaQuery.of(context).size.height * 0.2 : MediaQuery.of(context).size.height * 0.35,
+            height:  MediaQuery.of(context).orientation == Orientation.portrait
+              ? MediaQuery.of(context).size.height * 0.2
+              : MediaQuery.of(context).size.height * 0.5,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(plots[index]['image']!),

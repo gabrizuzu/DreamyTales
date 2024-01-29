@@ -24,7 +24,7 @@ class MyStories extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(16.0),
         child: StreamBuilder<QuerySnapshot>(
-          stream: stories.where('userId', isEqualTo: currentUserId).orderBy('date').snapshots(),
+          stream: stories.where('userId', isEqualTo: currentUserId).snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
               return const Text('Connection Error');

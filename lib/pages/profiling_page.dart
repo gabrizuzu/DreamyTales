@@ -438,8 +438,8 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
         break;
       case 2:
         int age = profileData['age'];
-        if (age <= 0 || age >= 10) {
-          _showErrorSnackbar('Invalid Age');
+        if (age <= 0 || age > 10) {
+          _showErrorSnackbar('Select on age between 0 and 10');
           return false;
         }
         break;

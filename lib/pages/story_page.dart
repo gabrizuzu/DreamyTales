@@ -301,6 +301,13 @@ class _StoryPageState extends State<StoryPage> {
                                   onPressed: () async {
                                     await docRef?.update(
                                         {'rating': _currentRating});
+                                        if (_isPlaying) {
+                                          _stop;
+                                        }
+                                        
+                                        if (!_isPlaying) {
+                                          _reset;
+                                        }
                                     // ignore: use_build_context_synchronously
                                     Navigator.pushAndRemoveUntil(
                                       context,
@@ -314,6 +321,13 @@ class _StoryPageState extends State<StoryPage> {
                                 TextButton(
                                   child: const Text('Skip'),
                                   onPressed: () {
+                                      if (_isPlaying) {
+                                          _stop;
+                                        }
+                                        
+                                        if (!_isPlaying) {
+                                          _reset;
+                                        }
                                     Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
