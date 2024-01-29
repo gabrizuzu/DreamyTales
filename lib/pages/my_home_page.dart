@@ -15,7 +15,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'edit_character.dart';
 import 'edit_second_character.dart';
 
-// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -71,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
-        iconTheme: const IconThemeData(color: Colors.amber), // Imposta il colore desiderato
+        iconTheme: const IconThemeData(color: Colors.amber),
         title: Text(
           _getTitleForCurrentCategory(),
           style: const TextStyle(

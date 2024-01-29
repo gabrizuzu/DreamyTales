@@ -6,14 +6,14 @@ class ReadingPage extends StatefulWidget {
   final String storyText;
   final String language;
 
-  ReadingPage({required this.storyText, required this.language});
+  const ReadingPage({super.key, required this.storyText, required this.language});
 
   @override
   _ReadingPageState createState() => _ReadingPageState();
 }
 
 class _ReadingPageState extends State<ReadingPage> {
-  FlutterTts _flutterTts = FlutterTts();
+  final FlutterTts _flutterTts = FlutterTts();
   bool _isPlaying = false;
 
   @override
@@ -44,13 +44,6 @@ class _ReadingPageState extends State<ReadingPage> {
     });
   }
 
-  void _restartTts() async {
-    await _flutterTts.stop();
-    await _flutterTts.speak(widget.storyText);
-    setState(() {
-      _isPlaying = true;
-    });
-  }
 
   void _resetTts() async {
     await _flutterTts.stop();
@@ -61,14 +54,15 @@ class _ReadingPageState extends State<ReadingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        _resetTts(); // Chiudi il TTS quando l'utente esce dalla pagina
-        return true;
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (didPop) async  {
+        _resetTts();
       },
+
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Reading Page'),
+          title: const Text('Reading Page'),
           backgroundColor: Colors.deepPurple,
         ),
         body: Container(
@@ -97,17 +91,19 @@ class _ReadingPageState extends State<ReadingPage> {
               onPressed: _toggleTts,
               child: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             FloatingActionButton(
               heroTag: "restart",
               onPressed: _resetTts,
-              child: Icon(Icons.refresh),
+              child: const Icon(Icons.refresh),
             ),
           ],
         ),
       ),
     );
   }
+
+
 
   @override
   void dispose() {
