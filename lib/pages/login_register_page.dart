@@ -146,43 +146,46 @@ class _LoginPageState extends State<LoginPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16.0),
               ),
-              child: Container(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Enter your email',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.all(16.0),
+                  width: MediaQuery.of(context).size.width * 0.8, // Usa il 80% della larghezza dello schermo
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Enter your email',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 16.0),
-                    TextField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        labelText: 'Email',
+                      const SizedBox(height: 16.0),
+                      TextField(
+                        controller: emailController,
+                        decoration: const InputDecoration(
+                          labelText: 'Email',
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 16.0),
-                    ElevatedButton(
-                      onPressed: () {
-                        _resetPassword(emailController.text);
-                        Navigator.of(context).pop();
-                        Fluttertoast.showToast(
-                          msg: 'Password reset email sent',
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.green,
-                          textColor: Colors.white,
-                          fontSize: 16.0,
-                        );
-                      },
-                      child: Text('Send'),
-                    ),
-                  ],
+                      const SizedBox(height: 16.0),
+                      ElevatedButton(
+                        onPressed: () {
+                          _resetPassword(emailController.text);
+                          Navigator.of(context).pop();
+                          Fluttertoast.showToast(
+                            msg: 'Password reset email sent',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                        },
+                        child: const Text('Send'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -199,6 +202,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
 
   Widget _logo() {
     return Padding(
@@ -252,7 +256,7 @@ class _LoginPageState extends State<LoginPage> {
     return Center(
       child: Text(
         errorMessage == '' ? '' : '$errorMessage',
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.redAccent,
           fontSize: 15,
           fontWeight: FontWeight.bold,
