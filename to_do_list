@@ -1,12 +1,9 @@
-G 1) Rivedere i testi del tutorial (magari migliorarlo), sistemare frecciette del tutorial e del Profiling Child
-R 2) Voice Over in italiano legge il testo male, formatta.
+R 2) Voice Over in italiano legge il testo male solo su android, formatta.
 G 3) Sistemare pagina login (tasti login e register un po' brutti e poco chiari)
 R 6) Valutare se aggiungere immagini alle stories con dall e o alternative (da discutere)
-R 7) Voice Over nella storia generata, sistemare i pulsanti e passare al voice over la versione pulita del testo prima del formatting (Fatto)
-R 8) Storia generabile in inglese o in italiano in base ai settings (Fatto)
 G 9) Implementare le notifiche (fatto)
 G 10) ANALYTICS (vedere cosa si può fare)
-G 11) Rendere più carina la pagina di attesa e Sistemare vari bug di navigator e bug tipo Overflow pixels aggiunta nuovi personaggi (fixare aspetto grafico) (fatto)
+G 11) Rendere più carina la pagina di attesa e  bug tipo Overflow pixels (fixare aspetto grafico) (fatto)
 15) Pulire il codice da warnings e da pezzi inutili (magari riorganizzarlo in una buona divisione)
 12) Migliorare il prompt
 13) SCRIVERE MAIL AL PROF
@@ -17,7 +14,7 @@ G 11) Rendere più carina la pagina di attesa e Sistemare vari bug di navigator 
 18) Diagrammi su Design app (navigazione pagine e funzioni)
 19) abilita rotazione in tutti i dispositivi
 20) Sistemare nome app (valuta logo etc)
-21) voice Over che continua
+R fatto 21) voice Over che continua
 22) se ruota su device ci sono overflow
 
 Genera una storia della buonanotte personalizzata per [Nome del Bambino], un/a piccolo/a appassionato/a di [interesse del bambino, es. animali, fantasia]. I personaggi principali sono [Nome del Personaggio Principale], [Nome del Personaggio Amico 1] e [Nome del Personaggio Amico 2]. La storia dovrebbe svolgersi in un contesto [specifico, es. foresta magica, regno lontano]. La morale della storia dovrebbe insegnare [morale desiderata, es. gentilezza, coraggio].

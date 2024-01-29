@@ -97,7 +97,7 @@ class MyStories extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ReadingPage(storyText: data['text']),
+                            builder: (context) => ReadingPage(storyText: data['text'], language: data['language'],),
                           ),
                         );
                       },

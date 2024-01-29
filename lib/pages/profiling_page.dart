@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-
 class ChildProfilePage extends StatefulWidget {
   @override
   _ChildProfilePageState createState() => _ChildProfilePageState();
@@ -62,6 +61,20 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
 
+
+  void _showErrorSnackbar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.red,
+        duration: Duration(milliseconds: 1500),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +92,6 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
               });
             },
           ),
-
           Positioned(
             bottom: 20.0,
             left: 0,
@@ -92,9 +104,9 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
           Positioned(
             bottom: 40.0,
             left: 16.0,
-            right: 16.0, // Imposta il margine destro
+            right: 16.0,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween, // Allineato spazialmente tra gli elementi
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 if (_currentPage > 0 && _currentPage != 0)
                   IconButton(
@@ -107,29 +119,34 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                     icon: Icon(Icons.arrow_back),
                     color: Colors.amber,
                   ),
-                  if (_currentPage == 0)
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: IconButton(
-                          onPressed: () {
+                if (_currentPage == 0)
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: IconButton(
+                        onPressed: () {
+                          if (_validateField(0)) {
                             _pageController.nextPage(
                               duration: Duration(milliseconds: 300),
                               curve: Curves.ease,
                             );
-                          },
-                          icon: Icon(Icons.arrow_forward),
-                          color: Colors.amber,
-                        ),
+                          }
+                        },
+                        icon: Icon(Icons.arrow_forward),
+                        color: Colors.amber,
                       ),
                     ),
-                if (_currentPage < profileOptions.length - 1 && _currentPage != 0)
+                  ),
+                if (_currentPage < profileOptions.length - 1 &&
+                    _currentPage != 0)
                   IconButton(
                     onPressed: () {
-                      _pageController.nextPage(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.ease,
-                      );
+                      if (_validateField(_currentPage)) {
+                        _pageController.nextPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.ease,
+                        );
+                      }
                     },
                     icon: Icon(Icons.arrow_forward),
                     color: Colors.amber,
@@ -138,65 +155,51 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
+                      key: const Key('saveButton'),
                       onPressed: () {
-                        saveProfileData();
-                        // Puoi navigare a una nuova pagina o fare altre operazioni qui
+                        if (_validateAllFields()) {
+                          saveProfileData();
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.amber,
                       ),
                       child: const Text("Save"),
                     ),
+
                   ),
               ],
             ),
           ),
-
-
-
-
-
-
         ],
       ),
     );
   }
 
   Widget buildProfileSlide(BuildContext context, Map<String, dynamic> option) {
-
     return Container(
-      //color: Colors.amber,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/cornice_1.png'),
           fit: BoxFit.fill,
         ),
-
       ),
-
       child: Padding(
         padding: const EdgeInsets.only(
-            left: 40.0,
-            right: 40.0,
-            top: 0.0,
-            bottom: 0.0    ),
-
+            left: 40.0, right: 40.0, top: 0.0, bottom: 0.0),
         child: Column(
-
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               padding: const EdgeInsets.only(bottom: 5),
-              
-
-              child: Image.asset('assets/logo_profilazione.jpeg', width: 100, height: 100),
-              
+              child: Image.asset('assets/logo_profilazione.jpeg',
+                  width: 100, height: 100),
             ),
             if (option['type'] == 'text')
-
               TextField(
-                controller: option['key'] == 'name' ? nameController : ageController,
+                controller:
+                option['key'] == 'name' ? nameController : ageController,
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -207,11 +210,12 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                   });
                 },
                 onSubmitted: (value) {
-                  // Conferma l'input e passa alla pagina successiva
-                  _pageController.nextPage(
-                    duration:const Duration(milliseconds: 300),
-                    curve: Curves.ease,
-                  );
+                  if (_validateCurrentPage()) {
+                    _pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
+                  }
                 },
                 decoration: InputDecoration(
                   labelText: option['title'],
@@ -221,7 +225,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
               ),
             if (option['type'] == 'numeric')
               TextField(
-                controller : ageController,
+                controller: ageController,
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -233,11 +237,12 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                   });
                 },
                 onSubmitted: (value) {
-                // Conferma l'input e passa alla pagina successiva
-                  _pageController.nextPage(
-                  duration:const Duration(milliseconds: 300),
-                  curve: Curves.ease,
-                  );
+                  if (_validateCurrentPage()) {
+                    _pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
+                  }
                 },
                 decoration: InputDecoration(
                   labelText: option['title'],
@@ -247,8 +252,10 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
               ),
             if (option['type'] == 'radio')
               Column(
-                children: (option['options'] as List<Map<String, dynamic>>).map((genderOption) {
-                  bool isSelected = profileData[option['key']] == genderOption['label'];
+                children: (option['options'] as List<Map<String, dynamic>>)
+                    .map((genderOption) {
+                  bool isSelected =
+                      profileData[option['key']] == genderOption['label'];
                   return Column(
                     children: [
                       GestureDetector(
@@ -256,15 +263,19 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                           setState(() {
                             profileData[option['key']] = genderOption['label'];
                           });
-                              _pageController.nextPage(
+                          if (_validateCurrentPage()) {
+                            _pageController.nextPage(
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.ease,
                             );
+                          }
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: isSelected ? Colors.deepPurple : Colors.transparent,
+                              color: isSelected
+                                  ? Colors.deepPurple
+                                  : Colors.transparent,
                               width: 4.0,
                             ),
                             borderRadius: BorderRadius.circular(15.0),
@@ -281,7 +292,9 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                               Text(
                                 genderOption['label'],
                                 style: TextStyle(
-                                  color: isSelected ? Colors.deepPurple : Colors.black,
+                                  color: isSelected
+                                      ? Colors.deepPurple
+                                      : Colors.black,
                                 ),
                               ),
                             ],
@@ -293,55 +306,65 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                   );
                 }).toList(),
               ),
-
             if (option['type'] == 'checkbox')
-if (option['type'] == 'checkbox')
-  GridView.count(
-    crossAxisCount: ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? 2 : 4, // Modifica il numero di colonne in base alla dimensione dello schermo
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    childAspectRatio: ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? 1.0 : 0.8, // Modifica il rapporto in base alla dimensione dello schermo
-    children: (option['options'] as List<Map<String, dynamic>>).map((avatarOption) {
-      bool isSelected = profileData[option['key']].contains(avatarOption['image']);
-      return GestureDetector(
-        onTap: () {
-          setState(() {
-            profileData[option['key']] = avatarOption['image'];
-          });
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: isSelected ? Colors.deepPurple : Colors.transparent,
-              width: 3.0,
-            ),
-            borderRadius: BorderRadius.circular(isSelected ? 10.0 : 10.0),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                '${avatarOption['image']}',
-                width: 90,
-                height: 90,
+              GridView.count(
+                crossAxisCount:
+                ResponsiveWrapper.of(context).isSmallerThan(TABLET)
+                    ? 2
+                    : 4,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                childAspectRatio:
+                ResponsiveWrapper.of(context).isSmallerThan(TABLET)
+                    ? 1.0
+                    : 0.8,
+                children: (option['options'] as List<Map<String, dynamic>>)
+                    .map((avatarOption) {
+                  bool isSelected = profileData[option['key']]
+                      .contains(avatarOption['image']);
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        profileData[option['key']] = avatarOption['image'];
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: isSelected
+                              ? Colors.deepPurple
+                              : Colors.transparent,
+                          width: 3.0,
+                        ),
+                        borderRadius:
+                        BorderRadius.circular(isSelected ? 10.0 : 10.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            '${avatarOption['image']}',
+                            width: 90,
+                            height: 90,
+                          ),
+                          const SizedBox(height: 8),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              avatarOption['label'],
+                              style: TextStyle(
+                                color: isSelected
+                                    ? Colors.deepPurple
+                                    : Colors.black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
-              const SizedBox(height: 8),
-              Container(
-                alignment: Alignment.center,
-                child: Text(
-                  avatarOption['label'],
-                  style: TextStyle(
-                    
-                    color: isSelected ? Colors.deepPurple : Colors.black,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }).toList(),
-  ),
           ],
         ),
       ),
@@ -368,6 +391,81 @@ if (option['type'] == 'checkbox')
     );
   }
 
+  bool _validateCurrentPage() {
+    switch (_currentPage) {
+      case 0:
+        if (nameController.text.isEmpty || nameController.text.length > 20) {
+          _showErrorSnackbar('Invalid Name');
+          return false;
+        }
+        break;
+      case 1:
+        if (profileData['gender'].isEmpty) {
+          _showErrorSnackbar('Select Gender');
+          return false;
+        }
+        break;
+      case 2:
+        int age = profileData['age'];
+        if (age <= 0 || age >= 10) {
+          _showErrorSnackbar('Invalid Age');
+          return false;
+        }
+        break;
+      case 3:
+        if (profileData['avatar'].isEmpty) {
+          _showErrorSnackbar('Select Avatar');
+          return false;
+        }
+        break;
+    }
+    return true;
+  }
+
+  bool _validateField(int index) {
+    switch (index) {
+      case 0:
+        if (nameController.text.isEmpty || nameController.text.length > 20) {
+          _showErrorSnackbar('Invalid Name');
+          return false;
+        }
+        break;
+      case 1:
+        if (profileData['gender'].isEmpty) {
+          _showErrorSnackbar('Select Gender');
+          return false;
+        }
+        break;
+      case 2:
+        int age = profileData['age'];
+        if (age <= 0 || age >= 10) {
+          _showErrorSnackbar('Invalid Age');
+          return false;
+        }
+        break;
+      case 3:
+        if (profileData['avatar'].isEmpty) {
+          _showErrorSnackbar('Select Avatar');
+          return false;
+        }
+        break;
+    }
+    return true;
+  }
+
+  bool _validateAllFields() {
+    for (int i = 0; i < profileOptions.length; i++) {
+      if (!_validateField(i)) {
+        _pageController.animateToPage(i,
+            duration: Duration(milliseconds: 300), curve: Curves.ease);
+        return false;
+      }
+    }
+    return true;
+  }
+
+
+
   void saveProfileData() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('name', profileData['name']);
@@ -384,12 +482,11 @@ if (option['type'] == 'checkbox')
       'age': profileData['age'],
       'avatar': profileData['avatar'],
     });
-   
+
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => const MyHomePage(),
       ),
     );
   }
-
 }

@@ -18,7 +18,7 @@ import 'edit_second_character.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -283,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                AddMainCharacterPage(),
+                                                const AddMainCharacterPage(),
                                           ),
                                         );
                                       },
@@ -340,13 +340,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasError) {
-                        return const Text('Something went wrong');
-                      }
-
+                        return const Text('Something went wrong');}
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Text("Loading");
-                      }
-
+                        return const Text("Loading");}
                       return ListView(
                         scrollDirection: Axis.horizontal,
                         children: snapshot.data!.docs
@@ -515,25 +511,63 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Builder(
                 builder: (BuildContext context) {
-                  return Container(
-                    width: double.infinity,
-                    // Questo rende il pulsante largo quanto la pagina
-                    height: 60.0,
-                    // Imposta l'altezza del pulsante
-                    decoration: const BoxDecoration(
-                      color: Colors
-                          .amber, // Imposta il colore di sfondo del pulsante
-                    ),
-                    child: TextButton.icon(
-                      icon: const Icon(Icons.star),
-                      // Imposta l'icona del pulsante
-                      label: const Text("Let's start the magic"),
-                      // Imposta il testo del pulsante
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const SettingsStoryPage()));
-                      },
-                    ),
+                  return StreamBuilder<int>(
+                    stream: FirebaseFirestore.instance
+                        .collection('characters')
+                        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                        .limit(1)  // Limita la query a un solo documento
+                        .snapshots()
+                        .map((snapshot) => snapshot.docs.length),  // Mappa la lunghezza della lista di documenti
+                    builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                      if (snapshot.hasError) {
+                        // Gestisci eventuali errori durante il recupero dei dati da Firebase
+                        return const Text('Error retrieving characters');
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        // Visualizza uno spinner di caricamento mentre si attende i dati da Firebase
+                        return const CircularProgressIndicator();
+                      }
+
+                      // Verifica se c'è almeno un personaggio principale
+                      bool hasMainCharacter = snapshot.data! > 0;
+
+                      if (hasMainCharacter) {
+                        return Container(
+                          width: double.infinity,
+                          height: 60.0,
+                          decoration: const BoxDecoration(
+                            color: Colors.amber,
+                          ),
+                          child: TextButton.icon(
+                            icon: const Icon(Icons.star),
+                            label: const Text("Let's start the magic"),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const SettingsStoryPage(),
+                              ));
+                            },
+                          ),
+                        );
+                      } else {
+                        return Container(
+                          width: double.infinity,
+                          height: 60.0,
+                          decoration: const BoxDecoration(
+                            color: Colors.grey, // Imposta il colore di sfondo del pulsante inattivo
+                          ),
+                          child: TextButton.icon(
+                            icon: const Icon(Icons.star),
+                            label: const Text("Add a Main Character to start the magic"),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const AddMainCharacterPage(),
+                              ));
+                            },
+                          ),
+                        );
+                      }
+                    },
                   );
                 },
               ),
@@ -541,11 +575,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       case AppCategory.myStories:
-        return MyStories();
+        return const MyStories();
       case AppCategory.analytics:
-        return Analytics();
+        return const Analytics();
       case AppCategory.settings:
-        return SettingsScreen();
+        return const SettingsScreen();
       default:
         return Container();
     }
