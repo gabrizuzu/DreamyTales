@@ -24,7 +24,7 @@ class MyStories extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(16.0),
         child: StreamBuilder<QuerySnapshot>(
-          stream: stories.where('userId', isEqualTo: currentUserId).snapshots(),
+          stream: stories.where('userId', isEqualTo: currentUserId).orderBy('date').snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
               return const Text('Connection Error');
@@ -43,6 +43,7 @@ class MyStories extends StatelessWidget {
               children: docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data = document.data() as Map<String, dynamic>;
                 String title = data['title'];
+                var story = data['storyId'];
                 
                 List<String> protagonists;
                 double? rating;
@@ -78,7 +79,7 @@ class MyStories extends StatelessWidget {
                                   onPressed: () async {
                                     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
                                       .collection('stories')
-                                      .where('title', isEqualTo: title)
+                                      .where('storyId', isEqualTo: story)
                                       .get();
 
                                     if (querySnapshot.docs.isNotEmpty) {

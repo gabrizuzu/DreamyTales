@@ -96,8 +96,10 @@ class _StoryPageState extends State<StoryPage> {
       });
       var firestore = FirebaseFirestore.instance;
       var currentUserId = FirebaseAuth.instance.currentUser!.uid;
+      var newStoryDoc = FirebaseFirestore.instance.collection('stories').doc();
       docRef = await firestore.collection('stories').add({
         'userId': currentUserId,
+        'storyId': newStoryDoc.id,
         'text': _story,
         'title': _title,
         'characters': await _getCharacters(),
@@ -224,7 +226,7 @@ class _StoryPageState extends State<StoryPage> {
                     future: _getAvatar(),
                     builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator(); // mostra un indicatore di caricamento mentre si attende
+                        return const CircularProgressIndicator(); // mostra un indicatore di caricamento mentre si attende
                       } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
                       } else {
@@ -347,22 +349,22 @@ class _StoryPageState extends State<StoryPage> {
                 children: <Widget>[
                   if (!_isPlaying)
                     IconButton(
-                      icon: Icon(Icons.play_arrow),
+                      icon: const Icon(Icons.play_arrow),
                       onPressed: _play,
                     ),
                   if (_isPlaying)
                     IconButton(
-                      icon: Icon(Icons.pause),
+                      icon: const Icon(Icons.pause),
                       onPressed: _pause,
                     ),
                   if (_isPlaying)
                     IconButton(
-                      icon: Icon(Icons.stop),
+                      icon: const Icon(Icons.stop),
                       onPressed: _stop,
                     ),
                   if (!_isPlaying)
                     IconButton(
-                      icon: Icon(Icons.refresh),
+                      icon: const Icon(Icons.refresh),
                       onPressed: _reset,
                     ),
                 ],
