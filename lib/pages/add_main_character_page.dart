@@ -205,8 +205,10 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                         .amber, // Imposta il colore di sfondo del pulsante
                   ),
                   child: TextButton.icon(
-                    icon: const Icon(Icons.check), // Imposta l'icona del pulsante
-                    label: const Text("Save"), // Imposta il testo del pulsante
+                    icon: const Icon(Icons.check),
+                    // Imposta l'icona del pulsante
+                    label: const Text("Save"),
+                    // Imposta il testo del pulsante
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
                         if (selectedAvatar == null) {

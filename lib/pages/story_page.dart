@@ -38,7 +38,8 @@ class _StoryPageState extends State<StoryPage> {
     });
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String selectedLanguage = preferences.getString('selectedLanguage') ?? 'English';
+    String selectedLanguage =
+        preferences.getString('selectedLanguage') ?? 'English';
 
     if (selectedLanguage == 'English') {
       _flutterTts.setLanguage('en-US');
@@ -50,15 +51,14 @@ class _StoryPageState extends State<StoryPage> {
     var secondaryCharacters = await _getSecondaryCharacters();
     var plotPreference = await _getPlotPreference();
     var moralPreference = await _getMoralPreference();
-  
 
     String userMessage;
     if (selectedLanguage == 'Italiano') {
       userMessage =
-      'Genera il titolo e una storia della buonanotte per bambini ambientata nel mondo di $plotPreference e dove i protagonisti sono: $characters, con i seguenti personaggi secondari $secondaryCharacters. La storia dovrebbe contenere la morale $moralPreference. Il titolo e il capitolo devono essere scritti in grassetto.';
+          'Genera il titolo e una storia della buonanotte per bambini ambientata nel mondo di $plotPreference e dove i protagonisti sono: $characters, con i seguenti personaggi secondari $secondaryCharacters. La storia dovrebbe contenere la morale $moralPreference. Il titolo e il capitolo devono essere scritti in grassetto.';
     } else {
       userMessage =
-      'Generate the title and a bedtime story for children set in the world of $plotPreference and where the protagonists are: $characters, with the following secondary characters $secondaryCharacters. The story should contain the moral $moralPreference. The title and the chapter must be written in bold.';
+          'Generate the title and a bedtime story for children set in the world of $plotPreference and where the protagonists are: $characters, with the following secondary characters $secondaryCharacters. The story should contain the moral $moralPreference. The title and the chapter must be written in bold.';
     }
 
     var url = Uri.parse('https://api.openai.com/v1/chat/completions');
@@ -66,7 +66,7 @@ class _StoryPageState extends State<StoryPage> {
       url,
       headers: {
         'Authorization':
-        'Bearer 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',
+            'Bearer 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',
         'Content-Type': 'application/json',
       },
       body: jsonEncode({
@@ -117,7 +117,8 @@ class _StoryPageState extends State<StoryPage> {
         .get();
     return characters.docs.map((doc) => doc['name'].toString()).join(', ');
   }
-    Future<String> _getAvatar() async {
+
+  Future<String> _getAvatar() async {
     var firestore = FirebaseFirestore.instance;
     var currentUserId = FirebaseAuth.instance.currentUser!.uid;
     var characters = await firestore
@@ -125,10 +126,10 @@ class _StoryPageState extends State<StoryPage> {
         .where('userId', isEqualTo: currentUserId)
         .get();
     return characters.docs.isNotEmpty
-    ? characters.docs.first['avatar'].toString()
-    : 'assets/avatar_M6.png';
+        ? characters.docs.first['avatar'].toString()
+        : 'assets/avatar_M6.png';
   }
- 
+
   Future<String> _getSecondaryCharacters() async {
     var firestore = FirebaseFirestore.instance;
     var currentUserId = FirebaseAuth.instance.currentUser!.uid;
@@ -156,215 +157,217 @@ class _StoryPageState extends State<StoryPage> {
     return Scaffold(
       body: _isGenerating
           ? Stack(
-        children: <Widget>[
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/sfondo.jpg'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Center(
-            child: Transform.scale(
-              scale: 1.2, // Aumenta la scala dell'immagine del 20%
-              child: Image.asset(
-                'assets/picmix.com_406047.gif',
-                width: double.infinity,
-                height: double.infinity,
-              ),
-            ),
-          ),
-          const Positioned(
-            bottom: 50,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Text(
-                'Good things take time...',
-                style: TextStyle(
-                  color: Colors.amber,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black,
-                      blurRadius: 5,
+              children: <Widget>[
+                Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/sfondo.jpg'),
+                      fit: BoxFit.cover,
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      )
-          : Stack(
-        children: <Widget>[
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/sfondo.jpg'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Column(
-            children: <Widget>[
-              Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.all(8.0),
-                  children: [
-                    FutureBuilder<String>(
-                    future: _getAvatar(),
-                    builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator(); // mostra un indicatore di caricamento mentre si attende
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        return CircleAvatar(
-                          radius: 200,
-                          backgroundImage: AssetImage(snapshot.data ?? 'assets/avatar_M6.png'),
-                        );
-                      }
-                    },
                   ),
-                    ..._story.split('\n\n').map((chapter) {
-                      final boldParts =
-                      RegExp(r'\*\*(.+?)\*\*').allMatches(chapter);
-                      final spans = <TextSpan>[];
-                      var start = 0;
-                      for (final match in boldParts) {
-                        if (match.start > start) {
-                          spans.add(TextSpan(
-                            text: chapter.substring(start, match.start),
-                          ));
-                        }
-                        spans.add(TextSpan(
-                          text: match.group(1),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold),
-                        ));
-                        start = match.end;
-                      }
-                      if (start < chapter.length) {
-                        spans.add(TextSpan(
-                          text: chapter.substring(start),
-                        ));
-                      }
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: RichText(
-                          text: TextSpan(
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.black),
-                            children: spans,
+                ),
+                Center(
+                  child: Transform.scale(
+                    scale: 1.2, // Aumenta la scala dell'immagine del 20%
+                    child: Image.asset(
+                      'assets/picmix.com_406047.gif',
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
+                  ),
+                ),
+                const Positioned(
+                  bottom: 50,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Text(
+                      'Good things take time...',
+                      style: TextStyle(
+                        color: Colors.amber,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black,
+                            blurRadius: 5,
                           ),
-                        ),
-                      );
-                    }),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          final rating = await showDialog<double>(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text('Rate this story :)'),
-                              content: RatingBar.builder(
-                                initialRating: 5,
-                                minRating: 1,
-                                direction: Axis.horizontal,
-                                allowHalfRating: true,
-                                itemCount: 5,
-                                itemPadding: const EdgeInsets.symmetric(
-                                    horizontal: 4.0),
-                                itemBuilder: (context, _) => const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                                onRatingUpdate: (rating) {
-                                  _currentRating = rating;
-                                },
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('Confirm'),
-                                  onPressed: () async {
-                                    await docRef?.update(
-                                        {'rating': _currentRating});
-                                    // ignore: use_build_context_synchronously
-                                    Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                          const MyHomePage()),
-                                          (route) => false,
-                                    );
-                                  },
-                                ),
-                                TextButton(
-                                  child: const Text('Skip'),
-                                  onPressed: () {
-                                    Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                          const MyHomePage()),
-                                          (route) => false,
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          );
-                          if (rating != null) {
-                            await docRef?.update({'rating': rating});
-                          }
-                          // ignore: use_build_context_synchronously
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                const MyHomePage()),
-                                (route) => false,
-                          );
-                        },
-                        child: const Text('Go back to Home Page'),
+                        ],
                       ),
                     ),
+                  ),
+                ),
+              ],
+            )
+          : Stack(
+              children: <Widget>[
+                Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/sfondo.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: ListView(
+                        padding: const EdgeInsets.all(8.0),
+                        children: [
+                          FutureBuilder<String>(
+                            future: _getAvatar(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<String> snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const CircularProgressIndicator(); // mostra un indicatore di caricamento mentre si attende
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else {
+                                return CircleAvatar(
+                                  radius: 200,
+                                  backgroundImage: AssetImage(
+                                      snapshot.data ?? 'assets/avatar_M6.png'),
+                                );
+                              }
+                            },
+                          ),
+                          ..._story.split('\n\n').map((chapter) {
+                            final boldParts =
+                                RegExp(r'\*\*(.+?)\*\*').allMatches(chapter);
+                            final spans = <TextSpan>[];
+                            var start = 0;
+                            for (final match in boldParts) {
+                              if (match.start > start) {
+                                spans.add(TextSpan(
+                                  text: chapter.substring(start, match.start),
+                                ));
+                              }
+                              spans.add(TextSpan(
+                                text: match.group(1),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ));
+                              start = match.end;
+                            }
+                            if (start < chapter.length) {
+                              spans.add(TextSpan(
+                                text: chapter.substring(start),
+                              ));
+                            }
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 20.0),
+                              child: RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                      fontSize: 20, color: Colors.black),
+                                  children: spans,
+                                ),
+                              ),
+                            );
+                          }),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20.0),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                final rating = await showDialog<double>(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text('Rate this story :)'),
+                                    content: RatingBar.builder(
+                                      initialRating: 5,
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemPadding: const EdgeInsets.symmetric(
+                                          horizontal: 4.0),
+                                      itemBuilder: (context, _) => const Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      onRatingUpdate: (rating) {
+                                        _currentRating = rating;
+                                      },
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        child: const Text('Confirm'),
+                                        onPressed: () async {
+                                          await docRef?.update(
+                                              {'rating': _currentRating});
+                                          // ignore: use_build_context_synchronously
+                                          Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const MyHomePage()),
+                                            (route) => false,
+                                          );
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: const Text('Skip'),
+                                        onPressed: () {
+                                          Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const MyHomePage()),
+                                            (route) => false,
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                                if (rating != null) {
+                                  await docRef?.update({'rating': rating});
+                                }
+                                // ignore: use_build_context_synchronously
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const MyHomePage()),
+                                  (route) => false,
+                                );
+                              },
+                              child: const Text('Go back to Home Page'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        if (!_isPlaying)
+                          IconButton(
+                            icon: const Icon(Icons.play_arrow),
+                            onPressed: _play,
+                          ),
+                        if (_isPlaying)
+                          IconButton(
+                            icon: const Icon(Icons.pause),
+                            onPressed: _pause,
+                          ),
+                        if (_isPlaying)
+                          IconButton(
+                            icon: const Icon(Icons.stop),
+                            onPressed: _stop,
+                          ),
+                        if (!_isPlaying)
+                          IconButton(
+                            icon: const Icon(Icons.refresh),
+                            onPressed: _reset,
+                          ),
+                      ],
+                    ),
                   ],
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  if (!_isPlaying)
-                    IconButton(
-                      icon: const Icon(Icons.play_arrow),
-                      onPressed: _play,
-                    ),
-                  if (_isPlaying)
-                    IconButton(
-                      icon: const Icon(Icons.pause),
-                      onPressed: _pause,
-                    ),
-                  if (_isPlaying)
-                    IconButton(
-                      icon: const Icon(Icons.stop),
-                      onPressed: _stop,
-                    ),
-                  if (!_isPlaying)
-                    IconButton(
-                      icon: const Icon(Icons.refresh),
-                      onPressed: _reset,
-                    ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
+              ],
+            ),
     );
   }
 

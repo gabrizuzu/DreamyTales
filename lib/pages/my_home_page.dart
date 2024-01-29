@@ -15,7 +15,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'edit_character.dart';
 import 'edit_second_character.dart';
 
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -51,20 +50,22 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     Navigator.pop(context); // Chiudi il Drawer
   }
+
   String _getTitleForCurrentCategory() {
-  switch (_currentCategory) {
-    case AppCategory.home:
-      return "Dreamy Tales";
-    case AppCategory.myStories:
-      return "My Stories";
-    case AppCategory.analytics:
-      return "Analytics";
-    case AppCategory.settings:
-      return "Settings";
-    default:
-      return "Dreamy Tales";
+    switch (_currentCategory) {
+      case AppCategory.home:
+        return "Dreamy Tales";
+      case AppCategory.myStories:
+        return "My Stories";
+      case AppCategory.analytics:
+        return "Analytics";
+      case AppCategory.settings:
+        return "Settings";
+      default:
+        return "Dreamy Tales";
+    }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -216,7 +217,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     children: [
                                       TextSpan(
                                         text: data['name'] != null &&
-                                            data['name'].isNotEmpty
+                                                data['name'].isNotEmpty
                                             ? data['name']![0].toUpperCase()
                                             : '',
                                         style: const TextStyle(
@@ -226,18 +227,20 @@ class _MyHomePageState extends State<MyHomePage> {
                                           decoration: TextDecoration.none,
                                           shadows: [
                                             Shadow(
-                                              color: Colors.black, // Colore dell'ombra
-                                              offset: Offset(1.0, 1.0), // Offset dell'ombra rispetto al testo
+                                              color: Colors.black,
+                                              // Colore dell'ombra
+                                              offset: Offset(1.0,
+                                                  1.0), // Offset dell'ombra rispetto al testo
                                             ),
                                           ],
                                         ),
                                       ),
                                       TextSpan(
                                         text: data['name'] != null &&
-                                            data['name'].length > 1
+                                                data['name'].length > 1
                                             ? data['name']!
-                                            .substring(1)
-                                            .toLowerCase()
+                                                .substring(1)
+                                                .toLowerCase()
                                             : '',
                                         style: const TextStyle(
                                           color: Colors.amber,
@@ -246,8 +249,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                           decoration: TextDecoration.none,
                                           shadows: [
                                             Shadow(
-                                              color: Colors.black, // Colore dell'ombra
-                                              offset: Offset(1.0, 1.0), // Offset dell'ombra rispetto al testo
+                                              color: Colors.black,
+                                              // Colore dell'ombra
+                                              offset: Offset(1.0,
+                                                  1.0), // Offset dell'ombra rispetto al testo
                                             ),
                                           ],
                                         ),
@@ -339,9 +344,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasError) {
-                        return const Text('Something went wrong');}
+                        return const Text('Something went wrong');
+                      }
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Text("Loading");}
+                        return const Text("Loading");
+                      }
                       return ListView(
                         scrollDirection: Axis.horizontal,
                         children: snapshot.data!.docs
@@ -358,7 +365,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => EditSecondCharacterPage(
+                                        builder: (context) =>
+                                            EditSecondCharacterPage(
                                           characterId: document.id,
                                         ),
                                       ),
@@ -410,7 +418,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 const SizedBox(height: 10),
                                 RichText(
-                                text: TextSpan(
+                                  text: TextSpan(
                                     children: [
                                       TextSpan(
                                         text: data['name'] != null &&
@@ -424,8 +432,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                           decoration: TextDecoration.none,
                                           shadows: [
                                             Shadow(
-                                              color: Colors.black, // Colore dell'ombra
-                                              offset: Offset(1.0, 1.0), // Offset dell'ombra rispetto al testo
+                                              color: Colors.black,
+                                              // Colore dell'ombra
+                                              offset: Offset(1.0,
+                                                  1.0), // Offset dell'ombra rispetto al testo
                                             ),
                                           ],
                                         ),
@@ -444,8 +454,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                           decoration: TextDecoration.none,
                                           shadows: [
                                             Shadow(
-                                              color: Colors.black, // Colore dell'ombra
-                                              offset: Offset(1.0, 1.0), // Offset dell'ombra rispetto al testo
+                                              color: Colors.black,
+                                              // Colore dell'ombra
+                                              offset: Offset(1.0,
+                                                  1.0), // Offset dell'ombra rispetto al testo
                                             ),
                                           ],
                                         ),
@@ -513,11 +525,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   return StreamBuilder<int>(
                     stream: FirebaseFirestore.instance
                         .collection('characters')
-                        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-                        .limit(1)  // Limita la query a un solo documento
+                        .where('userId',
+                            isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                        .limit(1) // Limita la query a un solo documento
                         .snapshots()
-                        .map((snapshot) => snapshot.docs.length),  // Mappa la lunghezza della lista di documenti
-                    builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                        .map((snapshot) => snapshot.docs.length),
+                    // Mappa la lunghezza della lista di documenti
+                    builder:
+                        (BuildContext context, AsyncSnapshot<int> snapshot) {
                       if (snapshot.hasError) {
                         // Gestisci eventuali errori durante il recupero dei dati da Firebase
                         return const Text('Error retrieving characters');
@@ -553,14 +568,17 @@ class _MyHomePageState extends State<MyHomePage> {
                           width: double.infinity,
                           height: 60.0,
                           decoration: const BoxDecoration(
-                            color: Colors.grey, // Imposta il colore di sfondo del pulsante inattivo
+                            color: Colors
+                                .grey, // Imposta il colore di sfondo del pulsante inattivo
                           ),
                           child: TextButton.icon(
                             icon: const Icon(Icons.star),
-                            label: const Text("Add a Main Character to start the magic"),
+                            label: const Text(
+                                "Add a Main Character to start the magic"),
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const AddMainCharacterPage(),
+                                builder: (context) =>
+                                    const AddMainCharacterPage(),
                               ));
                             },
                           ),

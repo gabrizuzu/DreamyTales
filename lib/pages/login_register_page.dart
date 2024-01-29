@@ -149,7 +149,8 @@ class _LoginPageState extends State<LoginPage> {
               child: SingleChildScrollView(
                 child: Container(
                   padding: const EdgeInsets.all(16.0),
-                  width: MediaQuery.of(context).size.width * 0.8, // Usa il 80% della larghezza dello schermo
+                  width: MediaQuery.of(context).size.width *
+                      0.8, // Usa il 80% della larghezza dello schermo
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -202,7 +203,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
 
   Widget _logo() {
     return Padding(

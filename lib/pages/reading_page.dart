@@ -6,7 +6,8 @@ class ReadingPage extends StatefulWidget {
   final String storyText;
   final String language;
 
-  const ReadingPage({super.key, required this.storyText, required this.language});
+  const ReadingPage(
+      {super.key, required this.storyText, required this.language});
 
   @override
   _ReadingPageState createState() => _ReadingPageState();
@@ -44,7 +45,6 @@ class _ReadingPageState extends State<ReadingPage> {
     });
   }
 
-
   void _resetTts() async {
     await _flutterTts.stop();
     setState(() {
@@ -56,10 +56,9 @@ class _ReadingPageState extends State<ReadingPage> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: true,
-      onPopInvoked: (didPop) async  {
+      onPopInvoked: (didPop) async {
         _resetTts();
       },
-
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Reading Page'),
@@ -102,8 +101,6 @@ class _ReadingPageState extends State<ReadingPage> {
       ),
     );
   }
-
-
 
   @override
   void dispose() {

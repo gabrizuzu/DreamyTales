@@ -52,7 +52,7 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
           .get();
 
       Map<String, dynamic> data =
-      documentSnapshot.data() as Map<String, dynamic>;
+          documentSnapshot.data() as Map<String, dynamic>;
 
       setState(() {
         _nameController.text = data['name'] ?? '';
@@ -270,7 +270,7 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
           .get();
 
       Map<String, dynamic> existingData =
-      documentSnapshot.data() as Map<String, dynamic>;
+          documentSnapshot.data() as Map<String, dynamic>;
 
       if (_nameController.text.isNotEmpty) {
         existingData['name'] = _nameController.text;

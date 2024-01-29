@@ -52,7 +52,7 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
           .get();
 
       Map<String, dynamic> data =
-      documentSnapshot.data() as Map<String, dynamic>;
+          documentSnapshot.data() as Map<String, dynamic>;
 
       setState(() {
         _nameController.text = data['name'] ?? '';
@@ -238,8 +238,6 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
     );
   }
 
-
-
   void updateCharacter(String characterId) async {
     try {
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
@@ -248,7 +246,7 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
           .get();
 
       Map<String, dynamic> existingData =
-      documentSnapshot.data() as Map<String, dynamic>;
+          documentSnapshot.data() as Map<String, dynamic>;
 
       if (_nameController.text.isNotEmpty) {
         existingData['name'] = _nameController.text;

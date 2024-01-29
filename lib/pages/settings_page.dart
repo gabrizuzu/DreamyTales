@@ -27,7 +27,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _loadLanguage() async {
     _preferences = await SharedPreferences.getInstance();
     setState(() {
-      selectedLanguage = _preferences.getString('selectedLanguage') ?? 'English';
+      selectedLanguage =
+          _preferences.getString('selectedLanguage') ?? 'English';
     });
   }
 
@@ -55,7 +56,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 _showLanguageSelectionDialog(context);
               },
               child: const ListTile(
-                title: Text('Language', style: TextStyle(fontWeight: FontWeight.bold)),
+                title: Text('Language',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Text('Select the language of the stories'),
                 trailing: Icon(Icons.arrow_forward),
               ),
@@ -68,7 +70,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 _showNotificationsDialog(context);
               },
               child: const ListTile(
-                title: Text('Notifications', style: TextStyle(fontWeight: FontWeight.bold),),
+                title: Text(
+                  'Notifications',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 subtitle: Text('Enable or disable app notifications'),
                 trailing: Icon(Icons.arrow_forward),
               ),
@@ -77,7 +82,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             // Opzione 4: Feedback
             ListTile(
-              title: const Text('Feedback', style: TextStyle(fontWeight: FontWeight.bold)),
+              title: const Text('Feedback',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
               subtitle: const Text('Send feedback or report issues'),
               trailing: const Icon(Icons.arrow_forward),
               onTap: () {
@@ -92,7 +98,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 _showAppInformationDialog(context);
               },
               child: const ListTile(
-                title: Text('App Information', style: TextStyle(fontWeight: FontWeight.bold)),
+                title: Text('App Information',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Text('View information about the app'),
                 trailing: Icon(Icons.arrow_forward),
               ),
@@ -105,7 +112,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 _showPrivacyDialog(context);
               },
               child: const ListTile(
-                title: Text('Privacy', style: TextStyle(fontWeight: FontWeight.bold)),
+                title: Text('Privacy',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Text('View our privacy policy'),
                 trailing: Icon(Icons.arrow_forward),
               ),
@@ -114,7 +122,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
             // Opzione 7: Esci dall'account
             ListTile(
-              title: const Text('Sign Out', style: TextStyle(fontWeight: FontWeight.bold)),
+              title: const Text('Sign Out',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
               subtitle: const Text('Sign out from your account'),
               trailing: const Icon(Icons.arrow_forward),
               onTap: () {
@@ -126,8 +135,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             const Divider(),
-
-
           ],
         ),
       ),
@@ -165,7 +172,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
                   TextButton(
                     onPressed: () {
                       // Implementa qui la logica per inviare il feedback
@@ -189,7 +195,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: const Text('In which Language do you want to generate the Stories?'),
+              title: const Text(
+                  'In which Language do you want to generate the Stories?'),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -253,8 +260,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-
-
   void _showNotificationsDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -282,7 +287,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
                       TextButton(
                         onPressed: () {
                           // Salvare le impostazioni delle notifiche e chiudere la finestra
@@ -301,7 +305,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       },
     );
   }
-
 
   // Funzione per mostrare una finestra modale di informazioni sull'app
   void _showAppInformationDialog(BuildContext context) {
@@ -323,7 +326,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   TextSpan(
-                    text: 'Our app uses AI to personalize bedtime stories, creating a magical experience for your child every night. ',
+                    text:
+                        'Our app uses AI to personalize bedtime stories, creating a magical experience for your child every night. ',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16.0,
@@ -346,7 +350,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       },
     );
   }
-
 
   // Funzione per mostrare una finestra modale sulla privacy
   void _showPrivacyDialog(BuildContext context) {
@@ -381,10 +384,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   TextSpan(
-                    text: '- We collect personal information you voluntarily provide, such as your name and email.\n',
+                    text:
+                        '- We collect personal information you voluntarily provide, such as your name and email.\n',
                   ),
                   TextSpan(
-                    text: '- We automatically collect usage data to improve and customize your app experience.\n\n',
+                    text:
+                        '- We automatically collect usage data to improve and customize your app experience.\n\n',
                   ),
                   TextSpan(
                     text: 'How We Use Your Information\n\n',
@@ -412,13 +417,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   TextSpan(
-                    text: '- Any changes to our privacy policy will be reflected on this page.\n\n',
+                    text:
+                        '- Any changes to our privacy policy will be reflected on this page.\n\n',
                   ),
                   TextSpan(
-                    text: 'By using our app, you agree to the terms outlined in this Privacy Policy.\n\n',
+                    text:
+                        'By using our app, you agree to the terms outlined in this Privacy Policy.\n\n',
                   ),
                   TextSpan(
-                    text: 'For questions or concerns, please contact us at [dreamytales@gmail.com].',
+                    text:
+                        'For questions or concerns, please contact us at [dreamytales@gmail.com].',
                   ),
                 ],
               ),
@@ -440,7 +448,4 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> signOut() async {
     await Auth().signOut();
   }
-
-
 }
-

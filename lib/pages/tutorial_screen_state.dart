@@ -9,6 +9,7 @@ import 'login_register_page.dart';
 class TutorialScreenState extends State<TutorialScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
+
   int get currentPage => _currentPage;
 
   List images = [
@@ -118,7 +119,6 @@ class TutorialScreenState extends State<TutorialScreen> {
                     ),
                     child: const Text("Let's Begin"),
                   ),
-
               ],
             ),
           ),
@@ -152,9 +152,12 @@ class TutorialScreenState extends State<TutorialScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                AppLargeText(text: largetext[index], size: 40, color: Colors.white),
+                AppLargeText(
+                    text: largetext[index], size: 40, color: Colors.white),
                 AppText(text: text[index], size: 20, color: Colors.white54),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -192,7 +195,6 @@ class TutorialScreenState extends State<TutorialScreen> {
     return indicators;
   }
 
-
   Widget _buildPageIndicatorItem(bool isActive, int index) {
     return Container(
       key: Key('pageIndicator_$index'),
@@ -205,5 +207,4 @@ class TutorialScreenState extends State<TutorialScreen> {
       ),
     );
   }
-
 }

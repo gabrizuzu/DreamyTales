@@ -63,7 +63,6 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
 
-
   void _showErrorSnackbar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -173,7 +172,6 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                       ),
                       child: const Text("Save"),
                     ),
-
                   ),
               ],
             ),
@@ -206,7 +204,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
             if (option['type'] == 'text')
               TextField(
                 controller:
-                option['key'] == 'name' ? nameController : ageController,
+                    option['key'] == 'name' ? nameController : ageController,
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -316,15 +314,13 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
             if (option['type'] == 'checkbox')
               GridView.count(
                 crossAxisCount:
-                ResponsiveWrapper.of(context).isSmallerThan(TABLET)
-                    ? 2
-                    : 4,
+                    ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? 2 : 4,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 childAspectRatio:
-                ResponsiveWrapper.of(context).isSmallerThan(TABLET)
-                    ? 1.0
-                    : 0.8,
+                    ResponsiveWrapper.of(context).isSmallerThan(TABLET)
+                        ? 1.0
+                        : 0.8,
                 children: (option['options'] as List<Map<String, dynamic>>)
                     .map((avatarOption) {
                   bool isSelected = profileData[option['key']]
@@ -344,7 +340,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                           width: 3.0,
                         ),
                         borderRadius:
-                        BorderRadius.circular(isSelected ? 10.0 : 10.0),
+                            BorderRadius.circular(isSelected ? 10.0 : 10.0),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -471,8 +467,6 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
     return true;
   }
 
-
-
   void saveProfileData() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('name', profileData['name']);
@@ -489,8 +483,5 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
       'age': profileData['age'],
       'avatar': profileData['avatar'],
     });
-
-
   }
 }
-

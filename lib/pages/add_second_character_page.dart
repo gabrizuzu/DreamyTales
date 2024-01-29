@@ -6,8 +6,7 @@ class AddSecondCharacterPage extends StatefulWidget {
   const AddSecondCharacterPage({super.key});
 
   @override
-  State<AddSecondCharacterPage> createState() =>
-      _AddSecondCharacterPageState();
+  State<AddSecondCharacterPage> createState() => _AddSecondCharacterPageState();
 }
 
 class _AddSecondCharacterPageState extends State<AddSecondCharacterPage> {
@@ -208,8 +207,6 @@ class _AddSecondCharacterPageState extends State<AddSecondCharacterPage> {
                         ],
                       ),
                     ),
-
-
                   ],
                 ),
               ),
@@ -224,8 +221,10 @@ class _AddSecondCharacterPageState extends State<AddSecondCharacterPage> {
                         .amber, // Imposta il colore di sfondo del pulsante
                   ),
                   child: TextButton.icon(
-                    icon: const Icon(Icons.check), // Imposta l'icona del pulsante
-                    label: const Text("Save"), // Imposta il testo del pulsante
+                    icon: const Icon(Icons.check),
+                    // Imposta l'icona del pulsante
+                    label: const Text("Save"),
+                    // Imposta il testo del pulsante
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
                         if (selectedAvatar == null) {

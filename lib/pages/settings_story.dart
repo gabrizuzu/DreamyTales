@@ -23,17 +23,31 @@ class _SettingsStoryPageState extends State<SettingsStoryPage> {
                 await prefs.setString('storyPreference', 'Fantasy');
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const FantasyPlotPage()),
+                  MaterialPageRoute(
+                      builder: (context) => const FantasyPlotPage()),
                 );
               },
               child: Stack(
                 children: <Widget>[
                   Positioned.fill(
-                    child: Image.asset('assets/storie_fantasy.jpg', fit: BoxFit.cover),
+                    child: Image.asset('assets/storie_fantasy.jpg',
+                        fit: BoxFit.cover),
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: Text('Fantasy', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.amber, shadows: List.generate(1, (index) => const Shadow(color: Colors.black, blurRadius: 10, offset: Offset(1, 1)))),),
+                    child: Text(
+                      'Fantasy',
+                      style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.amber,
+                          shadows: List.generate(
+                              1,
+                              (index) => const Shadow(
+                                  color: Colors.black,
+                                  blurRadius: 10,
+                                  offset: Offset(1, 1)))),
+                    ),
                   ),
                 ],
               ),
@@ -52,11 +66,22 @@ class _SettingsStoryPageState extends State<SettingsStoryPage> {
               child: Stack(
                 children: <Widget>[
                   Positioned.fill(
-                    child: Image.asset('assets/storie_classiche.png', fit: BoxFit.cover),
+                    child: Image.asset('assets/storie_classiche.png',
+                        fit: BoxFit.cover),
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: Text('Classic', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.amber, shadows: List.generate(1, (index) => const Shadow(color: Colors.black, blurRadius: 10, offset: Offset(1, 1))))),
+                    child: Text('Classic',
+                        style: TextStyle(
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.amber,
+                            shadows: List.generate(
+                                1,
+                                (index) => const Shadow(
+                                    color: Colors.black,
+                                    blurRadius: 10,
+                                    offset: Offset(1, 1))))),
                   ),
                 ],
               ),
