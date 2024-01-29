@@ -1,6 +1,7 @@
 import 'package:dreamy_tales/pages/moral_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class PlotChoice extends StatefulWidget {
   const PlotChoice({Key? key}) : super(key: key);
@@ -35,9 +36,9 @@ class _PlotChoiceState extends State<PlotChoice> {
         child: Padding(
           padding: EdgeInsets.all(16.0),
         child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
-            childAspectRatio: 3 / 2,
+            childAspectRatio: ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? 3/2 : 3,
             crossAxisSpacing: 20,
             mainAxisSpacing: 20,
           ),
@@ -65,7 +66,7 @@ itemBuilder: (context, index) {
         Card(
           color: Colors.black.withOpacity(0.6),
           child: Container(
-            height: 200, 
+            height: ResponsiveWrapper.of(context).isTablet ? MediaQuery.of(context).size.height * 0.2 : MediaQuery.of(context).size.height * 0.35,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(plots[index]['image']!),

@@ -66,6 +66,7 @@ class _SettingsStoryPageState extends State<SettingsStoryPage> {
       ),
       // Aggiungi una freccia di navigazione in sovraimpressione
       floatingActionButton: FloatingActionButton(
+        heroTag: "back",
         onPressed: () {
           Navigator.pop(context);
         },

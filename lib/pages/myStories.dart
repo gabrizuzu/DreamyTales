@@ -54,8 +54,7 @@ class MyStories extends StatelessWidget {
                   protagonists = List<String>.from(protagonistsData);
                 } else {
                   throw Exception('Unexpected data type for protagonists');
-                }
-               
+                }              
                 rating = data['rating'];
 
 
@@ -86,9 +85,9 @@ class MyStories extends StatelessWidget {
                                       querySnapshot.docs[0].reference.delete();
                                     }
 
-                                    Navigator.pop(context, 'Conferma');
+                                    Navigator.pop(context, 'Confirm');
                                   },
-                                  child: const Text('Conferma', style: TextStyle(color: Colors.red)),
+                                  child: const Text('Confirm', style: TextStyle(color: Colors.red)),
                                 ),
                                 ],
                               ),

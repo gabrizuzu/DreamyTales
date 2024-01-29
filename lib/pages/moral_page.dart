@@ -1,6 +1,7 @@
 import 'package:dreamy_tales/pages/story_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class MoralChoice extends StatefulWidget {
   const MoralChoice({Key? key}) : super(key: key);
@@ -41,9 +42,9 @@ class _MoralChoiceState extends State<MoralChoice> {
         child: Padding(
           padding: const EdgeInsets.only(top:16.0),
         child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 3 / 2,
+            childAspectRatio: ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? 3/2 : 4,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
           ),

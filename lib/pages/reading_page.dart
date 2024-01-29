@@ -91,11 +91,13 @@ class _ReadingPageState extends State<ReadingPage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
+              heroTag: "play",
               onPressed: _toggleTts,
               child: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
             ),
             SizedBox(height: 16),
             FloatingActionButton(
+              heroTag: "restart",
               onPressed: _resetTts,
               child: Icon(Icons.refresh),
             ),

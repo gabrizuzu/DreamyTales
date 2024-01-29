@@ -50,14 +50,15 @@ class _StoryPageState extends State<StoryPage> {
     var secondaryCharacters = await _getSecondaryCharacters();
     var plotPreference = await _getPlotPreference();
     var moralPreference = await _getMoralPreference();
+  
 
     var userMessage;
     if (selectedLanguage == 'Italiano') {
       userMessage =
-      'Genera una storia della buonanotte per bambini ambientata nel mondo di $plotPreference e dove i protagonisti sono: $characters, con i seguenti personaggi secondari $secondaryCharacters. La storia dovrebbe contenere la morale $moralPreference. Il titolo e il capitolo devono essere scritti in grassetto.';
+      'Genera il titolo e una storia della buonanotte per bambini ambientata nel mondo di $plotPreference e dove i protagonisti sono: $characters, con i seguenti personaggi secondari $secondaryCharacters. La storia dovrebbe contenere la morale $moralPreference. Il titolo e il capitolo devono essere scritti in grassetto.';
     } else {
       userMessage =
-      'Generate a bedtime story for children set in the world of $plotPreference and where the protagonists are: $characters, with the following secondary characters $secondaryCharacters. The story should contain the moral $moralPreference. The title and the chapter must be written in bold.';
+      'Generate the title and a bedtime story for children set in the world of $plotPreference and where the protagonists are: $characters, with the following secondary characters $secondaryCharacters. The story should contain the moral $moralPreference. The title and the chapter must be written in bold.';
     }
 
     print(userMessage);
@@ -84,14 +85,13 @@ class _StoryPageState extends State<StoryPage> {
 
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
-
+    print(_getAvatar().toString());
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       setState(() {
         _story = data['choices'][0]['message']['content'];
-        RegExp titleExp = RegExp(r'Title: (.*?)\*\*');
-        RegExpMatch? titleMatch = titleExp.firstMatch(_story);
-        _title = titleMatch != null ? titleMatch.group(1)?.trim() : "Amazing Story";
+        _title = _story.split('\n').first.trim();
+        print(_title);
         _isGenerating = false;
       });
       var firestore = FirebaseFirestore.instance;
@@ -122,7 +122,18 @@ class _StoryPageState extends State<StoryPage> {
         .get();
     return characters.docs.map((doc) => doc['name'].toString()).join(', ');
   }
-
+    Future<String> _getAvatar() async {
+    var firestore = FirebaseFirestore.instance;
+    var currentUserId = FirebaseAuth.instance.currentUser!.uid;
+    var characters = await firestore
+        .collection('characters')
+        .where('userId', isEqualTo: currentUserId)
+        .get();
+    return characters.docs.isNotEmpty
+    ? characters.docs.first['avatar'].toString()
+    : 'assets/avatar_M6.png';
+  }
+ 
   Future<String> _getSecondaryCharacters() async {
     var firestore = FirebaseFirestore.instance;
     var currentUserId = FirebaseAuth.instance.currentUser!.uid;
@@ -160,10 +171,13 @@ class _StoryPageState extends State<StoryPage> {
             ),
           ),
           Center(
-            child: Image.asset(
-              'assets/picmix.com_406047.gif',
-              width: double.infinity,
-              height: double.infinity,
+            child: Transform.scale(
+              scale: 1.2, // Aumenta la scala dell'immagine del 20%
+              child: Image.asset(
+                'assets/picmix.com_406047.gif',
+                width: double.infinity,
+                height: double.infinity,
+              ),
             ),
           ),
           const Positioned(
@@ -205,11 +219,21 @@ class _StoryPageState extends State<StoryPage> {
                 child: ListView(
                   padding: const EdgeInsets.all(8.0),
                   children: [
-                    const CircleAvatar(
-                      radius: 100,
-                      backgroundImage: AssetImage(
-                          'assets/logo_login.png'),
-                    ),
+                    FutureBuilder<String>(
+                    future: _getAvatar(),
+                    builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator(); // mostra un indicatore di caricamento mentre si attende
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        return CircleAvatar(
+                          radius: 200,
+                          backgroundImage: AssetImage(snapshot.data ?? 'assets/avatar_M6.png'),
+                        );
+                      }
+                    },
+                  ),
                     ..._story.split('\n\n').map((chapter) {
                       final boldParts =
                       RegExp(r'\*\*(.+?)\*\*').allMatches(chapter);
@@ -270,10 +294,11 @@ class _StoryPageState extends State<StoryPage> {
                               ),
                               actions: [
                                 TextButton(
-                                  child: const Text('Conferma'),
+                                  child: const Text('Confirm'),
                                   onPressed: () async {
                                     await docRef?.update(
                                         {'rating': _currentRating});
+                                    // ignore: use_build_context_synchronously
                                     Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
@@ -301,6 +326,7 @@ class _StoryPageState extends State<StoryPage> {
                           if (rating != null) {
                             await docRef?.update({'rating': rating});
                           }
+                          // ignore: use_build_context_synchronously
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
