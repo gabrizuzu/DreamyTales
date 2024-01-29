@@ -3,11 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AddSecondCharacterPage extends StatefulWidget {
-  const AddSecondCharacterPage({Key? key}) : super(key: key);
+  const AddSecondCharacterPage({super.key});
 
   @override
-  State<AddSecondCharacterPage> createState() =>
-      _AddSecondCharacterPageState();
+  State<AddSecondCharacterPage> createState() => _AddSecondCharacterPageState();
 }
 
 class _AddSecondCharacterPageState extends State<AddSecondCharacterPage> {
@@ -170,9 +169,9 @@ class _AddSecondCharacterPageState extends State<AddSecondCharacterPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text(
                                 'Swipe right to explore avatars',
                                 style: TextStyle(
@@ -208,8 +207,6 @@ class _AddSecondCharacterPageState extends State<AddSecondCharacterPage> {
                         ],
                       ),
                     ),
-
-
                   ],
                 ),
               ),
@@ -224,8 +221,10 @@ class _AddSecondCharacterPageState extends State<AddSecondCharacterPage> {
                         .amber, // Imposta il colore di sfondo del pulsante
                   ),
                   child: TextButton.icon(
-                    icon: const Icon(Icons.check), // Imposta l'icona del pulsante
-                    label: const Text("Save"), // Imposta il testo del pulsante
+                    icon: const Icon(Icons.check),
+                    // Imposta l'icona del pulsante
+                    label: const Text("Save"),
+                    // Imposta il testo del pulsante
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
                         if (selectedAvatar == null) {
@@ -268,12 +267,12 @@ class AvatarPreview extends StatefulWidget {
   final VoidCallback onPressed;
   final bool isSelected;
 
-  AvatarPreview({
-    Key? key,
+  const AvatarPreview({
+    super.key,
     required this.imagePath,
     required this.onPressed,
     this.isSelected = false,
-  }) : super(key: key);
+  });
 
   @override
   _AvatarPreviewState createState() => _AvatarPreviewState();

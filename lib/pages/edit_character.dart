@@ -1,12 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class EditCharacterPage extends StatefulWidget {
   final String characterId;
 
-  const EditCharacterPage({Key? key, required this.characterId})
-      : super(key: key);
+  const EditCharacterPage({super.key, required this.characterId});
 
   @override
   State<EditCharacterPage> createState() => _EditCharacterPageState();
@@ -14,7 +13,6 @@ class EditCharacterPage extends StatefulWidget {
 
 class _EditCharacterPageState extends State<EditCharacterPage> {
   final _formKey = GlobalKey<FormState>();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String? name;
   String? gender;
   double age = 0;
@@ -48,14 +46,13 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
 
   void _fetchCharacterData() async {
     try {
-      String userId = FirebaseAuth.instance.currentUser!.uid;
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
           .collection('characters')
           .doc(widget.characterId)
           .get();
 
       Map<String, dynamic> data =
-      documentSnapshot.data() as Map<String, dynamic>;
+          documentSnapshot.data() as Map<String, dynamic>;
 
       setState(() {
         _nameController.text = data['name'] ?? '';
@@ -64,7 +61,9 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
         selectedAvatar = data['avatar'] ?? '';
       });
     } catch (e) {
-      print('Error fetching character data: $e');
+      if (kDebugMode) {
+        print('Error fetching character data: $e');
+      }
     }
   }
 
@@ -239,42 +238,6 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
     );
   }
 
-  void _showAllAvatarsDialog() {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 150.0,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: _sortedAvatarList().length,
-            itemBuilder: (BuildContext context, int index) {
-              String avatarPath = _sortedAvatarList()[index];
-              return AvatarPreview(
-                imagePath: avatarPath,
-                onPressed: () {
-                  setState(() {
-                    selectedAvatar = avatarPath;
-                  });
-                  Navigator.pop(context);
-                },
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
-
-  List<String> _sortedAvatarList() {
-    List<String> sortedList = List.from(allAvatars);
-    if (selectedAvatar != null) {
-      sortedList.remove(selectedAvatar);
-      sortedList.insert(0, selectedAvatar!);
-    }
-    return sortedList;
-  }
-
   void updateCharacter(String characterId) async {
     try {
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
@@ -283,7 +246,7 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
           .get();
 
       Map<String, dynamic> existingData =
-      documentSnapshot.data() as Map<String, dynamic>;
+          documentSnapshot.data() as Map<String, dynamic>;
 
       if (_nameController.text.isNotEmpty) {
         existingData['name'] = _nameController.text;
@@ -304,7 +267,9 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
           .doc(characterId)
           .update(existingData);
     } catch (e) {
-      print('Error updating character: $e');
+      if (kDebugMode) {
+        print('Error updating character: $e');
+      }
     }
   }
 }
@@ -314,12 +279,12 @@ class AvatarPreview extends StatefulWidget {
   final VoidCallback onPressed;
   final bool isSelected;
 
-  AvatarPreview({
-    Key? key,
+  const AvatarPreview({
+    super.key,
     required this.imagePath,
     required this.onPressed,
     this.isSelected = false,
-  }) : super(key: key);
+  });
 
   @override
   _AvatarPreviewState createState() => _AvatarPreviewState();

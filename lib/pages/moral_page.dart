@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class MoralChoice extends StatefulWidget {
-  const MoralChoice({Key? key}) : super(key: key);
+  const MoralChoice({super.key});
 
   @override
   State<MoralChoice> createState() => _MoralChoiceState();
@@ -13,18 +13,59 @@ class MoralChoice extends StatefulWidget {
 class _MoralChoiceState extends State<MoralChoice> {
   int? selectedCardIndex;
   List<Map<String, String>> morals = [
-    {'title': 'Kindness Matters:', 'description': 'Treat others the way you want to be treated. Kindness makes the world a better place. 🌍❤️'},
-    {'title': 'Never Give Up:', 'description': 'Even when things are tough, keep trying. Perseverance leads to success. 🌈👊'},
-    {'title': 'Sharing is Caring:', 'description': 'Sharing with others shows you care. It makes everyone happy. 🤝😊'},
-    {'title': 'Honesty:', 'description': 'Always tell the truth. Honesty builds trust and strong friendships. 🤞🗣️'},
-    {'title': 'Be Grateful:', 'description': 'Appreciate what you have. Gratitude brings joy into your life. 🙏😊'},
-    {'title': 'Teamwork Works:','description': 'Working together with others achieves more than working alone. 🤝🚀'},
-    {'title': 'Respect Differences:','description': 'Everyone is unique. Respect and celebrate differences. It makes the world colorful. 🌈🤝'},
-    {'title': 'Forgive and Forget:','description': 'Forgiving others is a gift to yourself. Let go of grudges and move forward with a happy heart. 🎁❤️'},
-    {'title': 'Be Responsible:', 'description': "Take responsibility for your actions. It's a sign of maturity and builds trust. ⚖️👍"},
-    {'title': 'Believe in Yourself:', 'description': 'You are capable of amazing things. Believe in yourself, and others will too. 🌟🙌'}
+    {
+      'title': 'Kindness Matters:',
+      'description':
+          'Treat others the way you want to be treated. Kindness makes the world a better place. 🌍❤️'
+    },
+    {
+      'title': 'Never Give Up:',
+      'description':
+          'Even when things are tough, keep trying. Perseverance leads to success. 🌈👊'
+    },
+    {
+      'title': 'Sharing is Caring:',
+      'description':
+          'Sharing with others shows you care. It makes everyone happy. 🤝😊'
+    },
+    {
+      'title': 'Honesty:',
+      'description':
+          'Always tell the truth. Honesty builds trust and strong friendships. 🤞🗣️'
+    },
+    {
+      'title': 'Be Grateful:',
+      'description':
+          'Appreciate what you have. Gratitude brings joy into your life. 🙏😊'
+    },
+    {
+      'title': 'Teamwork Works:',
+      'description':
+          'Working together with others achieves more than working alone. 🤝🚀'
+    },
+    {
+      'title': 'Respect Differences:',
+      'description':
+          'Everyone is unique. Respect and celebrate differences. It makes the world colorful. 🌈🤝'
+    },
+    {
+      'title': 'Forgive and Forget:',
+      'description':
+          'Forgiving others is a gift to yourself. Let go of grudges and move forward with a happy heart. 🎁❤️'
+    },
+    {
+      'title': 'Be Responsible:',
+      'description':
+          "Take responsibility for your actions. It's a sign of maturity and builds trust. ⚖️👍"
+    },
+    {
+      'title': 'Believe in Yourself:',
+      'description':
+          'You are capable of amazing things. Believe in yourself, and others will too. 🌟🙌'
+    }
   ];
   String? selectedMoral;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,84 +74,96 @@ class _MoralChoiceState extends State<MoralChoice> {
         backgroundColor: Colors.deepPurple,
       ),
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/sfondo.jpg"),
-            fit: BoxFit.cover,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/sfondo.jpg"),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(top:16.0),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? 3/2 : 4,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
-          itemCount: morals.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                await prefs.setString('moralPreference', morals[index]['title']!);
-                setState(() {
-                  selectedMoral = morals[index]['title'];
-                  selectedCardIndex = index;
-                });
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('You selected ${morals[index]['title']?.substring(0, morals[index]['title']!.length - 1)}')),
-                );
-
-                // Nascondi la snack bar dopo 1 secondo
-                Future.delayed(Duration(seconds: 1), () {
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                });
-
-
-              },
-              child: Card(
-                color: Colors.black.withOpacity(0.6),
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: selectedCardIndex == index ? Colors.deepPurple : Colors.transparent,
-                      width: 5.0,
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        morals[index]['title']!,
-                        style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,color:Colors.amber),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        morals[index]['description']!,
-                        style: TextStyle(fontSize: 12.0,color:Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio:
+                    ResponsiveWrapper.of(context).isSmallerThan(TABLET)
+                        ? 3 / 2
+                        : 4,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
               ),
-            );
-          },
-        ),
-      )
-      ),
-      floatingActionButton: selectedMoral != null ? FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => StoryPage()),
-          );
-        },
-        label: const Text('Confirm'),
-        backgroundColor: Colors.deepPurple,
-      ) : null,
+              itemCount: morals.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.setString(
+                        'moralPreference', morals[index]['title']!);
+                    setState(() {
+                      selectedMoral = morals[index]['title'];
+                      selectedCardIndex = index;
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content: Text(
+                              'You selected ${morals[index]['title']?.substring(0, morals[index]['title']!.length - 1)}')),
+                    );
+
+                    // Nascondi la snack bar dopo 1 secondo
+                    Future.delayed(const Duration(seconds: 1), () {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    });
+                  },
+                  child: Card(
+                    color: Colors.black.withOpacity(0.6),
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        color: selectedCardIndex == index
+                            ? Colors.deepPurple
+                            : Colors.transparent,
+                        width: 5.0,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            morals[index]['title']!,
+                            style: const TextStyle(
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.amber),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            morals[index]['description']!,
+                            style: const TextStyle(
+                                fontSize: 12.0, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          )),
+      floatingActionButton: selectedMoral != null
+          ? FloatingActionButton.extended(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const StoryPage()),
+                );
+              },
+              label: const Text('Confirm'),
+              backgroundColor: Colors.deepPurple,
+            )
+          : null,
     );
   }
 }

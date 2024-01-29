@@ -10,7 +10,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:intl/intl.dart';
 
 class StoryPage extends StatefulWidget {
-  StoryPage({Key? key}) : super(key: key);
+  const StoryPage({super.key});
 
   @override
   State<StoryPage> createState() => _StoryPageState();
@@ -38,7 +38,8 @@ class _StoryPageState extends State<StoryPage> {
     });
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String selectedLanguage = preferences.getString('selectedLanguage') ?? 'English';
+    String selectedLanguage =
+        preferences.getString('selectedLanguage') ?? 'English';
 
     if (selectedLanguage == 'English') {
       _flutterTts.setLanguage('en-US');
@@ -50,24 +51,22 @@ class _StoryPageState extends State<StoryPage> {
     var secondaryCharacters = await _getSecondaryCharacters();
     var plotPreference = await _getPlotPreference();
     var moralPreference = await _getMoralPreference();
-  
 
-    var userMessage;
+    String userMessage;
     if (selectedLanguage == 'Italiano') {
       userMessage =
-      'Genera il titolo e una storia della buonanotte per bambini ambientata nel mondo di $plotPreference e dove i protagonisti sono: $characters, con i seguenti personaggi secondari $secondaryCharacters. La storia dovrebbe contenere la morale $moralPreference. Il titolo e il capitolo devono essere scritti in grassetto.';
+          'Genera il titolo e una storia della buonanotte per bambini ambientata nel mondo di $plotPreference e dove i protagonisti sono: $characters, con i seguenti personaggi secondari $secondaryCharacters. La storia dovrebbe contenere la morale $moralPreference. Il titolo e il capitolo devono essere scritti in grassetto.';
     } else {
       userMessage =
-      'Generate the title and a bedtime story for children set in the world of $plotPreference and where the protagonists are: $characters, with the following secondary characters $secondaryCharacters. The story should contain the moral $moralPreference. The title and the chapter must be written in bold.';
+          'Generate the title and a bedtime story for children set in the world of $plotPreference and where the protagonists are: $characters, with the following secondary characters $secondaryCharacters. The story should contain the moral $moralPreference. The title and the chapter must be written in bold.';
     }
 
-    print(userMessage);
     var url = Uri.parse('https://api.openai.com/v1/chat/completions');
     var response = await http.post(
       url,
       headers: {
         'Authorization':
-        'Bearer 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',
+            'Bearer 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',
         'Content-Type': 'application/json',
       },
       body: jsonEncode({
@@ -83,15 +82,11 @@ class _StoryPageState extends State<StoryPage> {
       }),
     );
 
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-    print(_getAvatar().toString());
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       setState(() {
         _story = data['choices'][0]['message']['content'];
         _title = _story.split('\n').first.trim();
-        print(_title);
         _isGenerating = false;
       });
       var firestore = FirebaseFirestore.instance;
@@ -109,7 +104,6 @@ class _StoryPageState extends State<StoryPage> {
         'language': selectedLanguage,
       });
     } else {
-      print('Failed to generate story: ${response.statusCode}');
       setState(() {
         _isGenerating = false;
       });
@@ -125,7 +119,8 @@ class _StoryPageState extends State<StoryPage> {
         .get();
     return characters.docs.map((doc) => doc['name'].toString()).join(', ');
   }
-    Future<String> _getAvatar() async {
+
+  Future<String> _getAvatar() async {
     var firestore = FirebaseFirestore.instance;
     var currentUserId = FirebaseAuth.instance.currentUser!.uid;
     var characters = await firestore
@@ -133,10 +128,10 @@ class _StoryPageState extends State<StoryPage> {
         .where('userId', isEqualTo: currentUserId)
         .get();
     return characters.docs.isNotEmpty
-    ? characters.docs.first['avatar'].toString()
-    : 'assets/avatar_M6.png';
+        ? characters.docs.first['avatar'].toString()
+        : 'assets/avatar_M6.png';
   }
- 
+
   Future<String> _getSecondaryCharacters() async {
     var firestore = FirebaseFirestore.instance;
     var currentUserId = FirebaseAuth.instance.currentUser!.uid;
@@ -164,48 +159,48 @@ class _StoryPageState extends State<StoryPage> {
     return Scaffold(
       body: _isGenerating
           ? Stack(
-        children: <Widget>[
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/sfondo.jpg'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Center(
-            child: Transform.scale(
-              scale: 1.2, // Aumenta la scala dell'immagine del 20%
-              child: Image.asset(
-                'assets/picmix.com_406047.gif',
-                width: double.infinity,
-                height: double.infinity,
-              ),
-            ),
-          ),
-          const Positioned(
-            bottom: 50,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Text(
-                'Good things take time...',
-                style: TextStyle(
-                  color: Colors.amber,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black,
-                      blurRadius: 5,
+              children: <Widget>[
+                Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/sfondo.jpg'),
+                      fit: BoxFit.cover,
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          ),
-        ],
-      )
+                Center(
+                  child: Transform.scale(
+                    scale: 1.2, // Aumenta la scala dell'immagine del 20%
+                    child: Image.asset(
+                      'assets/picmix.com_406047.gif',
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
+                  ),
+                ),
+                const Positioned(
+                  bottom: 50,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Text(
+                      'Good things take time...',
+                      style: TextStyle(
+                        color: Colors.amber,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black,
+                            blurRadius: 5,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
           : Stack(
         children: <Widget>[
           Container(
@@ -226,7 +221,7 @@ class _StoryPageState extends State<StoryPage> {
                     future: _getAvatar(),
                     builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator(); // mostra un indicatore di caricamento mentre si attende
+                        return CircularProgressIndicator(); // mostra un indicatore di caricamento mentre si attende
                       } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
                       } else {
@@ -301,13 +296,6 @@ class _StoryPageState extends State<StoryPage> {
                                   onPressed: () async {
                                     await docRef?.update(
                                         {'rating': _currentRating});
-                                        if (_isPlaying) {
-                                          _stop;
-                                        }
-                                        
-                                        if (!_isPlaying) {
-                                          _reset;
-                                        }
                                     // ignore: use_build_context_synchronously
                                     Navigator.pushAndRemoveUntil(
                                       context,
@@ -321,13 +309,6 @@ class _StoryPageState extends State<StoryPage> {
                                 TextButton(
                                   child: const Text('Skip'),
                                   onPressed: () {
-                                      if (_isPlaying) {
-                                          _stop;
-                                        }
-                                        
-                                        if (!_isPlaying) {
-                                          _reset;
-                                        }
                                     Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
@@ -363,22 +344,22 @@ class _StoryPageState extends State<StoryPage> {
                 children: <Widget>[
                   if (!_isPlaying)
                     IconButton(
-                      icon: const Icon(Icons.play_arrow),
+                      icon: Icon(Icons.play_arrow),
                       onPressed: _play,
                     ),
                   if (_isPlaying)
                     IconButton(
-                      icon: const Icon(Icons.pause),
+                      icon: Icon(Icons.pause),
                       onPressed: _pause,
                     ),
                   if (_isPlaying)
                     IconButton(
-                      icon: const Icon(Icons.stop),
+                      icon: Icon(Icons.stop),
                       onPressed: _stop,
                     ),
                   if (!_isPlaying)
                     IconButton(
-                      icon: const Icon(Icons.refresh),
+                      icon: Icon(Icons.refresh),
                       onPressed: _reset,
                     ),
                 ],

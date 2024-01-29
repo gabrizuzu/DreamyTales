@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class FantasyPlotPage extends StatefulWidget {
-  const FantasyPlotPage({Key? key}) : super(key: key);
+  const FantasyPlotPage({super.key});
 
   @override
   State<FantasyPlotPage> createState() => _PlotChoiceState();
@@ -14,45 +14,53 @@ class _PlotChoiceState extends State<FantasyPlotPage> {
   List<Map<String, String>> plots = [
     {'image': 'assets/starWars.jpg', 'description': 'Star Wars'},
     {'image': 'assets/hogwarts.jpg', 'description': 'Hogwarts'},
-    {'image': 'assets/marvel.jpg', 'description': 'Marvel'}, 
+    {'image': 'assets/marvel.jpg', 'description': 'Marvel'},
     {'image': 'assets/disney.jpg', 'description': 'Disney'},
   ];
   String? selectedPlot;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Fantasy Plot Choice'),
+        title: const Text('Fantasy Plot Choice'),
         backgroundColor: Colors.deepPurple,
       ),
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/sfondo.jpg"),
-            fit: BoxFit.cover,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/sfondo.jpg"),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1,
-            childAspectRatio: ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? 3/2 : 3,
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-          ),
-          itemCount: plots.length,
-itemBuilder: (context, index) {
-  return GestureDetector(
-    onTap: () async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('plotPreference', plots[index]['description']!);
-      setState(() {
-        selectedPlot = plots[index]['description'];
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('You selected ${plots[index]['description']}')),
-      );
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                childAspectRatio:
+                    ResponsiveWrapper.of(context).isSmallerThan(TABLET)
+                        ? 3 / 2
+                        : 3,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+              ),
+              itemCount: plots.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.setString(
+                        'plotPreference', plots[index]['description']!);
+                    setState(() {
+                      selectedPlot = plots[index]['description'];
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content: Text(
+                              'You selected ${plots[index]['description']}')),
+                    );
 
       // Nascondi la snack bar dopo 1 secondo
       Future.delayed(const Duration(milliseconds: 1000), () {
@@ -65,9 +73,7 @@ itemBuilder: (context, index) {
         Card(
           color: Colors.black.withOpacity(0.6),
           child: Container(
-            height:  MediaQuery.of(context).orientation == Orientation.portrait
-              ? MediaQuery.of(context).size.height * 0.2
-              : MediaQuery.of(context).size.height * 0.5,
+            height: ResponsiveWrapper.of(context).isTablet ? MediaQuery.of(context).size.height * 0.2 : MediaQuery.of(context).size.height * 0.35, 
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(plots[index]['image']!),

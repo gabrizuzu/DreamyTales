@@ -2,7 +2,6 @@
 
 import 'package:dreamy_tales/pages/tutorial_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../widgets/app_large_text.dart';
 import '../widgets/app_text.dart';
 import 'login_register_page.dart';
@@ -10,6 +9,7 @@ import 'login_register_page.dart';
 class TutorialScreenState extends State<TutorialScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
+
   int get currentPage => _currentPage;
 
   List images = [
@@ -72,11 +72,11 @@ class TutorialScreenState extends State<TutorialScreen> {
                   IconButton(
                     onPressed: () {
                       _pageController.previousPage(
-                        duration: Duration(milliseconds: 500),
+                        duration: const Duration(milliseconds: 500),
                         curve: Curves.ease,
                       );
                     },
-                    icon: Icon(Icons.arrow_back),
+                    icon: const Icon(Icons.arrow_back),
                     color: Colors.white,
                   ),
                 if (_currentPage == 0)
@@ -86,11 +86,11 @@ class TutorialScreenState extends State<TutorialScreen> {
                       child: IconButton(
                         onPressed: () {
                           _pageController.nextPage(
-                            duration: Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 300),
                             curve: Curves.ease,
                           );
                         },
-                        icon: Icon(Icons.arrow_forward),
+                        icon: const Icon(Icons.arrow_forward),
                         color: Colors.white,
                       ),
                     ),
@@ -99,11 +99,11 @@ class TutorialScreenState extends State<TutorialScreen> {
                   IconButton(
                     onPressed: () {
                       _pageController.nextPage(
-                        duration: Duration(milliseconds: 500),
+                        duration: const Duration(milliseconds: 500),
                         curve: Curves.ease,
                       );
                     },
-                    icon: Icon(Icons.arrow_forward),
+                    icon: const Icon(Icons.arrow_forward),
                     color: Colors.white,
                   ),
                 if (_currentPage == images.length - 1)
@@ -119,7 +119,6 @@ class TutorialScreenState extends State<TutorialScreen> {
                     ),
                     child: const Text("Let's Begin"),
                   ),
-
               ],
             ),
           ),
@@ -153,29 +152,30 @@ class TutorialScreenState extends State<TutorialScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                AppLargeText(text: largetext[index], size: 40, color: Colors.white),
+                AppLargeText(
+                    text: largetext[index], size: 40, color: Colors.white),
                 AppText(text: text[index], size: 20, color: Colors.white54),
-                SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Container(
-                      child: Text(
-                        description[index],
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.amber,
-                          shadows: [
-                            Shadow(
-                              color: Colors.black,
-                              offset: Offset(0, 0),
-                              blurRadius: 5,
-                            ),
-                          ],
-                        ),
-                        textAlign: TextAlign.center,
+                    child: Text(
+                      description[index],
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.amber,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black,
+                            offset: Offset(0, 0),
+                            blurRadius: 5,
+                          ),
+                        ],
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
@@ -195,11 +195,10 @@ class TutorialScreenState extends State<TutorialScreen> {
     return indicators;
   }
 
-
   Widget _buildPageIndicatorItem(bool isActive, int index) {
     return Container(
       key: Key('pageIndicator_$index'),
-      margin: EdgeInsets.symmetric(horizontal: 4.0),
+      margin: const EdgeInsets.symmetric(horizontal: 4.0),
       height: 8.0,
       width: isActive ? 24.0 : 8.0,
       decoration: BoxDecoration(
@@ -208,5 +207,4 @@ class TutorialScreenState extends State<TutorialScreen> {
       ),
     );
   }
-
 }

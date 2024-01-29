@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class ChildProfilePage extends StatefulWidget {
+  const ChildProfilePage({super.key});
+
   @override
   _ChildProfilePageState createState() => _ChildProfilePageState();
 }
@@ -61,16 +63,15 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
 
-
   void _showErrorSnackbar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
           message,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.red,
-        duration: Duration(milliseconds: 1500),
+        duration: const Duration(milliseconds: 1500),
       ),
     );
   }
@@ -112,11 +113,11 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                   IconButton(
                     onPressed: () {
                       _pageController.previousPage(
-                        duration: Duration(milliseconds: 300),
+                        duration: const Duration(milliseconds: 300),
                         curve: Curves.ease,
                       );
                     },
-                    icon: Icon(Icons.arrow_back),
+                    icon: const Icon(Icons.arrow_back),
                     color: Colors.amber,
                   ),
                 if (_currentPage == 0)
@@ -127,12 +128,12 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                         onPressed: () {
                           if (_validateField(0)) {
                             _pageController.nextPage(
-                              duration: Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 300),
                               curve: Curves.ease,
                             );
                           }
                         },
-                        icon: Icon(Icons.arrow_forward),
+                        icon: const Icon(Icons.arrow_forward),
                         color: Colors.amber,
                       ),
                     ),
@@ -143,12 +144,12 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                     onPressed: () {
                       if (_validateField(_currentPage)) {
                         _pageController.nextPage(
-                          duration: Duration(milliseconds: 300),
+                          duration: const Duration(milliseconds: 300),
                           curve: Curves.ease,
                         );
                       }
                     },
-                    icon: Icon(Icons.arrow_forward),
+                    icon: const Icon(Icons.arrow_forward),
                     color: Colors.amber,
                   ),
                 if (_currentPage == profileOptions.length - 1)
@@ -159,14 +160,18 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                       onPressed: () {
                         if (_validateAllFields()) {
                           saveProfileData();
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const MyHomePage(),
+                            ),
+                          );
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.amber,
+                        backgroundColor: Colors.amber,
                       ),
                       child: const Text("Save"),
                     ),
-
                   ),
               ],
             ),
@@ -199,7 +204,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
             if (option['type'] == 'text')
               TextField(
                 controller:
-                option['key'] == 'name' ? nameController : ageController,
+                    option['key'] == 'name' ? nameController : ageController,
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -309,15 +314,13 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
             if (option['type'] == 'checkbox')
               GridView.count(
                 crossAxisCount:
-                ResponsiveWrapper.of(context).isSmallerThan(TABLET)
-                    ? 2
-                    : 4,
+                    ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? 2 : 4,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 childAspectRatio:
-                ResponsiveWrapper.of(context).isSmallerThan(TABLET)
-                    ? 1.0
-                    : 0.8,
+                    ResponsiveWrapper.of(context).isSmallerThan(TABLET)
+                        ? 1.0
+                        : 0.8,
                 children: (option['options'] as List<Map<String, dynamic>>)
                     .map((avatarOption) {
                   bool isSelected = profileData[option['key']]
@@ -337,7 +340,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
                           width: 3.0,
                         ),
                         borderRadius:
-                        BorderRadius.circular(isSelected ? 10.0 : 10.0),
+                            BorderRadius.circular(isSelected ? 10.0 : 10.0),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -395,26 +398,26 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
     switch (_currentPage) {
       case 0:
         if (nameController.text.isEmpty || nameController.text.length > 20) {
-          _showErrorSnackbar('Invalid Name');
+          _showErrorSnackbar('Invalid Name, it must be between 1 and 20 chars');
           return false;
         }
         break;
       case 1:
         if (profileData['gender'].isEmpty) {
-          _showErrorSnackbar('Select Gender');
+          _showErrorSnackbar('Please, Select Gender');
           return false;
         }
         break;
       case 2:
         int age = profileData['age'];
-        if (age <= 0 || age >= 10) {
-          _showErrorSnackbar('Invalid Age');
+        if (age <= 0 || age > 10) {
+          _showErrorSnackbar('Age must be between 1 and 10');
           return false;
         }
         break;
       case 3:
         if (profileData['avatar'].isEmpty) {
-          _showErrorSnackbar('Select Avatar');
+          _showErrorSnackbar('Please, select an Avatar');
           return false;
         }
         break;
@@ -426,13 +429,13 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
     switch (index) {
       case 0:
         if (nameController.text.isEmpty || nameController.text.length > 20) {
-          _showErrorSnackbar('Invalid Name');
+          _showErrorSnackbar('Invalid Name, it must be between 1 and 20 chars');
           return false;
         }
         break;
       case 1:
         if (profileData['gender'].isEmpty) {
-          _showErrorSnackbar('Select Gender');
+          _showErrorSnackbar('Please, Select a Gender');
           return false;
         }
         break;
@@ -445,7 +448,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
         break;
       case 3:
         if (profileData['avatar'].isEmpty) {
-          _showErrorSnackbar('Select Avatar');
+          _showErrorSnackbar('Please, Select Avatar');
           return false;
         }
         break;
@@ -457,14 +460,12 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
     for (int i = 0; i < profileOptions.length; i++) {
       if (!_validateField(i)) {
         _pageController.animateToPage(i,
-            duration: Duration(milliseconds: 300), curve: Curves.ease);
+            duration: const Duration(milliseconds: 300), curve: Curves.ease);
         return false;
       }
     }
     return true;
   }
-
-
 
   void saveProfileData() async {
     final prefs = await SharedPreferences.getInstance();
@@ -482,11 +483,5 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
       'age': profileData['age'],
       'avatar': profileData['avatar'],
     });
-
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const MyHomePage(),
-      ),
-    );
   }
 }

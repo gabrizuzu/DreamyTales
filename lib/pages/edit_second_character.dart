@@ -1,12 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class EditSecondCharacterPage extends StatefulWidget {
   final String characterId;
 
-  const EditSecondCharacterPage({Key? key, required this.characterId})
-      : super(key: key);
+  const EditSecondCharacterPage({super.key, required this.characterId});
 
   @override
   State<EditSecondCharacterPage> createState() =>
@@ -15,7 +14,6 @@ class EditSecondCharacterPage extends StatefulWidget {
 
 class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
   final _formKey = GlobalKey<FormState>();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String? name;
   String? gender;
   String? role;
@@ -48,14 +46,13 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
 
   void _fetchCharacterData() async {
     try {
-      String userId = FirebaseAuth.instance.currentUser!.uid;
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
           .collection('second_characters')
           .doc(widget.characterId)
           .get();
 
       Map<String, dynamic> data =
-      documentSnapshot.data() as Map<String, dynamic>;
+          documentSnapshot.data() as Map<String, dynamic>;
 
       setState(() {
         _nameController.text = data['name'] ?? '';
@@ -64,7 +61,9 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
         selectedAvatar = data['avatar'] ?? '';
       });
     } catch (e) {
-      print('Error fetching character data: $e');
+      if (kDebugMode) {
+        print('Error fetching character data: $e');
+      }
     }
   }
 
@@ -189,9 +188,9 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Text(
                                 'Swipe right to explore avatars',
                                 style: TextStyle(
@@ -271,7 +270,7 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
           .get();
 
       Map<String, dynamic> existingData =
-      documentSnapshot.data() as Map<String, dynamic>;
+          documentSnapshot.data() as Map<String, dynamic>;
 
       if (_nameController.text.isNotEmpty) {
         existingData['name'] = _nameController.text;
@@ -294,7 +293,9 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
           .doc(characterId)
           .update(existingData);
     } catch (e) {
-      print('Error updating character: $e');
+      if (kDebugMode) {
+        print('Error updating character: $e');
+      }
     }
   }
 }
@@ -304,12 +305,12 @@ class AvatarPreview extends StatefulWidget {
   final VoidCallback onPressed;
   final bool isSelected;
 
-  AvatarPreview({
-    Key? key,
+  const AvatarPreview({
+    super.key,
     required this.imagePath,
     required this.onPressed,
     this.isSelected = false,
-  }) : super(key: key);
+  });
 
   @override
   _AvatarPreviewState createState() => _AvatarPreviewState();

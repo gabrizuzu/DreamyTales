@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AddMainCharacterPage extends StatefulWidget {
-  const AddMainCharacterPage({Key? key}) : super(key: key);
+  const AddMainCharacterPage({super.key});
 
   @override
   State<AddMainCharacterPage> createState() => _AddMainCharacterPageState();
@@ -205,8 +205,10 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                         .amber, // Imposta il colore di sfondo del pulsante
                   ),
                   child: TextButton.icon(
-                    icon: const Icon(Icons.check), // Imposta l'icona del pulsante
-                    label: const Text("Save"), // Imposta il testo del pulsante
+                    icon: const Icon(Icons.check),
+                    // Imposta l'icona del pulsante
+                    label: const Text("Save"),
+                    // Imposta il testo del pulsante
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
                         if (selectedAvatar == null) {
@@ -250,12 +252,12 @@ class AvatarPreview extends StatefulWidget {
   final VoidCallback onPressed;
   final bool isSelected;
 
-  AvatarPreview({
-    Key? key,
+  const AvatarPreview({
+    super.key,
     required this.imagePath,
     required this.onPressed,
     this.isSelected = false,
-  }) : super(key: key);
+  });
 
   @override
   _AvatarPreviewState createState() => _AvatarPreviewState();

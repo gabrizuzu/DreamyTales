@@ -60,6 +60,7 @@ dependencies:
   firebase_auth: ^4.15.2
   flutter_tts: ^3.8.5
   dart_openai: ^5.0.0
+  fluttertoast: ^8.2.4
 
 dev_dependencies:
   test: ^1.24.9

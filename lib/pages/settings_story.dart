@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsStoryPage extends StatefulWidget {
-  const SettingsStoryPage({Key? key}) : super(key: key);
+  const SettingsStoryPage({super.key});
 
   @override
   State<SettingsStoryPage> createState() => _SettingsStoryPageState();
@@ -23,17 +23,31 @@ class _SettingsStoryPageState extends State<SettingsStoryPage> {
                 await prefs.setString('storyPreference', 'Fantasy');
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => FantasyPlotPage()),
+                  MaterialPageRoute(
+                      builder: (context) => const FantasyPlotPage()),
                 );
               },
               child: Stack(
                 children: <Widget>[
                   Positioned.fill(
-                    child: Image.asset('assets/storie_fantasy.jpg', fit: BoxFit.cover),
+                    child: Image.asset('assets/storie_fantasy.jpg',
+                        fit: BoxFit.cover),
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: Text('Fantasy', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.amber, shadows: List.generate(1, (index) => Shadow(color: Colors.black, blurRadius: 10, offset: Offset(1, 1)))),),
+                    child: Text(
+                      'Fantasy',
+                      style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.amber,
+                          shadows: List.generate(
+                              1,
+                              (index) => const Shadow(
+                                  color: Colors.black,
+                                  blurRadius: 10,
+                                  offset: Offset(1, 1)))),
+                    ),
                   ),
                 ],
               ),
@@ -46,17 +60,28 @@ class _SettingsStoryPageState extends State<SettingsStoryPage> {
                 await prefs.setString('storyPreference', 'Classic');
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PlotChoice()),
+                  MaterialPageRoute(builder: (context) => const PlotChoice()),
                 );
               },
               child: Stack(
                 children: <Widget>[
                   Positioned.fill(
-                    child: Image.asset('assets/storie_classiche.png', fit: BoxFit.cover),
+                    child: Image.asset('assets/storie_classiche.png',
+                        fit: BoxFit.cover),
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: Text('Classic', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.amber, shadows: List.generate(1, (index) => Shadow(color: Colors.black, blurRadius: 10, offset: Offset(1, 1))))),
+                    child: Text('Classic',
+                        style: TextStyle(
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.amber,
+                            shadows: List.generate(
+                                1,
+                                (index) => const Shadow(
+                                    color: Colors.black,
+                                    blurRadius: 10,
+                                    offset: Offset(1, 1))))),
                   ),
                 ],
               ),
@@ -70,7 +95,7 @@ class _SettingsStoryPageState extends State<SettingsStoryPage> {
         onPressed: () {
           Navigator.pop(context);
         },
-        child: Icon(Icons.arrow_back),
+        child: const Icon(Icons.arrow_back),
       ),
       // Posiziona la freccia di navigazione in basso a sinistra
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Analytics extends StatelessWidget {
-  const Analytics({Key? key}) : super(key: key);
+  const Analytics({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,8 @@ class Analytics extends StatelessWidget {
                         padding: const EdgeInsets.all(20.0),
                         child: Text(
                           'Generated Stories: ${snapshot.data!.docs.length}',
-                          style: const TextStyle(fontSize: 20, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.white),
                         ),
                       ),
                     );
@@ -57,7 +58,8 @@ class Analytics extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 20),
-              const Text('Top 5 stories', style: TextStyle(fontSize: 24, color: Colors.deepPurple)),
+              const Text('Top 5 stories',
+                  style: TextStyle(fontSize: 24, color: Colors.deepPurple)),
               StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('stories')
@@ -69,29 +71,34 @@ class Analytics extends StatelessWidget {
                   if (snapshot.hasData) {
                     return snapshot.data!.docs.isNotEmpty
                         ? ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              child: Text('${index + 1}'),
-                              backgroundColor: Colors.deepPurple,
-                              foregroundColor: Colors.white,
-                            ),
-                            title: Text(snapshot.data!.docs[index]['title'], style: const TextStyle(fontSize: 18)),
-                            subtitle: Text('Rating: ${snapshot.data!.docs[index]['rating']}', style: const TextStyle(fontSize: 16)),
-                          ),
-                        );
-                      },
-                    )
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundColor: Colors.deepPurple,
+                                    foregroundColor: Colors.white,
+                                    child: Text('${index + 1}'),
+                                  ),
+                                  title: Text(
+                                      snapshot.data!.docs[index]['title'],
+                                      style: const TextStyle(fontSize: 18)),
+                                  subtitle: Text(
+                                      'Rating: ${snapshot.data!.docs[index]['rating']}',
+                                      style: const TextStyle(fontSize: 16)),
+                                ),
+                              );
+                            },
+                          )
                         : const Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        'No stories available yet',
-                        style: TextStyle(fontSize: 15, color: Colors.white),
-                      ),
-                    );
+                            padding: EdgeInsets.all(20.0),
+                            child: Text(
+                              'No stories available yet',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.white),
+                            ),
+                          );
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   }
