@@ -202,7 +202,7 @@ class _ChildProfilePageState extends State<ChildProfilePage> {
             Container(
               padding: const EdgeInsets.only(bottom: 5),
               child: Image.asset('assets/logo_profilazione.jpeg',
-                  width: 100, height: 100),
+                  width: 90, height: 90),
             ),
             if (option['type'] == 'text')
               TextField(

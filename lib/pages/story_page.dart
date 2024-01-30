@@ -225,7 +225,7 @@ class _StoryPageState extends State<StoryPage> {
                     future: _getAvatar(),
                     builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator(); // mostra un indicatore di caricamento mentre si attende
+                        return const CircularProgressIndicator(); // mostra un indicatore di caricamento mentre si attende
                       } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
                       } else {
@@ -300,6 +300,7 @@ class _StoryPageState extends State<StoryPage> {
                                   onPressed: () async {
                                     await docRef?.update(
                                         {'rating': _currentRating});
+                                        
                                     // ignore: use_build_context_synchronously
                                     Navigator.pushAndRemoveUntil(
                                       context,
@@ -407,7 +408,7 @@ class _StoryPageState extends State<StoryPage> {
   @override
   void deactivate() {
     if (_isPlaying) {
-      _flutterTts.pause();
+      _flutterTts.stop();
     }
     super.deactivate();
   }
@@ -415,7 +416,7 @@ class _StoryPageState extends State<StoryPage> {
   @override
   void dispose() {
     if (_isPlaying) {
-      _flutterTts.pause();
+      _flutterTts.stop();
     }
     super.dispose();
   }

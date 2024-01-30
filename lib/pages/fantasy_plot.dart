@@ -75,7 +75,7 @@ class _PlotChoiceState extends State<FantasyPlotPage> {
           child: Container(
             height: MediaQuery.of(context).orientation == Orientation.portrait
               ? MediaQuery.of(context).size.height * 0.2
-              : MediaQuery.of(context).size.height * 0.5,
+              : MediaQuery.of(context).size.height * 0.35,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(plots[index]['image']!),
