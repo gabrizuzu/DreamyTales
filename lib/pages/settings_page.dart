@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../auth.dart';
 import 'login_register_page.dart';
+import 'my_home_page.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -38,106 +39,118 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/sfondo.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            // Opzione 1: Lingua
-            InkWell(
-              onTap: () {
-                _showLanguageSelectionDialog(context);
-              },
-              child: const ListTile(
-                title: Text('Language',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text('Select the language of the stories'),
-                trailing: Icon(Icons.arrow_forward),
+    return WillPopScope(
+        onWillPop: () async {
+          // Handle back button press
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    const MyHomePage()), // Replace with your homepage
+          );
+          return false; // Return false to prevent default behavior
+        },
+        child: Scaffold(
+          body: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/sfondo.jpg'),
+                fit: BoxFit.cover,
               ),
             ),
-            const Divider(),
-
-            // Opzione 2: Notifiche
-            InkWell(
-              onTap: () {
-                _showNotificationsDialog(context);
-              },
-              child: const ListTile(
-                title: Text(
-                  'Notifications',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+            padding: const EdgeInsets.all(16.0),
+            child: ListView(
+              children: [
+                // Opzione 1: Lingua
+                InkWell(
+                  onTap: () {
+                    _showLanguageSelectionDialog(context);
+                  },
+                  child: const ListTile(
+                    title: Text('Language',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text('Select the language of the stories'),
+                    trailing: Icon(Icons.arrow_forward),
+                  ),
                 ),
-                subtitle: Text('Enable or disable app notifications'),
-                trailing: Icon(Icons.arrow_forward),
-              ),
-            ),
-            const Divider(),
+                const Divider(),
 
-            // Opzione 4: Feedback
-            ListTile(
-              title: const Text('Feedback',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: const Text('Send feedback or report issues'),
-              trailing: const Icon(Icons.arrow_forward),
-              onTap: () {
-                _showFeedbackDialog(context);
-              },
-            ),
-            const Divider(),
+                // Opzione 2: Notifiche
+                InkWell(
+                  onTap: () {
+                    _showNotificationsDialog(context);
+                  },
+                  child: const ListTile(
+                    title: Text(
+                      'Notifications',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text('Enable or disable app notifications'),
+                    trailing: Icon(Icons.arrow_forward),
+                  ),
+                ),
+                const Divider(),
 
-            // Opzione 5: Informazioni sull'app
-            InkWell(
-              onTap: () {
-                _showAppInformationDialog(context);
-              },
-              child: const ListTile(
-                title: Text('App Information',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text('View information about the app'),
-                trailing: Icon(Icons.arrow_forward),
-              ),
-            ),
-            const Divider(),
+                // Opzione 4: Feedback
+                ListTile(
+                  title: const Text('Feedback',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  subtitle: const Text('Send feedback or report issues'),
+                  trailing: const Icon(Icons.arrow_forward),
+                  onTap: () {
+                    _showFeedbackDialog(context);
+                  },
+                ),
+                const Divider(),
 
-            // Opzione 6: Privacy
-            InkWell(
-              onTap: () {
-                _showPrivacyDialog(context);
-              },
-              child: const ListTile(
-                title: Text('Privacy',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text('View our privacy policy'),
-                trailing: Icon(Icons.arrow_forward),
-              ),
-            ),
-            const Divider(),
+                // Opzione 5: Informazioni sull'app
+                InkWell(
+                  onTap: () {
+                    _showAppInformationDialog(context);
+                  },
+                  child: const ListTile(
+                    title: Text('App Information',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text('View information about the app'),
+                    trailing: Icon(Icons.arrow_forward),
+                  ),
+                ),
+                const Divider(),
 
-            // Opzione 7: Esci dall'account
-            ListTile(
-              title: const Text('Sign Out',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: const Text('Sign out from your account'),
-              trailing: const Icon(Icons.arrow_forward),
-              onTap: () {
-                signOut();
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                );
-              },
+                // Opzione 6: Privacy
+                InkWell(
+                  onTap: () {
+                    _showPrivacyDialog(context);
+                  },
+                  child: const ListTile(
+                    title: Text('Privacy',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text('View our privacy policy'),
+                    trailing: Icon(Icons.arrow_forward),
+                  ),
+                ),
+                const Divider(),
+
+                // Opzione 7: Esci dall'account
+                ListTile(
+                  title: const Text('Sign Out',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  subtitle: const Text('Sign out from your account'),
+                  trailing: const Icon(Icons.arrow_forward),
+                  onTap: () {
+                    signOut();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                    );
+                  },
+                ),
+                const Divider(),
+              ],
             ),
-            const Divider(),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   void _showFeedbackDialog(BuildContext context) {

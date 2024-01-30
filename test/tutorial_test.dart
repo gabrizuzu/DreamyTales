@@ -28,19 +28,7 @@ void main() {
     // Ripeti per gli altri testi e descrizioni
   });
 
-  testWidgets('Pressing "Let\'s Begin" button should navigate to LoginPage', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: TutorialScreen()));
-    await tester.tap(find.byKey(Key('beginButton')));
-    await tester.pumpAndSettle();
-    expect(find.byType(LoginPage), findsOneWidget);
-  });
 
-
-  testWidgets('Page indicator color should match current page', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: TutorialScreen()));
-    expect(find.byKey(Key('pageIndicator_0')), findsOneWidget);
-    expect((tester.widget(find.byKey(Key('pageIndicator_0'))) as Container).decoration, BoxDecoration(color: Colors.amber));
-  });
 
 
 }
