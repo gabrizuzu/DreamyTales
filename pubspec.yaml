@@ -37,6 +37,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
   responsive_framework: ^0.1.4
   url_launcher: ^6.0.12
   font_awesome_flutter: ^10.2.0
@@ -68,6 +69,9 @@ dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

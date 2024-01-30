@@ -19,4 +19,29 @@ R fatto 21) voice Over che continua
 
 Genera una storia della buonanotte personalizzata per [Nome del Bambino], un/a piccolo/a appassionato/a di [interesse del bambino, es. animali, fantasia]. I personaggi principali sono [Nome del Personaggio Principale], [Nome del Personaggio Amico 1] e [Nome del Personaggio Amico 2]. La storia dovrebbe svolgersi in un contesto [specifico, es. foresta magica, regno lontano]. La morale della storia dovrebbe insegnare [morale desiderata, es. gentilezza, coraggio].
 
+task da testare:
 
+correct signup
+wrong signup
+
+correct login
+wrong login
+
+correct logout
+
+display correct character
+display correct stories
+
+correct deletion character
+correct update character
+
+correct deletion story
+correct profiling (controller)
+
+correct parametrization of the story
+
+show up botton 'confirm' after choosing a plot
+
+correct rating notification
+
+correct show of tutorial page
