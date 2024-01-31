@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
         password: _controllerPassword.text,
       );
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const ChildProfilePage()),
+        MaterialPageRoute(builder: (context) => const ChildProfilePage(key: Key('childProfilePageKey'))),
       );
     } on FirebaseAuthException catch (e) {
       String? userFriendlyMessage;
@@ -215,10 +215,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _entryField(String title, TextEditingController controller,
-      {bool isPassword = false}) {
+      {bool isPassword = false, required Key key}) {
     return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
       return TextField(
+        key: key,
         controller: controller,
         obscureText: isPassword,
         style: const TextStyle(
@@ -323,8 +324,8 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               _logo(),
-              _entryField('email', _controllerEmail),
-              _entryField('password', _controllerPassword, isPassword: true),
+              _entryField('email', _controllerEmail, key: Key('emailField')),
+              _entryField('password', _controllerPassword, isPassword: true, key: Key('passwordField')),
               _errorMessage(),
               _forgotPasswordButton(),
               _submitButton(),
