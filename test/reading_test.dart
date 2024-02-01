@@ -1,14 +1,13 @@
 import 'package:dreamy_tales/pages/reading_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 
 void main() {
   testWidgets('ReadingPage Initial State Test', (WidgetTester tester) async {
 
     // Inject the fake Firestore instance into the ReadingPage
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: ReadingPage(
           storyText: 'Your story text here',
           language: 'Italiano',
@@ -28,7 +27,7 @@ void main() {
 
   testWidgets('ReadingPage Reset TTS Test', (WidgetTester tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: ReadingPage(
           storyText: 'Your story text here',
           language: 'Italiano',

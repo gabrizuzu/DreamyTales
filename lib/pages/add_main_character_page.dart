@@ -72,6 +72,7 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                       padding: const EdgeInsets.only(
                           top: 120, left: 16.0, right: 16.0, bottom: 16.0),
                       child: TextFormField(
+                        key: const Key("name"),
                         decoration: InputDecoration(
                           labelText: 'Name',
                           fillColor: Colors.white,
@@ -96,6 +97,7 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: DropdownButtonFormField<String>(
+                        key: const Key("dropDownGender"),
                         decoration: InputDecoration(
                           labelText: 'Gender',
                           fillColor: Colors.white,
@@ -132,6 +134,7 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
+                            key : const Key("age"),
                             'Age: ${age.toInt()}',
                             style: const TextStyle(
                               fontSize: 18,
@@ -139,6 +142,7 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                             ),
                           ),
                           Slider(
+                            key : const Key("slider"),
                             value: age,
                             min: 0,
                             max: 10,
@@ -179,6 +183,7 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                             // Anteprima di tutti gli avatar nello slider
                             for (String avatarPath in allAvatars)
                               AvatarPreview(
+                                key: ValueKey(avatarPath),
                                 imagePath: avatarPath,
                                 onPressed: () {
                                   setState(() {

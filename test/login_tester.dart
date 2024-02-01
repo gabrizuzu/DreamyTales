@@ -2,8 +2,7 @@ import 'package:dreamy_tales/pages/login_register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import './mock.dart'; //
+import './mock.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -49,12 +48,11 @@ void main() {
     await tester.enterText(passwordField, "123456");
 
     await tester.tap(button);
-    await tester.pumpAndSettle(const Duration(seconds: 10));
+    await tester.pumpAndSettle(const Duration(seconds: 5));
     // Trova il widget della casella di testo dell'errore
     final errorMessageWidget = find.byKey(const Key("errorMessage"));
-
-    // Verifica che il widget sia presente
     expect(errorMessageWidget, findsOneWidget);
+
     // Ottieni il widget Text dalla casella di testo dell'errore
     final errorMessageTextWidget = tester.widget<Text>(errorMessageWidget);
     // Ottieni il testo attuale dal widget Text
@@ -68,15 +66,11 @@ void main() {
   });
 
   testWidgets("Check Forgot Password Button", (tester) async {
-    // Crea una chiave univoca per il pulsante
+    // Crea una chiave univoca
     final forgotPasswordButtonKey = Key("forgotPassword");
 
     await tester.pumpWidget(const MaterialApp(home: LoginPage()));
-
-    // Trova il widget del pulsante utilizzando la chiave
     final forgotPasswordButton = find.byKey(forgotPasswordButtonKey);
-
-    // Verifica che il widget del pulsante sia presente
     expect(forgotPasswordButton, findsOneWidget);
 
     // Tappa sul pulsante
@@ -87,9 +81,6 @@ void main() {
     final dialog = find.byType(Dialog);
     expect(dialog, findsOneWidget);
 
-    // Puoi continuare a verificare altri aspetti della dialog se necessario
   });
-
 }
 
-class MockNavigationObserver extends Mock implements NavigatorObserver {}

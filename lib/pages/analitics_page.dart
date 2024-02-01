@@ -9,7 +9,7 @@ class Analytics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? userId = FirebaseAuth.instance.currentUser!.uid;
+    String? userId = FirebaseAuth.instance.currentUser?.uid;
 
     return WillPopScope(
       onWillPop: () async {
