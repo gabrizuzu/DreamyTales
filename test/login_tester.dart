@@ -23,8 +23,7 @@ void main() {
     final passwordField = find.byKey(const Key("password"));
     expect(passwordField, findsOneWidget);
 
-    final button = find.byKey(const Key("signInButton"));
-    expect(button, findsOneWidget);
+    final button = find.byKey(const Key("login/register"));
 
     await tester.tap(button);
     await tester.pump();
@@ -70,7 +69,7 @@ void main() {
 
   testWidgets("Check Forgot Password Button", (tester) async {
     // Crea una chiave univoca per il pulsante
-    final forgotPasswordButtonKey = Key("forgotPasswordButton");
+    final forgotPasswordButtonKey = Key("forgotPassword");
 
     await tester.pumpWidget(const MaterialApp(home: LoginPage()));
 

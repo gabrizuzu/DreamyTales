@@ -274,6 +274,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _submitButton({required Key key}) {
     return ElevatedButton(
+
       onPressed:
           isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
       style: ElevatedButton.styleFrom(
@@ -281,7 +282,8 @@ class _LoginPageState extends State<LoginPage> {
             Colors.black.withOpacity(0.5), // Colore scuro di sfondo
       ),
       child: Text(
-        key : key,
+
+        key: key,
         isLogin ? 'Login' : 'Register',
         style: const TextStyle(
           color: Colors.amber,
