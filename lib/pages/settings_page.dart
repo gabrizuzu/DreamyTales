@@ -17,7 +17,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   bool receiveNotifications = true; // Add this variable
   late SharedPreferences _preferences;
-  late String selectedLanguage;
+  late String selectedLanguage = 'English';
 
   @override
   void initState() {
