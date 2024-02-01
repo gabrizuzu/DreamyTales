@@ -1,4 +1,4 @@
-import 'package:dreamy_tales/pages/moral_page.dart';
+import 'package:dreamy_tales/widgets/moral_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -23,6 +23,7 @@ class _PlotChoiceState extends State<FantasyPlotPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        key: const Key('plotChoiceAppBar'),
         title: const Text('Fantasy Plot Choice'),
         backgroundColor: Colors.deepPurple,
       ),

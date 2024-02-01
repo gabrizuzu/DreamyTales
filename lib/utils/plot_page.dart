@@ -1,4 +1,4 @@
-import 'package:dreamy_tales/pages/moral_page.dart';
+import 'package:dreamy_tales/widgets/moral_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:responsive_framework/responsive_framework.dart';

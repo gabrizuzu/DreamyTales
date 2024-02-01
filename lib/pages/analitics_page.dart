@@ -47,6 +47,7 @@ class Analytics extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return Card(
+                        key : const Key("generatedStories"),
                         color: Colors.deepPurpleAccent,
                         child: Padding(
                           padding: const EdgeInsets.all(20.0),
@@ -72,6 +73,7 @@ class Analytics extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 const Text('Top 5 stories',
+                    key: const Key("topStories"),
                     style: TextStyle(fontSize: 24, color: Colors.deepPurple)),
                 StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance

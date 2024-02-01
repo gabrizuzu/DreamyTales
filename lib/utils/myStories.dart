@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:share/share.dart';
 
-import 'my_home_page.dart';
+import '../pages/my_home_page.dart';
 
 class MyStories extends StatelessWidget {
   const MyStories({super.key});

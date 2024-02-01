@@ -71,6 +71,7 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        key: const Key('editSecondCharacterAppBar'),
         title: const Text(
           'Edit Second Character',
           style: TextStyle(
@@ -81,6 +82,7 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
         backgroundColor: Colors.deepPurple,
       ),
       body: Container(
+        key: const Key('editSecondCharacterBody'),
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/sfondo.jpg"),
@@ -98,6 +100,7 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
                       padding: const EdgeInsets.only(
                           top: 120, left: 16.0, right: 16.0, bottom: 16.0),
                       child: TextFormField(
+                        key: const Key('editSecondCharacterNameField'),
                         controller: _nameController,
                         decoration: InputDecoration(
                           labelText: 'Name',
@@ -118,6 +121,7 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: DropdownButtonFormField<String>(
+                        key: const Key('editSecondCharacterGenderField'),
                         value: gender,
                         decoration: InputDecoration(
                           labelText: 'Gender',
@@ -149,6 +153,7 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: DropdownButtonFormField<String>(
+                        key: const Key('editSecondCharacterRoleField'),
                         value: role,
                         decoration: InputDecoration(
                           labelText: 'Role',
@@ -192,6 +197,7 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
+                                key : const Key('editSecondCharacterAvatarField'),
                                 'Swipe right to explore avatars',
                                 style: TextStyle(
                                   color: Colors.amber,
@@ -211,6 +217,7 @@ class _EditSecondCharacterPageState extends State<EditSecondCharacterPage> {
                               children: [
                                 for (String avatarPath in allAvatars)
                                   AvatarPreview(
+                                    key: Key(avatarPath),
                                     imagePath: avatarPath,
                                     onPressed: () {
                                       setState(() {

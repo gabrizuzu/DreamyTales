@@ -1,7 +1,7 @@
 import 'package:dreamy_tales/pages/app_category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:dreamy_tales/widgets/myDrawer.dart';
+import 'package:dreamy_tales/pages/myDrawer.dart';
 
 void main() {
   testWidgets('MyDrawer should build without errors', (WidgetTester tester) async {

@@ -1,12 +1,12 @@
 import 'package:dreamy_tales/pages/add_main_character_page.dart';
 import 'package:dreamy_tales/pages/add_second_character_page.dart';
 import 'package:dreamy_tales/pages/login_register_page.dart';
-import 'package:dreamy_tales/pages/settings_story.dart';
+import 'package:dreamy_tales/utils/settings_story.dart';
 import 'package:flutter/material.dart';
 import 'package:dreamy_tales/pages/analitics_page.dart';
-import 'package:dreamy_tales/pages/myStories.dart';
+import 'package:dreamy_tales/utils/myStories.dart';
 import 'package:dreamy_tales/pages/settings_page.dart';
-import '../widgets/myDrawer.dart';
+import 'myDrawer.dart';
 import 'app_category.dart';
 import 'package:dreamy_tales/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

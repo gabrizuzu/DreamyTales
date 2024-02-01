@@ -1,5 +1,5 @@
-import 'package:dreamy_tales/pages/fantasy_plot.dart';
-import 'package:dreamy_tales/pages/plot_page.dart';
+import 'package:dreamy_tales/widgets/fantasy_plot.dart';
+import 'package:dreamy_tales/utils/plot_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
