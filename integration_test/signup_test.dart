@@ -1,44 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:dreamy_tales/auth.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:dreamy_tales/pages/login_register_page.dart';
-import 'package:firebase_core/firebase_core.dart';
-
-class MockAuth extends Mock implements Auth {}
+import 'package:dreamy_tales/pages/profiling_page.dart'; // Import the ChildProfilePage class
 
 void main() {
-  MockAuth mockAuth;
-  setUpAll(() async {
-    await Firebase.initializeApp();
-  });
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('Register test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MaterialApp(home: LoginPage()));
+  group('Login/Register Page Test', () {
+    testWidgets('Should register a user', (WidgetTester tester) async {
+      // Avvia l'app
+      await tester.pumpWidget(MaterialApp(home:LoginPage()));
 
-    // Verify that we have the register button
-    expect(find.text('Register instead'), findsOneWidget);
+      // Trova i widget
+      final emailField = find.byType(TextField).at(0);
+      final passwordField = find.byType(TextField).at(1);
+      final registerButton = find.text('Register instead');
 
-    // Tap the 'Register instead' button and trigger a frame
-    await tester.tap(find.text('Register instead'));
-    await tester.pumpAndSettle();
+      // Simula l'input dell'utente
+      await tester.enterText(emailField, 'test@example.com');
+      await tester.enterText(passwordField, 'password123');
 
-    // Verify that we have the register button
-    expect(find.text('Register'), findsOneWidget);
+      await tester.tap(registerButton);
 
-    // Enter text in the email and password fields
-    await tester.enterText(find.byKey(Key('emailField')), 'test@test.com');
-    await tester.enterText(find.byKey(Key('passwordField')), 'password');
-    // Initialize the mockAuth variable before using it
-    mockAuth = MockAuth();
-    when(mockAuth.createUserWithEmailAndPassword(email: 'test@test.com', password:'password'))
-        .thenAnswer((_) async => {});
+      final register = find.text('Register');
 
-    // Tap the 'Register' button and trigger a frame
-    await tester.tap(find.text('Register'));
-    await tester.pumpAndSettle();
+      // Simula il tap sul pulsante di registrazione
+  
+      await tester.tap(register);
+      await tester.pumpAndSettle();
 
-
+      expect(find.byType(ChildProfilePage), findsOneWidget);
+            
+    });
   });
 }
