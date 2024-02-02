@@ -51,6 +51,7 @@ void main() {
         home: SettingsScreen(),
       ));
 
+
       await tester.tap(find.text('Notifications'));
       await tester.pumpAndSettle();
 
@@ -59,5 +60,23 @@ void main() {
 
       expect(find.text('Do you want to receive notifications?'), findsNothing);
     });
+
+    testWidgets('Change Language in Dialog', (WidgetTester tester) async {
+      await tester.pumpWidget(const MaterialApp(
+        home: SettingsScreen(),
+      ));
+
+      await tester.tap(find.text('Language'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('English'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('In which Language do you want to generate the Stories?'), findsOneWidget);
+      expect(find.text('English'), findsOneWidget);
+    });
+
+
+
   });
 }

@@ -34,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
         case 'too-many-request':
           userFriendlyMessage =
               'Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.';
+          break;
         case 'user-not-found':
           userFriendlyMessage = 'Nessun utente trovato per quella email.';
           break;
@@ -79,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
         case 'too-many-request':
           userFriendlyMessage =
               'Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.';
+          break;
         case 'user-not-found':
           userFriendlyMessage = 'No account found with this email.';
           break;
@@ -135,8 +137,9 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Widget _forgotPasswordButton() {
+  Widget _forgotPasswordButton({required Key key}) {
     return TextButton(
+      key: key,
       onPressed: () {
         showDialog(
           context: context,
@@ -253,9 +256,10 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  Widget _errorMessage() {
+  Widget _errorMessage({required Key key}) {
     return Center(
       child: Text(
+        key : key,
         errorMessage == '' ? '' : '$errorMessage',
         style: const TextStyle(
           color: Colors.redAccent,
@@ -268,8 +272,9 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _submitButton() {
+  Widget _submitButton({required Key key}) {
     return ElevatedButton(
+
       onPressed:
           isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
       style: ElevatedButton.styleFrom(
@@ -277,6 +282,8 @@ class _LoginPageState extends State<LoginPage> {
             Colors.black.withOpacity(0.5), // Colore scuro di sfondo
       ),
       child: Text(
+
+        key: key,
         isLogin ? 'Login' : 'Register',
         style: const TextStyle(
           color: Colors.amber,
@@ -324,11 +331,11 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               _logo(),
-              _entryField('email', _controllerEmail, key: Key('emailField')),
-              _entryField('password', _controllerPassword, isPassword: true, key: Key('passwordField')),
-              _errorMessage(),
-              _forgotPasswordButton(),
-              _submitButton(),
+              _entryField('email', _controllerEmail, key: const Key('mail')),
+              _entryField('password', _controllerPassword, isPassword: true, key: const Key('password')),
+              _errorMessage(key : const Key('errorMessage')),
+              _forgotPasswordButton(key : const Key('forgotPassword')),
+              _submitButton(key: const Key('login/register')),
               _loginOrRegisterButton(),
             ],
           ),

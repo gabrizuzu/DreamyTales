@@ -1,3 +1,4 @@
+import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -10,12 +11,12 @@ class ReadingPage extends StatefulWidget {
       {super.key, required this.storyText, required this.language});
 
   @override
-  _ReadingPageState createState() => _ReadingPageState();
+  ReadingPageState createState() => ReadingPageState();
 }
 
-class _ReadingPageState extends State<ReadingPage> {
+class ReadingPageState extends State<ReadingPage> {
   final FlutterTts _flutterTts = FlutterTts();
-  bool _isPlaying = false;
+  bool isPlaying = false;
 
   @override
   void initState() {
@@ -28,27 +29,27 @@ class _ReadingPageState extends State<ReadingPage> {
     _flutterTts.setLanguage(widget.language == 'Italiano' ? 'it-IT' : 'en-US');
     _flutterTts.setCompletionHandler(() {
       setState(() {
-        _isPlaying = false;
+        isPlaying = false;
       });
     });
   }
 
   void _toggleTts() async {
-    if (_isPlaying) {
+    if (isPlaying) {
       await _flutterTts.pause();
     } else {
       await _flutterTts.speak(widget.storyText);
     }
 
     setState(() {
-      _isPlaying = !_isPlaying;
+      isPlaying = !isPlaying;
     });
   }
 
   void _resetTts() async {
     await _flutterTts.stop();
     setState(() {
-      _isPlaying = false;
+      isPlaying = false;
     });
   }
 
@@ -88,7 +89,7 @@ class _ReadingPageState extends State<ReadingPage> {
             FloatingActionButton(
               heroTag: "play",
               onPressed: _toggleTts,
-              child: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
+              child: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
             ),
             const SizedBox(height: 16),
             FloatingActionButton(
@@ -104,7 +105,7 @@ class _ReadingPageState extends State<ReadingPage> {
 
   @override
   void dispose() {
-    if (_isPlaying) {
+    if (isPlaying) {
       _flutterTts.stop();
     }
     super.dispose();

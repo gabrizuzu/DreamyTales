@@ -94,6 +94,7 @@ class _AddSecondCharacterPageState extends State<AddSecondCharacterPage> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: DropdownButtonFormField<String>(
+                        key: const Key("dropdownGender"),
                         decoration: InputDecoration(
                           labelText: 'Gender',
                           fillColor: Colors.white,
@@ -127,6 +128,7 @@ class _AddSecondCharacterPageState extends State<AddSecondCharacterPage> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: DropdownButtonFormField<String>(
+                        key: const Key("dropdownRole"),
                         decoration: InputDecoration(
                           labelText: 'Role',
                           fillColor: Colors.white,

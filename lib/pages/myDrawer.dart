@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../pages/app_category.dart';
+import 'app_category.dart';
 
 class MyDrawer extends StatelessWidget {
   final AppCategory currentCategory;

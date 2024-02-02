@@ -98,6 +98,7 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
                       padding: const EdgeInsets.only(
                           top: 120, left: 16.0, right: 16.0, bottom: 16.0),
                       child: TextFormField(
+                        key: const Key('nameField'),
                         controller: _nameController,
                         decoration: InputDecoration(
                           labelText: 'Name',
@@ -116,6 +117,7 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
                       ),
                     ),
                     Padding(
+                      key: const Key('genderField'),
                       padding: const EdgeInsets.all(20.0),
                       child: DropdownButtonFormField<String>(
                         value: gender,
@@ -152,6 +154,7 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
+                            key : const Key('ageField'),
                             'Age: ${age.toInt()}',
                             style: const TextStyle(
                               fontSize: 18,
@@ -159,6 +162,7 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
                             ),
                           ),
                           Slider(
+                            key: const Key('ageSlider'),
                             value: age,
                             min: 0,
                             max: 10,
@@ -182,6 +186,7 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
                                 ),
                               ),
                               Icon(
+                                key : const Key('swipeIcon'),
                                 Icons.arrow_forward_ios,
                                 color: Colors.amber,
                               ),
@@ -199,6 +204,7 @@ class _EditCharacterPageState extends State<EditCharacterPage> {
                             // Anteprima di tutti gli avatar nello slider
                             for (String avatarPath in allAvatars)
                               AvatarPreview(
+                                key: Key(avatarPath),
                                 imagePath: avatarPath,
                                 onPressed: () {
                                   setState(() {

@@ -62,11 +62,17 @@ dependencies:
   flutter_tts: ^3.8.5
   dart_openai: ^5.0.0
   fluttertoast: ^8.2.4
+  mockito: ^5.4.4
+  fake_cloud_firestore: ^2.4.8
+  provider: ^6.1.1
 
 dev_dependencies:
+
   test: ^1.24.9
-  mockito: ^5.0.15
+  matcher: ^0.12.11
   flutter_launcher_icons: ^0.13.1
+  firebase_auth_mocks: ^0.13.0
+  mocktail: 1.0.3
   flutter_test:
     sdk: flutter
   flutter_driver:
