@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class ChildProfilePage extends StatefulWidget {
-  const ChildProfilePage({super.key});
+  const ChildProfilePage({required Key key}) : super(key: key);
 
   @override
   _ChildProfilePageState createState() => _ChildProfilePageState();
