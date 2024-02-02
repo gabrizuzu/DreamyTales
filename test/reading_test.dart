@@ -1,29 +1,49 @@
-import 'package:flutter_driver/flutter_driver.dart';
-import 'package:test/test.dart';
+import 'package:dreamy_tales/pages/reading_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('My App', () {
-    final readingPageFinder = find.byValueKey('ReadingPage');
+  testWidgets('ReadingPage Initial State Test', (WidgetTester tester) async {
 
-    FlutterDriver driver;
+    // Inject the fake Firestore instance into the ReadingPage
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: ReadingPage(
+          storyText: 'Your story text here',
+          language: 'Italiano',
+        ),
+      ),
+    );
 
-    // Connetti il driver prima di eseguire i test
-    setUpAll(() async {
-      driver = await FlutterDriver.connect();
-    });
+    // Access the state of ReadingPage
+    final readingPageState = tester.state<ReadingPageState>(
+      find.byType(ReadingPage),
+    );
 
-    // Chiudi il driver dopo l'esecuzione dei test
-    tearDownAll(() async {
-      FlutterDriver driver;
+    // Verify the initial state
+    expect(readingPageState.isPlaying, false);
+  });
 
-      if (driver != null) {
-        driver.close();
-      }
-    });
 
-    test('check reading page', () async {
-      // Verifica che la ReadingPage sia presente
-      expect(await driver.getText(readingPageFinder), 'ReadingPage');
-    });
+  testWidgets('ReadingPage Reset TTS Test', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: ReadingPage(
+          storyText: 'Your story text here',
+          language: 'Italiano',
+        ),
+      ),
+    );
+
+    // Access the state of ReadingPage
+    final readingPageState = tester.state<ReadingPageState>(
+      find.byType(ReadingPage),
+    );
+
+    // Perform test: Reset TTS
+    await tester.tap(find.byType(FloatingActionButton).last);
+    await tester.pump(); // Rebuild the widget
+
+    expect(readingPageState.isPlaying, false);
   });
 }

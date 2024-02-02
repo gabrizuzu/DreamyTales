@@ -37,7 +37,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
   responsive_framework: ^0.1.4
   url_launcher: ^6.0.12
   font_awesome_flutter: ^10.2.0
