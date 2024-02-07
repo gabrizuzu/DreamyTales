@@ -11,10 +11,10 @@ class PlotChoice extends StatefulWidget {
 
 class _PlotChoiceState extends State<PlotChoice> {
   List<Map<String, String>> plots = [
-    {'image': 'assets/cappuccettorosso.jpg', 'description': 'Little Red Riding Hood'},
-    {'image': 'assets/bellaaddormentata.jpg', 'description': 'Sleeping Beauty'},
-    {'image': 'assets/cenerentola.jpg', 'description': 'Cinderella'},
-    {'image': 'assets/treporcellini.jpg', 'description': 'The Three Little Pigs'},
+    {'image': 'assets/cappuccettorosso.jpg', 'description': 'Little Red Riding Hood', 'trama': 'Little Red Riding Hood sets off through the forest to visit her grandmother, carrying a basket of goodies. Along the way, she encounters a charming but cunning wolf who tricks her into revealing her destination. The wolf races ahead, devours the grandmother, and disguises himself in her clothing. Little Red arrives at the cottage, unaware of the danger, and narrowly escapes the wolfs clutches with the help of a passing woodcutter.'},
+    {'image': 'assets/bellaaddormentata.jpg', 'description': 'Sleeping Beauty', 'trama': 'Sleeping Beauty is a classic fairy tale about a princess who is cursed to sleep for a hundred years by an evil fairy, where she would be awakened by a handsome prince.'},
+    {'image': 'assets/cenerentola.jpg', 'description': 'Cinderella', 'trama': 'Cinderella, mistreated by her stepfamily, dreams of attending the royal ball. With her fairy godmothers magic, she enchants the prince but must flee before midnight, leaving behind a glass slipper. The prince searches for her, and when the slipper fits Cinderella, they find their happily ever after.'},
+    {'image': 'assets/treporcellini.jpg', 'description': 'The Three Little Pigs', 'trama': 'The Three Little Pigs is a fable about three pigs who build three houses of different materials. A Big Bad Wolf blows down the first two pigs houses, made of straw and sticks respectively, but is unable to destroy the third pigs house, made of bricks.'},
 
   ];
   String? selectedPlot;
@@ -22,6 +22,7 @@ class _PlotChoiceState extends State<PlotChoice> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        key: const Key('plotChoiceAppBar'),
         title: const Text('Classic Plot Choice'),
         backgroundColor: Colors.deepPurple,
       ),
