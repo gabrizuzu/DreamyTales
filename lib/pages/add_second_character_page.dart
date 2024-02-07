@@ -178,7 +178,8 @@ class _AddSecondCharacterPageState extends State<AddSecondCharacterPage> {
                                 'Swipe right to explore avatars',
                                 style: TextStyle(
                                   color: Colors.amber,
-                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
                                 ),
                               ),
                               Icon(

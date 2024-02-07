@@ -98,7 +98,7 @@ class MyDrawer extends StatelessWidget {
             _buildDrawerButton(
                 'My Stories', AppCategory.myStories, FontAwesomeIcons.book),
             _buildDrawerButton(
-                'Analytics', AppCategory.analytics, FontAwesomeIcons.chartBar),
+                'Statistics', AppCategory.Statistics, FontAwesomeIcons.chartBar),
             _buildDrawerButton(
                 'Settings', AppCategory.settings, FontAwesomeIcons.gear),
             _buildDrawerButton('EXIT', AppCategory.logout, Icons.exit_to_app,

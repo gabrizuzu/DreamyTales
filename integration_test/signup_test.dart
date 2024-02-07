@@ -7,7 +7,7 @@ import 'package:dreamy_tales/pages/profiling_page.dart'; // Import the ChildProf
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('Login/Register Page Test', () {
+  group('Register Page Test', () {
     testWidgets('Should register a user', (WidgetTester tester) async {
       // Avvia l'app
       await tester.pumpWidget(MaterialApp(home:LoginPage()));

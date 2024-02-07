@@ -57,8 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
         return "Dreamy Tales";
       case AppCategory.myStories:
         return "My Stories";
-      case AppCategory.analytics:
-        return "Analytics";
+      case AppCategory.Statistics:
+        return "Statistics";
       case AppCategory.settings:
         return "Settings";
       default:
@@ -560,7 +560,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       case AppCategory.myStories:
         return const MyStories();
-      case AppCategory.analytics:
+      case AppCategory.Statistics:
         return const Analytics();
       case AppCategory.settings:
         return const SettingsScreen();

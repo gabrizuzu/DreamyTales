@@ -22,7 +22,7 @@ class _StoryPageState extends State<StoryPage> {
   bool _isGenerating = false;
   DocumentReference? docRef;
   bool _isPlaying = false;
-  double? _currentRating;
+  double _currentRating = 5;
   final FlutterTts _flutterTts = FlutterTts();
 
   @override
@@ -229,9 +229,16 @@ class _StoryPageState extends State<StoryPage> {
                       } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
                       } else {
-                        return CircleAvatar(
-                          radius: 200,
-                          backgroundImage: AssetImage(snapshot.data ?? 'assets/avatar_M6.png'),
+                        return Container(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          height: MediaQuery.of(context).size.width * 0.4,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.cover, // Puoi cambiare il BoxFit qui
+                              image: AssetImage(snapshot.data ?? 'assets/avatar_M6.png'),
+                            ),
+                          ),
                         );
                       }
                     },

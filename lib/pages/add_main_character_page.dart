@@ -162,7 +162,8 @@ class _AddMainCharacterPageState extends State<AddMainCharacterPage> {
                                 'Swipe right to explore avatars',
                                 style: TextStyle(
                                   color: Colors.amber,
-                                  fontStyle: FontStyle.normal,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
                                 ),
                               ),
                               Icon(

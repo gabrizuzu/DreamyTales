@@ -50,6 +50,8 @@ dependencies:
   firebase_messaging: ^14.7.9
   share: ^2.0.4
 
+  flutter_device_type: ^0.4.0
+
   flutter_localizations:
     sdk: flutter
 

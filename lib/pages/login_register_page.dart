@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dreamy_tales/auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -208,13 +209,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _logo() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
-      child: Image.asset(
-        'assets/logo_login.jpeg',
-        height: 130, // Aumentato del 20%
-      ),
-    );
+    return LayoutBuilder(
+        builder: (context, constraints) {
+          return Image.asset(
+            'assets/logo_profilazione.jpeg',
+            width: constraints.maxWidth * 0.8, // 40% of screen width
+          );
+        },
+      );
   }
 
   Widget _entryField(String title, TextEditingController controller,
@@ -314,15 +316,50 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (Device.get().isTablet){
+      return Scaffold(
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          children: [
+            Expanded(
+              child: Center(
+                child: _logo(),
+              ),
+            ),
+            Expanded(
+              child:
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _entryField('email', _controllerEmail, key: const Key('mail')),
+                      _entryField('password', _controllerPassword, isPassword: true, key: const Key('password')),
+                      _errorMessage(key : const Key('errorMessage')),
+                      _forgotPasswordButton(key : const Key('forgotPassword')),
+                      _submitButton(key: const Key('login/register')),
+                      _loginOrRegisterButton(),
+                    ],
+                  )
+            
+            ),
+          ],
+        ),
+      ),
+    );
+    }
+    else {
     return Scaffold(
       body: Container(
         height: double.infinity,
         width: double.infinity,
         padding: const EdgeInsets.all(20),
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/sfondo_login.jpeg'),
-            fit: BoxFit.cover,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.white, Colors.white],
           ),
         ),
         child: ListView(children: [
@@ -343,4 +380,5 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+  } 
 }
