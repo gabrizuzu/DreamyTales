@@ -131,8 +131,8 @@ class _PlotChoiceState extends State<PlotChoice> {
             crossAxisCount: 1,
             childAspectRatio:
                 MediaQuery.of(context).orientation == Orientation.portrait
-                    ? 1.5
-                    : MediaQuery.of(context).size.width / MediaQuery.of(context).size.height, // Aspect Ratio per l'orientamento orizzontale
+                    ? 1.3
+                    : 1, 
             crossAxisSpacing: 0,
             mainAxisSpacing: 0,
           ),
