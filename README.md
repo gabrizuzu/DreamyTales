@@ -1,7 +1,7 @@
 **Project README.md**
 
 # DreamyTales App
-/Users/gabrieleshu/Downloads/Logo_Politecnico_Milano.png
+
 ## Overview
 This project was developed as part of the Design and Implementation of Mobile Application course at Politecnico di Milano, conducted by Prof. Gabriele Shu and Prof. Ram Jaskaran. The GoodNight Tales App is a multiplatform mobile application that leverages ChatGPT APIs to generate personalized bedtime stories for children.
 
