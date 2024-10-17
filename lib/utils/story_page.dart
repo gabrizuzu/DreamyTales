@@ -66,7 +66,7 @@ class _StoryPageState extends State<StoryPage> {
       url,
       headers: {
         'Authorization':
-            'Bearer XXXXXXXXXXX',
+            'Bearer XXXXXXXXXXXX',
         'Content-Type': 'application/json',
       },
       body: jsonEncode({
